@@ -5,6 +5,14 @@
 ## Build Setup
 
 ``` bash
+#如何搭建
+1、将打包完成的文件放在一个没有中文的路径中
+2、下载nginx，我下载的Windows版本的，在C:\....\nginx-1.10.2\conf中的nginx.conf文件中修改server中的端口和
+server中location中的root，把它修改成你刚打包好的文件的路径D:\study\dist;。
+3、下载神卓软件，注册登录之后就填写一下IP地址和端口号就可以了。
+4、后续将往该项目里添加内容...
+
+
 # install dependencies
 npm install
 
