@@ -10,7 +10,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 import $ from "jquery";//引入jquery
 require('es6-promise').polyfill();
 
-
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
