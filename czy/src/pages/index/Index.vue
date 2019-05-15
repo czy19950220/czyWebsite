@@ -1,19 +1,29 @@
 <template>
-  <div></div>
+  <div>
+    <froala :tag="'textarea'" :config="config" v-model="model"></froala>
+  </div>
 </template>
 
 <script>
-  import 'swiper/dist/css/swiper.css'
-  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+
 
   export default {
     components: {
-      swiper,
-      swiperSlide
+
     },
     name: "Index",
     data() {
-      return {}
+      return {
+        config: {
+          events: {
+            'froalaEditor.initialized': function () {
+              //console.log('initialized')
+            }
+          },
+          language: 'zh_cn'
+        },
+        model: 'Edit Your Content Here!'
+      }
     },
     computed: {},
     watch: {},
