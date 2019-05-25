@@ -34,7 +34,7 @@
     name: "Index",
     data() {
       return {
-        sIP: 'http://czy-15736873451.club:15914',
+        sIP: 'http://47.103.42.176:11365',
         theWidth: 80,
         edit: false,
         editView: true,
@@ -46,14 +46,14 @@
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
           //imageUploadURL: 'http://127.0.0.1:7001/blog/uploadimage/',
-          imageUploadURL: 'http://czy-15736873451.club:15914/froala/upload_images',
-          imageManagerDeleteURL: 'http://czy-15736873451.club:15914/froala/deleteImage',
-          imageManagerLoadURL: 'http://czy-15736873451.club:15914/froala/listpic',
-          fileUploadURL: 'http://czy-15736873451.club:15914/froala/uploadfile',
+          imageUploadURL: 'http://47.103.42.176:11365/froala/upload_images',
+          imageManagerDeleteURL: 'http://47.103.42.176:11365/froala/deleteImage',
+          imageManagerLoadURL: 'http://47.103.42.176:11365/froala/listpic',
+          fileUploadURL: 'http://47.103.42.176:11365/froala/uploadfile',
           fileAllowedTypes: ['*'],//文件类型
           fileMaxSize: 1024 * 1024 * 1024 * 100,       //文件上传大小最大10g
           videoMaxSize: 1024 * 1024 * 1024 * 100,
-          videoUploadURL: 'http://czy-15736873451.club:15914/froala/uploadvideo',
+          videoUploadURL: 'http://47.103.42.176:11365/froala/uploadvideo',
           events: {
             'froalaEditor.initialized': function () {
               //console.log('initialized')

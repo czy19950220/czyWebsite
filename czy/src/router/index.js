@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/pages/index/Index'
-import Blog from '@/pages/blog/Index'
 
 Vue.use(Router)
 
@@ -11,12 +9,19 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      meta: { title: '博客首页'},
+      component: resolve => require(['@/pages/index/Index.vue'],resolve)
     },
     {
-      path: '/Blog',
+      path: '/blog',
       name: 'Blog',
-      component: Blog
+      component: resolve => require(['@/pages/blog/Index.vue'],resolve)
+    },
+    {
+      path: '/login',
+      name: 'user',
+      meta: { title: '登录界面'},
+      component: resolve => require(['@/pages/login/Index.vue'],resolve)
     }
   ]
 })
