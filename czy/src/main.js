@@ -36,7 +36,7 @@ Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的�
 router.beforeEach((to, from, next) => {
   NProgress.start()
   const isLogin = localStorage.token ? true : false;
-  console.log(isLogin)
+  //console.log(localStorage.token)
   if (to.path == "/login" || to.path == "/register") {
     next();
     NProgress.done();

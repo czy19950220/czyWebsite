@@ -7,6 +7,7 @@ import * as actions from './actions';
 Vue.use(Vuex);
 
 const state = {
+  users:{},//存储用户信息
   isAuthenicated: false,
   user: null,
   chapters:[],//章节

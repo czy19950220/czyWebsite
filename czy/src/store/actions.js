@@ -23,3 +23,11 @@ export const LoginByUsername = ({ commit }, userInfo)=> {
     });
   });
 }
+export const setUsers = ({commit}, data) => {
+  commit('setUsers', data);
+};
+export const clearUsers = ({commit}, data) => {
+  commit('setUsers', {});
+  commit('setisAuthenicated', false);
+};
+

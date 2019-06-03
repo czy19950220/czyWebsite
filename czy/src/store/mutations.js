@@ -10,3 +10,6 @@ export const setChapters = (state, data) => {
 export const setSourceId = (state, data) => {
   state.sourceId = data;
 };
+export const setUsers = (state, data) => {
+  state.users = data;
+};

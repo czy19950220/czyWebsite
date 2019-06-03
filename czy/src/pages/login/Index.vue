@@ -1,22 +1,24 @@
 <template>
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="用户名" prop="username">
-      <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="密码" prop="password">
-      <el-input type="password" show-password v-model="ruleForm.password" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click.native.prevent="submitForm('ruleForm')">提交</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
-    </el-form-item>
-    <el-button @click="token()">11111</el-button>
-  </el-form>
+  <div class="login-con">
+    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="用户名" prop="username">
+        <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input type="password" show-password v-model="ruleForm.password" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="success" plain @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary" plain @click.native.prevent="submitForm('ruleForm')">提交</el-button>
+      </el-form-item>
+    </el-form>
+    <textarea id="asd"></textarea>
+  </div>
 </template>
 
 <script>
   //axios.defaults.withCredentials=true;
-  import {setCookie, getCookie, delCookie} from '../../assets/js/cookie'
+  import jwtDecode from 'jwt-decode'
 
   export default {
     name: "index",
@@ -45,7 +47,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$axios.post(`${this.sIP}/users`, this.ruleForm).then((res) => {
-              console.log(res.data)
+              //console.log(res.data)
               if (res.data == '用户不存在') {
                 this.$message.error({
                   duration: 500,
@@ -71,12 +73,19 @@
                 //setCookie('ruleForm', JSON.stringify(this.ruleForm), 10000)
                 //console.log(JSON.parse(getCookie('ruleForm')))
                 this.userToken = res.data.token;
-                localStorage.setItem("token",res.data.token);
+                //存储token
+                localStorage.setItem("token", res.data.token);
+                //解析token
+                let users = jwtDecode(res.data.token);
+                this.$store.dispatch('setisAuthenicated', !this.isEmpty(users));
+                this.$store.dispatch('setUsers', users);
+                //console.log(users)
                 this.$message({
                   showClose: true,
                   message: '登录成功',
                   type: 'success'
                 });
+                this.$router.push('/index');
               }
             })
           } else {
@@ -90,14 +99,26 @@
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      token() {
-        this.$axios.get(`${this.sIP}/users/token`,
+      logout() {
+        /*this.$axios.get(`${this.sIP}/users/token`,
           {
             headers: {Authorization: this.userToken}
           }
         ).then((res) => {
           console.log(res.data)
-        });
+        });*/
+        //clearUsers
+        this.$store.dispatch('clearUsers')
+        localStorage.removeItem('token')
+        console.log(localStorage.token)
+      },
+      isEmpty(value) {
+        return (
+          value === undefined ||
+          value === null ||
+          (typeof value === "object" && Object.keys(value).length === 0) ||
+          (typeof value === "string" && value.trim().length === 0)
+        );
       }
     },
     mounted() {
@@ -110,5 +131,19 @@
 </script>
 
 <style scoped>
+  .login-con {
+    height: 100%;
+    width: 100%;
+    background-image: url("http://czy-15736873451.club:11365/public/images/JS.png");
+    background-size: cover;
+    background-position: 50% 50%;
+  }
 
+  .demo-ruleForm {
+    min-width: 300px;
+    max-width: 400px;
+    margin: auto;
+    padding-top: 200px;
+    opacity: 0.7;
+  }
 </style>
