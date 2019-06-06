@@ -2,10 +2,9 @@
   <header class="head-nav">
     <el-row>
       <el-col :span="6" class='logo-container'>
-        <img src="../assets/imgs/js.png" class='logo' alt="">
-        <span class='title'>czy在线博客系统</span>
+        {{this.$route.path}}
       </el-col>
-      <el-col :span='6' class="user">
+      <el-col :span='18' class="user">
         <div class="userinfo">
           <img :src="user.photo" class='avatar' alt="">
           <div class='welcome'>
@@ -76,7 +75,6 @@
   .head-nav {
     width: 100%;
     height: 40px;
-    min-width: 600px;
     padding-top: 5px;
     padding-bottom: 5px;
     background: #324057;
@@ -86,7 +84,6 @@
 
   .logo-container {
     line-height: 40px;
-    min-width: 400px;
     padding-left: 5px;
   }
 

@@ -12,7 +12,6 @@
         <el-button type="primary" plain @click.native.prevent="submitForm('ruleForm')">提交</el-button>
       </el-form-item>
     </el-form>
-    <textarea id="asd"></textarea>
   </div>
 </template>
 
@@ -48,27 +47,13 @@
           if (valid) {
             this.$axios.post(`${this.sIP}/users`, this.ruleForm).then((res) => {
               //console.log(res.data)
-              if (res.data == '用户不存在') {
+              if (res.data == '用户不存在'|| res.data == '密码错误'|| res.data == 'err') {
                 this.$message.error({
                   duration: 500,
                   showClose: true,
                   message: res.data,
                   type: 'error'
                 })
-              } else if (res.data == '密码错误') {
-                this.$message.error({
-                  duration: 500,
-                  showClose: true,
-                  message: res.data,
-                  type: 'error'
-                });
-              } else if (res.data == 'err') {
-                this.$message.error({
-                  duration: 500,
-                  showClose: true,
-                  message: res.data,
-                  type: 'error'
-                });
               } else {
                 //setCookie('ruleForm', JSON.stringify(this.ruleForm), 10000)
                 //console.log(JSON.parse(getCookie('ruleForm')))
@@ -85,7 +70,7 @@
                   message: '登录成功',
                   type: 'success'
                 });
-                this.$router.push('/index');
+                this.$router.push('/dashboard');
               }
             })
           } else {
