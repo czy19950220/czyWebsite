@@ -3,8 +3,10 @@
     router
     :default-active="this.$route.path.toLowerCase()"
     class="el-menu-vertical-demo"
+    :collapse-transition="false"
     @open="handleOpen"
     @close="handleClose"
+    :collapse="isCollapse"
     background-color="rgb(48, 65, 86)"
     text-color="rgb(191, 203, 217)"
     active-text-color="rgb(64, 158, 255)">
@@ -33,6 +35,11 @@
     data() {
       return {
         routeTo: {path: 'register', query: {plan: 'private'}}
+      }
+    },
+    computed: {
+      isCollapse() {
+        return this.$store.getters.isCollapse;
       }
     },
     methods: {

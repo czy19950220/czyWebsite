@@ -29,6 +29,12 @@ export const constantRouterMap = [
     component: resolve => require(['@/pages/index/Index.vue'], resolve)
   },
   {
+    path: '/shouye',
+    name: 'shouye',
+    meta: {title: '首页页面'},
+    component: resolve => require(['@/pages/shouye/index.vue'], resolve)
+  },
+  {
     path: '*',
     name: 'not-found',
     component: resolve => require(['@/pages/404/NotFound.vue'], resolve)

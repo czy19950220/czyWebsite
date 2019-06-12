@@ -11,7 +11,8 @@ const state = {
   isAuthenicated: false,
   user: null,
   chapters:[],//章节
-  sourceId:''//小说id
+  sourceId:'',//小说id
+  isCollapse:true,//导航
 };
 export default new Vuex.Store({
   state,

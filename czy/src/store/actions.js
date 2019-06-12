@@ -30,4 +30,7 @@ export const clearUsers = ({commit}, data) => {
   commit('setUsers', {});
   commit('setisAuthenicated', false);
 };
+export const setIsCollapse = ({commit}, data) => {
+  commit('setIsCollapse', data);
+};
 

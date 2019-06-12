@@ -13,3 +13,6 @@ export const setSourceId = (state, data) => {
 export const setUsers = (state, data) => {
   state.users = data;
 };
+export const setIsCollapse = (state, data) => {
+  state.isCollapse = data;
+};

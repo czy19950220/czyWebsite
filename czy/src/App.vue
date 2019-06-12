@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+      <router-view/>
   </div>
 </template>
 
@@ -32,5 +32,19 @@
 </script>
 
 <style>
+  #app{
+    min-width: 300px;
+    overflow: hidden;
+  }
+  .el-scrollbar{
+    height: 100%;
+  }
+  .el-scrollbar__wrap{
+    overflow: scroll;
+    overflow-x:auto
+  }
+  .el-scrollbar__bar{
+    z-index: 9999;
+  }
 
 </style>

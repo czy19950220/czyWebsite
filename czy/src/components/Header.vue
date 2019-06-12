@@ -1,10 +1,10 @@
 <template>
   <header class="head-nav">
     <el-row>
-      <el-col :span="6" class='logo-container'>
-        {{this.$route.path}}
+      <el-col :xs="4" :sm="4">
+        <i :class="menuClass" @click="menuSlot"></i>
       </el-col>
-      <el-col :span='18' class="user">
+      <el-col :xs="20" :sm="20" class="user">
         <div class="userinfo">
           <img :src="user.photo" class='avatar' alt="">
           <div class='welcome'>
@@ -33,6 +33,11 @@
 <script>
   export default {
     name: "Header",
+    data() {
+      return {
+        menuClass:'el-icon-s-unfold menu-header'
+      }
+    },
     computed: {
       user() {
         return this.$store.getters.users;
@@ -54,11 +59,13 @@
             break;
         }
       },
+      //个人信息
       showInfoList() {
         // 个人信息
-        console.log('个人信息',this.user)
+        console.log('个人信息', this.user)
         //this.$router.push("/infoshow");
       },
+      //登出
       logout() {
         // 清除token
         localStorage.removeItem("token");
@@ -66,12 +73,38 @@
 
         // 页面跳转
         this.$router.push("/login");
-      }
+      },
+      //切换导航
+      menuSlot() {
+        if (this.menuClass=='el-icon-s-fold menu-header'){
+          this.$store.dispatch('setIsCollapse', true);
+          this.menuClass='el-icon-s-unfold menu-header'
+        }else {
+          this.$store.dispatch('setIsCollapse', false);
+          this.menuClass='el-icon-s-fold menu-header'
+        }
+      },
+
+    },
+    created() {
+
     }
   };
 </script>
 
 <style scoped>
+  .menu-header {
+    font-size: 32px;
+    color: rgb(191, 203, 217);
+    cursor: pointer;
+    height: 100%;
+    margin-top: 4px;
+  }
+
+  .menu-header:hover {
+    color: white;
+  }
+
   .head-nav {
     width: 100%;
     height: 40px;

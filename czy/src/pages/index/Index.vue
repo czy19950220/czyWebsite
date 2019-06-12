@@ -1,10 +1,12 @@
 <template>
   <div class="index-con">
     <el-container>
-      <el-aside width="160px"><nav-bar></nav-bar></el-aside>
+      <el-aside width="auto"><nav-bar></nav-bar></el-aside>
       <el-container>
         <el-header><header-all></header-all></el-header>
-        <el-main>Main</el-main>
+        <el-main>
+
+        </el-main>
       </el-container>
     </el-container>
 
