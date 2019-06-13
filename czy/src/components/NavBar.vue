@@ -3,24 +3,74 @@
     router
     :default-active="this.$route.path.toLowerCase()"
     class="el-menu-vertical-demo"
-    :collapse-transition="false"
     @open="handleOpen"
     @close="handleClose"
-    :collapse="isCollapse"
     background-color="rgb(48, 65, 86)"
     text-color="rgb(191, 203, 217)"
     active-text-color="rgb(64, 158, 255)">
-    <el-menu-item index="/dashboard">
+    <el-menu-item index="/shouye">
       <i class="el-icon-monitor"></i>
-      <span slot="title">Dashboard</span>
+      <span slot="title">主页</span>
     </el-menu-item>
     <el-menu-item index="/login">
       <i class="el-icon-menu"></i>
       <span slot="title">导航二</span>
     </el-menu-item>
-    <el-menu-item index="3" disabled>
-      <i class="el-icon-document"></i>
-      <span slot="title">导航三</span>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="4" route="/login">
+      <i class="el-icon-setting"></i>
+      <span slot="title">导航四</span>
+    </el-menu-item>
+    <el-menu-item index="/login">
+      <i class="el-icon-menu"></i>
+      <span slot="title">导航二</span>
     </el-menu-item>
     <el-menu-item index="4" route="/login">
       <i class="el-icon-setting"></i>
@@ -33,15 +83,9 @@
   export default {
     name: "nav-bar",
     data() {
-      return {
-        routeTo: {path: 'register', query: {plan: 'private'}}
-      }
+      return {}
     },
-    computed: {
-      isCollapse() {
-        return this.$store.getters.isCollapse;
-      }
-    },
+    computed: {},
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
@@ -59,6 +103,14 @@
   }
 
   .el-submenu__title:hover {
+    background-color:#3b4e65 !important;
+  }
+
+  .el-menu {
+    border-right: 0px !important;
+  }
+
+  .el-menu-item.is-active{
     background-color: #263445 !important;
   }
 </style>

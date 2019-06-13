@@ -70,7 +70,6 @@
         // 清除token
         localStorage.removeItem("token");
         this.$store.dispatch("clearUsers");
-
         // 页面跳转
         this.$router.push("/login");
       },

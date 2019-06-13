@@ -1,5 +1,5 @@
 <template>
-  <div class="login-con">
+  <div class="login-con" :style="{backgroundImage:  'url('+ sIP+'/public/images/JS.png'+')' }">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
@@ -23,7 +23,7 @@
     name: "index",
     data() {
       return {
-        sIP: 'http://czy-15736873451.club:11365',
+        sIP: 'http://czy-study.club:19680',
         ruleForm: {
           username: 'czy',//用户名
           password: '123456',//密码
@@ -70,7 +70,7 @@
                   message: '登录成功',
                   type: 'success'
                 });
-                this.$router.push('/dashboard');
+                this.$router.push('/shouye');
               }
             })
           } else {
@@ -119,7 +119,7 @@
   .login-con {
     height: 100%;
     width: 100%;
-    background-image: url("http://czy-15736873451.club:11365/public/images/JS.png");
+    /*background-image: url("http://czy-15736873451.club:19680/public/images/JS.png");*/
     background-size: cover;
     background-position: 50% 50%;
   }
