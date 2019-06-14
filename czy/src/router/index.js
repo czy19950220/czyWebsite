@@ -26,6 +26,7 @@ export const constantRouterMap = [
     path: '/shouye',
     name: 'shouye',
     meta: {title: '首页页面'},
+    redirect:'/shouye/dashboard',
     component: resolve => require(['@/pages/shouye/Index.vue'], resolve),
     children:[
       {

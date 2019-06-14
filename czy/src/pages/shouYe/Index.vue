@@ -1,30 +1,70 @@
 <template>
   <div class="shouye-con">
     <swiper :options="swiperOption" ref="swiper" style="height: 100%">
+      <!--左侧导航-->
       <swiper-slide class="menu">
-        <el-scrollbar>
-          <nav-bar></nav-bar>
-        </el-scrollbar>
+        <nav-bar></nav-bar>
       </swiper-slide>
-      <swiper-slide class="content" id="shouYeContent">
+      <!--内容区域-->
+      <swiper-slide class="content" id="shouYeContent" >
+        <!--头部-->
         <el-row type="flex" justify="center">
           <el-col :xs="22" :sm="0" :offset="1">
-            <i :class="menuClass" @click="menuSlot" style="z-index: 9999"></i>
+            <i :class="menuClass" @click="menuSlot"></i>
             <el-divider></el-divider>
           </el-col>
         </el-row>
         <header-all></header-all>
-        <el-scrollbar>
-          <router-view></router-view>
-        </el-scrollbar>
+        <!--主页部分-->
+        <el-row style="height: 100%;overflow: hidden;">
+          <el-col :xs="0" :sm="2">
+            &nbsp;
+          </el-col>
+          <el-col :xs="0" :sm="5" style="height: 100%;overflow: hidden;">
+            <nav-left></nav-left>
+          </el-col>
+          <el-col :xs="24" :sm="17" style="height: 100%;overflow: hidden;">
+            <el-scrollbar class="page-component__scroll">
+              <el-row>
+                <el-col :xs="24" :sm="0">
+                  <nav-left></nav-left>
+                </el-col>
+              </el-row>
+              <router-view></router-view>
+            </el-scrollbar>
+          </el-col>
+          <el-col :xs="24" :sm="0" style="">
+            &nbsp;
+          </el-col>
+        </el-row>
+
       </swiper-slide>
     </swiper>
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="150">
+      <div
+        style="{
+        height: 100%;
+        width: 100%;
+        background-color: #f2f5f6;
+        box-shadow: 0 0 6px rgba(0,0,0, .22);
+        text-align: center;
+        line-height: 40px;
+        color: #1989fa;
+      }"
+      >
+        UP
+      </div>
+    </el-backtop>
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
+      <i class="el-icon-top"></i>
+    </el-backtop>
   </div>
 </template>
 
 <script>
   import HeaderAll from '../../components/header/HeaderAll'
   import NavBar from '../../components/NavBar'
+  import NavLeft from '../../components/NavLeft'
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
@@ -34,7 +74,8 @@
       HeaderAll,
       swiper,
       swiperSlide,
-      NavBar
+      NavBar,
+      NavLeft
     },
     data() {
       const self = this;
@@ -52,10 +93,11 @@
           resistanceRatio: 0,
           slidesPerView: 'auto',
           slideToClickedSlide: true,
-          touchStartPreventDefault : false,//不阻止默认事件，el-scrollbar能用
+          touchStartPreventDefault: false,//不阻止默认事件，el-scrollbar能用
           on: {
             slideChangeTransitionEnd() {
               if (this.activeIndex == 0) {
+                self.$store.dispatch('setIsCollapse', true);
                 self.loading = self.$loading({
                   lock: true,
                   text: '点击阴影区域返回',
@@ -65,6 +107,7 @@
                 });
                 self.menuClass = 'el-icon-s-fold menu-header'
               } else {
+                self.$store.dispatch('setIsCollapse', false);
                 self.loading.close();
                 self.menuClass = 'el-icon-s-unfold menu-header'
               }

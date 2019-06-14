@@ -1,13 +1,13 @@
 <template>
   <div class="headerAll-con">
-    <el-row type="flex" justify="center" style="max-width: 1260px;margin: auto">
+    <el-row type="flex" justify="center" style="margin: auto">
       <el-col :xs="0" :sm="10" >
         <el-menu :default-active="this.$route.path.toLowerCase()"
                  router
                  class="el-menu-demo"
                  mode="horizontal"
                  @select="handleSelect">
-          <el-menu-item index="/shouye">首页</el-menu-item>
+          <el-menu-item index="/shouye/dashboard">首页</el-menu-item>
           <el-submenu index="2">
             <template slot="title">其他</template>
             <el-menu-item index="/shouye2">选项1</el-menu-item>
