@@ -1,24 +1,37 @@
 <template>
   <div class="headerAll-con">
-    <el-row type="flex" justify="center" style="margin: auto">
-      <el-col :xs="0" :sm="10" >
-        <el-menu :default-active="this.$route.path.toLowerCase()"
-                 router
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 @select="handleSelect">
-          <el-menu-item index="/shouye/dashboard">首页</el-menu-item>
-          <el-submenu index="2">
-            <template slot="title">其他</template>
-            <el-menu-item index="/shouye2">选项1</el-menu-item>
-            <el-menu-item index="2-2">选项2</el-menu-item>
-            <el-menu-item index="2-3">选项3</el-menu-item>
-          </el-submenu>
-          <el-menu-item index="3">消息中心</el-menu-item>
-        </el-menu>
-        <el-divider></el-divider>
+    <el-row type="flex" justify="center" style="margin: auto;">
+      <!--导航等-->
+      <el-col :xs="0" :sm="15" class="border-bottom">
+        <el-row>
+          <!--面包屑-->
+          <el-col :xs="24" :sm="24">
+            <el-breadcrumb separator="/" class="breadcrumb">
+              <el-breadcrumb-item :to="{ path: '/shouye/dashboard' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+            </el-breadcrumb>
+          </el-col>
+          <!--标签-->
+          <el-col :xs="24" :sm="24" style="height: 32px;">
+            <el-scrollbar>
+              <el-tag>首页</el-tag>
+              <el-tag
+                :key="index"
+                :class="tag.tagRouter == $route.path.toLowerCase()? 'is-active-tag':''"
+                :type="tag.tagRouter == $route.path.toLowerCase()?'danger':'info'"
+                :effect="tag.tagRouter == $route.path.toLowerCase() ?'dark':'plain'"
+                v-for="(tag,index) in tagMenu"
+                :closable="tag.closable"
+                @click="tagMenuRouter(tag)"
+                @close="handleClose(tag.tagName,tag.tagRouter)">
+                {{tag.tagName}}
+              </el-tag>
+            </el-scrollbar>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :xs="0" :sm="10" class="user">
+      <!--头像信息等-->
+      <el-col :xs="0" :sm="5" class="user border-bottom">
         <div class="userinfo">
           <img :src="user.photo" class='avatar' alt="">
           <div class='welcome'>
@@ -38,7 +51,6 @@
             </el-dropdown>
          </span>
         </div>
-        <el-divider></el-divider>
       </el-col>
     </el-row>
   </div>
@@ -50,15 +62,43 @@
     name: "header-all",
     data() {
       return {
+        tagClass: 'is-active-tag text-danger',
         menuClass: 'el-icon-s-unfold menu-header'
       }
     },
     computed: {
       user() {
         return this.$store.getters.users;
+      },
+      tagMenu() {
+        return this.$store.getters.tagMenu;
       }
     },
     methods: {
+      tagMenuRouter(tag) {
+        this.$router.push(tag.tagRouter);
+      },
+      //关闭标签
+      handleClose(tag, tagRouter) {
+        //通过路由判断是否是当前页
+        let arr = this.tagMenu;
+        //去除当前关闭标签
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].tagRouter == tagRouter) {
+            arr.splice(i, 1);
+            break;
+          }
+        }
+        //配置到vuex中，同时如果是当前页的路由就跳转到最后一个标签的路由
+        if (tagRouter != this.$route.path.toLowerCase()) {
+          this.$store.dispatch('setTagMenu', arr);
+          return;
+        } else {
+          this.$store.dispatch('setTagMenu', arr);
+          this.$router.push(this.tagMenu[this.tagMenu.length - 1].tagRouter);
+        }
+      },
+      //配置下拉事件
       setDialogInfo(cmditem) {
         if (!cmditem) {
           console.log("test");
@@ -101,8 +141,36 @@
 </script>
 
 <style scoped>
-  .headerAll-con{
+  .tag-menu, .el-tag {
+    margin-right: 4px;
+    cursor: pointer;
+  }
+
+  .is-active-tag {
+    color: #fff !important;
+  }
+
+  .is-active-tag::before {
+    content: '';
+    background: #fff;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 2px;
+  }
+
+  .headerAll-con {
     width: 100%;
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid #dcdfe6
+  }
+
+  .breadcrumb {
+    margin: 5px 0px;
   }
 
   .el-divider--horizontal {

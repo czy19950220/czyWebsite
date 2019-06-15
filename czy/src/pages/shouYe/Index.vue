@@ -69,7 +69,7 @@
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
-    name: "shouye",
+    name: "czy",
     components: {
       HeaderAll,
       swiper,

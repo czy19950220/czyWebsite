@@ -33,4 +33,7 @@ export const clearUsers = ({commit}, data) => {
 export const setIsCollapse = ({commit}, data) => {
   commit('setIsCollapse', data);
 };
+export const setTagMenu = ({commit}, data) => {
+  commit('setTagMenu', data);
+};
 

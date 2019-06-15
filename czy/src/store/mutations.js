@@ -16,3 +16,6 @@ export const setUsers = (state, data) => {
 export const setIsCollapse = (state, data) => {
   state.isCollapse = data;
 };
+export const setTagMenu = (state, data) => {
+  state.tagMenu = data;
+};

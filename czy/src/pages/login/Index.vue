@@ -70,7 +70,7 @@
                   message: '登录成功',
                   type: 'success'
                 });
-                this.$router.push('/shouye');
+                this.$router.push('/czy');
               }
             })
           } else {

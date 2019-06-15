@@ -23,16 +23,26 @@ export const constantRouterMap = [
     component: resolve => require(['@/pages/blog/Index.vue'], resolve)
   },
   {
-    path: '/shouye',
-    name: 'shouye',
+    path: '/czy',
+    name: 'czy',
     meta: {title: '首页页面'},
-    redirect:'/shouye/dashboard',
+    redirect:'/czy/dashboard',
     component: resolve => require(['@/pages/shouye/Index.vue'], resolve),
     children:[
       {
         path: 'dashboard',
         name: 'index',
         component : resolve => require(['@/pages/index/Index.vue'],resolve)
+      },
+      {
+        path: 'novel',
+        name: 'novel',
+        component : resolve => require(['@/pages/novel/Index.vue'],resolve)
+      },
+      {
+        path: 'flappybird',
+        name: 'flappyBird',
+        component : resolve => require(['@/pages/flappybird/Index.vue'],resolve)
       }
     ]
   },
