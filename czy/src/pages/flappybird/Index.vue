@@ -335,4 +335,9 @@
     width: 100%;
     overflow: hidden;
   }
+  canvas{
+    position: relative;
+    width: auto;
+    height: auto;
+  }
 </style>

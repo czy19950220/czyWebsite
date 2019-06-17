@@ -41,7 +41,7 @@
   }
   .el-scrollbar__wrap{
     overflow: scroll;
-    overflow-x:auto
+    overflow-x:auto !important;
   }
   .el-scrollbar__bar{
     z-index: 9999;
