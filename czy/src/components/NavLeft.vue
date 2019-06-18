@@ -19,7 +19,7 @@
           v-for="(tag,index) in routePath"
           :key="index"
           :index="tag.tagRouter">
-          <span slot="title">{{tag.tagName}}{{tag.tagRouter}}</span>
+          <span slot="title">{{tag.tagName}}</span>
         </el-menu-item>
       </el-menu-item-group>
     </el-menu>
@@ -43,6 +43,12 @@
             tagName: '像素鸟',
             tagRouter: '/czy/flappybird',
             breadcrumb: '像素鸟'
+          },
+          {
+            closable: true,
+            tagName: '博客文章',
+            tagRouter: '/czy/blog',
+            breadcrumb: '博客文章'
           }
         ]
       }
@@ -77,7 +83,7 @@
           if (arr[i].tagRouter == tag.tagRouter) {
             //console.log('已有')
             num = 1;
-            return;
+            break;
           }
         }
         //有？return ： 添加。
@@ -85,6 +91,7 @@
           return;
         } else {
           arr.push(tag)
+          //console.log(tag)
           this.$store.dispatch('setTagMenu', arr);
         }
       },

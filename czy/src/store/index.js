@@ -16,9 +16,9 @@ const state = {
   tagMenu: [
     {
       closable:false,
-      tagName: '第一个内容',
+      tagName: 'Index',
       tagRouter: '/czy/dashboard',
-      breadcrumb: '第一个内容'
+      breadcrumb: 'Index'
     }
   ],//导航标签和面包屑
 };

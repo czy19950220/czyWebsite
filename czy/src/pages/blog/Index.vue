@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom:100px">
     <br>
     <el-row>
       <el-col :span="2">&nbsp;</el-col>
@@ -21,7 +21,7 @@
       <div v-if="edit">
         <froala :tag="'textarea'" :config="config" v-model="model"></froala>
       </div>
-      <froalaView v-show="editView" v-model="model"></froalaView>
+      <froalaView v-show="editView" v-model="model" ></froalaView>
     </div>
   </div>
 </template>
@@ -33,12 +33,13 @@
     name: "Index",
     data() {
       return {
-        sIP: 'http://47.103.42.176:11365',
-        sIP2:'http://czy-15736873451.club:11365',
-        theWidth: 80,
+        sIP: 'http://47.103.42.176:19680',
+        sIP2:'http://czy-study.club:19680',
+        theWidth: 100,
         edit: false,
         editView: true,
         config: {
+          fullPage: true,
           theme: 'royal',
           imageUpload: true,
           imageUploadMethod: "POST",
@@ -46,14 +47,14 @@
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
           //imageUploadURL: 'http://127.0.0.1:7001/blog/uploadimage/',
-          imageUploadURL: 'http://czy-15736873451.club:11365/froala/upload_images',
-          imageManagerDeleteURL: 'http://czy-15736873451.club:11365/froala/deleteImage',
-          imageManagerLoadURL: 'http://czy-15736873451.club:11365/froala/listpic',
-          fileUploadURL: 'http://czy-15736873451.club:11365/froala/uploadfile',
+          imageUploadURL: 'http://czy-study.club:19680/froala/upload_images',
+          imageManagerDeleteURL: 'http://czy-study.club:19680/froala/deleteImage',
+          imageManagerLoadURL: 'http://czy-study.club:19680/froala/listpic',
+          fileUploadURL: 'http://czy-study.club:19680/froala/uploadfile',
           fileAllowedTypes: ['*'],//文件类型
           fileMaxSize: 1024 * 1024 * 1024 * 100,       //文件上传大小最大10g
           videoMaxSize: 1024 * 1024 * 1024 * 100,
-          videoUploadURL: 'http://czy-15736873451.club:11365/froala/uploadvideo',
+          videoUploadURL: 'http://czy-study.club:19680/froala/uploadvideo',
           events: {
             'froalaEditor.initialized': function () {
               //console.log('initialized')

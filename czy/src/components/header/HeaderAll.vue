@@ -7,14 +7,13 @@
           <!--面包屑-->
           <el-col :xs="24" :sm="24">
             <el-breadcrumb separator="/" class="breadcrumb">
-              <el-breadcrumb-item :to="{ path: '/shouye/dashboard' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+              <!--<el-breadcrumb-item :to="{ path: '/czy' }">学习杂记</el-breadcrumb-item>
+              <el-breadcrumb-item></el-breadcrumb-item>-->
             </el-breadcrumb>
           </el-col>
           <!--标签-->
           <el-col :xs="24" :sm="24" style="height: 32px;">
             <el-scrollbar>
-              <el-tag>首页</el-tag>
               <el-tag
                 :key="index"
                 :class="tag.tagRouter == $route.path.toLowerCase()? 'is-active-tag':''"
@@ -62,6 +61,7 @@
     name: "header-all",
     data() {
       return {
+        tagName:{},
         tagClass: 'is-active-tag text-danger',
         menuClass: 'el-icon-s-unfold menu-header'
       }
@@ -75,6 +75,7 @@
       }
     },
     methods: {
+      //点击
       tagMenuRouter(tag) {
         this.$router.push(tag.tagRouter);
       },
