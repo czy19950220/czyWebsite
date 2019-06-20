@@ -2,13 +2,13 @@
   <div class="shouye-con">
     <!-- drawer-content -->
     <slide
-           right
-           width="300"
-           :burgerIcon="false"
-           disableOutsideClick
-           :isOpen="isOpen"
-           @openMenu="handleOpenMenu"
-           @closeMenu="handleCloseMenu">
+      width="200"
+      :burgerIcon="false"
+      :crossIcon="true"
+      :disableOutsideClick="disableOutsideClick"
+      :isOpen="isOpen"
+      @openMenu="handleOpenMenu"
+      @closeMenu="handleCloseMenu">
       <nav-bar></nav-bar>
     </slide>
     <div slot="content" class="content" id="shouYeContent">
@@ -82,6 +82,7 @@
     data() {
       const self = this;
       return {
+        disableOutsideClick: true,
         isOpen: false,
         menuClass: 'el-icon-s-unfold menu-header',//左侧导航栏的class
       }
@@ -144,5 +145,10 @@
 
   .menu-header:hover {
     color: rgb(191, 203, 217);
+  }
+
+  .bm-item-list > * {
+    display: unset;
+    padding: 0;
   }
 </style>

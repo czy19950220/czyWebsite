@@ -30,7 +30,7 @@
                   <nav-left></nav-left>
                 </el-col>
               </el-row>
-              <router-view></router-view>
+              <router-view style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"></router-view>
             </el-scrollbar>
           </el-col>
           <el-col :xs="24" :sm="0" style="">
@@ -93,6 +93,9 @@
           resistanceRatio: 0,
           slidesPerView: 'auto',
           slideToClickedSlide: true,
+          preventClicks : false,//默认true
+          preventClicksPropagation: true,
+          noSwiping : true,
           touchStartPreventDefault: false,//不阻止默认事件，el-scrollbar能用
           on: {
             slideChangeTransitionEnd() {

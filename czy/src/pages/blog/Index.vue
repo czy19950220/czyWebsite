@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-bottom:100px">
+  <div class="swiper-no-swiping" style="margin-bottom:100px">
     <br>
     <el-row>
       <el-col :span="2">&nbsp;</el-col>
@@ -146,5 +146,8 @@
     height: 100%;
     left: 0px;
     top: 0px;
+  }
+  .fr-box.fr-fullscreen{
+    left: unset!important;
   }
 </style>

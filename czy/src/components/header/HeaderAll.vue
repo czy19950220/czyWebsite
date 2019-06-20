@@ -7,8 +7,8 @@
           <!--面包屑-->
           <el-col :xs="24" :sm="24">
             <el-breadcrumb separator="/" class="breadcrumb">
-              <!--<el-breadcrumb-item :to="{ path: '/czy' }">学习杂记</el-breadcrumb-item>
-              <el-breadcrumb-item></el-breadcrumb-item>-->
+              <el-breadcrumb-item :to="{ path: '/czy' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item>{{breadcrumbName}}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
           <!--标签-->
@@ -56,14 +56,15 @@
 </template>
 
 <script>
-
+  import router from '../../router'
   export default {
     name: "header-all",
     data() {
       return {
         tagName:{},
         tagClass: 'is-active-tag text-danger',
-        menuClass: 'el-icon-s-unfold menu-header'
+        menuClass: 'el-icon-s-unfold menu-header',
+        breadcrumbName:''
       }
     },
     computed: {
@@ -133,10 +134,25 @@
       handleSelect(key, keyPath) {
         //console.log(key, keyPath);
         //console.log(this.$route.path.toLowerCase());
+      },
+      breadcrumb(path){
+        let menuArr =this.tagMenu;
+        for (let i = 0; i < menuArr.length; i++) {
+          if (menuArr[i].tagRouter == path) {
+            this.breadcrumbName = menuArr[i].breadcrumb
+            return;
+          }
+        }
       }
     },
-    mounted() {
-
+    created() {
+      //console.log(this.$route.path.toLowerCase())
+      this.breadcrumb(this.$route.path.toLowerCase())
+      router.afterEach(() => {
+        // finish progress bar.
+        this.breadcrumb(this.$route.path.toLowerCase())
+        //console.log(this.$route.path.toLowerCase())
+      })
     }
   }
 </script>
