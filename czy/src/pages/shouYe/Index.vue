@@ -40,6 +40,7 @@
 
       </swiper-slide>
     </swiper>
+    <!--返回顶部-->
     <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="150">
       <div
         style="{
@@ -121,6 +122,9 @@
     },
     methods: {
       //切换导航
+      /**
+      * 通过判断class来控制左侧的导航是否出现
+      * */
       menuSlot() {
         //判断当前导航按钮的class来设置相应的样式
         if (this.menuClass == 'el-icon-s-fold menu-header') {

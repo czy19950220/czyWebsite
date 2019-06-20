@@ -75,6 +75,15 @@
         }
       },
       //增加导航标签
+      /**
+       * @param tag 参数设置的是一个对象例如:{
+          closable:false,
+          tagName: 'Index',
+          tagRouter: '/czy/dashboard',
+          breadcrumb: 'Index'
+        }
+       *通过对比tag.tagRouter来确定添加的标签
+       * */
       addTag(tag) {
         let arr = this.tagMenu;
         let num = 0;

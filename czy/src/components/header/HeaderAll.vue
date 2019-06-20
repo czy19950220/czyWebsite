@@ -77,10 +77,19 @@
     },
     methods: {
       //点击
+      /**
+      * 切换路由事件
+      * @param tag 参数可以设置为是路由例如'/czy/dashboard'。这里已经循环加入了
+      * */
       tagMenuRouter(tag) {
         this.$router.push(tag.tagRouter);
       },
       //关闭标签
+      /**
+       * 通过对比tagRouter来确定关闭的是哪一个标签
+       * @param tag 参数可以设置为tagMenu.tagName,暂时没用到
+       * @param tagRouter 参数可以设置为tagMenu.tagRouter 例如'/czy/dashboard'
+       */
       handleClose(tag, tagRouter) {
         //通过路由判断是否是当前页
         let arr = this.tagMenu;
@@ -100,7 +109,7 @@
           this.$router.push(this.tagMenu[this.tagMenu.length - 1].tagRouter);
         }
       },
-      //配置下拉事件
+      //配置下拉事件，详情参数配置见elementUI
       setDialogInfo(cmditem) {
         if (!cmditem) {
           console.log("test");
@@ -123,6 +132,9 @@
         //this.$router.push("/infoshow");
       },
       //登出
+      /**
+      * 清除当前存储的token，在vuex中配置users，最后跳转到登录界面
+      * */
       logout() {
         // 清除token
         localStorage.removeItem("token");
@@ -131,10 +143,16 @@
         // 页面跳转
         this.$router.push("/login");
       },
+      //暂时没用到
       handleSelect(key, keyPath) {
         //console.log(key, keyPath);
         //console.log(this.$route.path.toLowerCase());
       },
+      //面包屑导航
+      /**
+      *通过对比当前路由决定当前面包屑
+      * @param path 参数必须是当前路由的toLowerCase()==>this.$route.path.toLowerCase();
+      * */
       breadcrumb(path){
         let menuArr =this.tagMenu;
         for (let i = 0; i < menuArr.length; i++) {
@@ -146,12 +164,13 @@
       }
     },
     created() {
-      //console.log(this.$route.path.toLowerCase())
+      /**
+      * 在加载完成后判断当前面包屑
+      * 在完成路由切换的时候判断当前面包屑导航
+      * */
       this.breadcrumb(this.$route.path.toLowerCase())
       router.afterEach(() => {
-        // finish progress bar.
         this.breadcrumb(this.$route.path.toLowerCase())
-        //console.log(this.$route.path.toLowerCase())
       })
     }
   }

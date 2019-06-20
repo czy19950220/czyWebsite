@@ -42,6 +42,10 @@
       }
     },
     methods: {
+      /**
+      * 提交表单，返回错误类型或者正确参数，提示用户，存储token，分配到vuex中，最后跳转路由
+      * @param formName 参数是表单名字
+      * */
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -81,6 +85,10 @@
         });
 
       },
+      /**
+       * 重置表单
+       * @param formName 参数是表单名字
+      * */
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
@@ -97,6 +105,9 @@
         localStorage.removeItem('token')
         console.log(localStorage.token)
       },
+      /*
+      * 判断是否为空
+      * */
       isEmpty(value) {
         return (
           value === undefined ||
