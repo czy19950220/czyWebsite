@@ -4,6 +4,7 @@
       <!--导航等-->
       <el-col :xs="0" :sm="15" class="border-bottom">
         <el-row>
+
           <!--面包屑-->
           <el-col :xs="24" :sm="24">
             <el-breadcrumb separator="/" class="breadcrumb">
@@ -11,21 +12,27 @@
               <el-breadcrumb-item>{{breadcrumbName}}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
+
           <!--标签-->
-          <el-col :xs="24" :sm="24" style="height: 32px;">
-            <el-scrollbar>
-              <el-tag
-                :key="index"
-                :class="tag.tagRouter == $route.path.toLowerCase()? 'is-active-tag':''"
-                :type="tag.tagRouter == $route.path.toLowerCase()?'danger':'info'"
-                :effect="tag.tagRouter == $route.path.toLowerCase() ?'dark':'plain'"
-                v-for="(tag,index) in tagMenu"
-                :closable="tag.closable"
-                @click="tagMenuRouter(tag)"
-                @close="handleClose(tag.tagName,tag.tagRouter)">
-                {{tag.tagName}}
-              </el-tag>
-            </el-scrollbar>
+          <el-col class="swiper-no-swiping" :xs="24" :sm="24" style="height: 32px;">
+            <scroll-bar class="warp2"
+                        :watchValue="tagMenu"
+                        :watchResize="true"
+                        overflow="hidden-y">
+              <div class="test2">
+                <el-tag
+                  :key="index"
+                  :class="tag.tagRouter == $route.path.toLowerCase()? 'is-active-tag':''"
+                  :type="tag.tagRouter == $route.path.toLowerCase()?'danger':'info'"
+                  :effect="tag.tagRouter == $route.path.toLowerCase() ?'dark':'plain'"
+                  v-for="(tag,index) in tagMenu"
+                  :closable="tag.closable"
+                  @click="tagMenuRouter(tag)"
+                  @close="handleClose(tag.tagName,tag.tagRouter)">
+                  {{tag.tagName}}
+                </el-tag>
+              </div>
+            </scroll-bar>
           </el-col>
         </el-row>
       </el-col>
@@ -57,14 +64,23 @@
 
 <script>
   import router from '../../router'
+  import scrollBar from 'vue-scroll-bar';
+
   export default {
+    components: {scrollBar},
     name: "header-all",
     data() {
       return {
-        tagName:{},
+        scrollTrackStyle: {
+          backgroundColor: 'red'
+        },
+        scrollBarStyle: {
+          color: 'black'
+        },
+        tagName: {},
         tagClass: 'is-active-tag text-danger',
         menuClass: 'el-icon-s-unfold menu-header',
-        breadcrumbName:''
+        breadcrumbName: ''
       }
     },
     computed: {
@@ -78,9 +94,9 @@
     methods: {
       //点击
       /**
-      * 切换路由事件
-      * @param tag 参数可以设置为是路由例如'/czy/dashboard'。这里已经循环加入了
-      * */
+       * 切换路由事件
+       * @param tag 参数可以设置为是路由例如'/czy/dashboard'。这里已经循环加入了
+       * */
       tagMenuRouter(tag) {
         this.$router.push(tag.tagRouter);
       },
@@ -133,8 +149,8 @@
       },
       //登出
       /**
-      * 清除当前存储的token，在vuex中配置users，最后跳转到登录界面
-      * */
+       * 清除当前存储的token，在vuex中配置users，最后跳转到登录界面
+       * */
       logout() {
         // 清除token
         localStorage.removeItem("token");
@@ -150,11 +166,11 @@
       },
       //面包屑导航
       /**
-      *通过对比当前路由决定当前面包屑
-      * @param path 参数必须是当前路由的toLowerCase()==>this.$route.path.toLowerCase();
-      * */
-      breadcrumb(path){
-        let menuArr =this.tagMenu;
+       *通过对比当前路由决定当前面包屑
+       * @param path 参数必须是当前路由的toLowerCase()==>this.$route.path.toLowerCase();
+       * */
+      breadcrumb(path) {
+        let menuArr = this.tagMenu;
         for (let i = 0; i < menuArr.length; i++) {
           if (menuArr[i].tagRouter == path) {
             this.breadcrumbName = menuArr[i].breadcrumb
@@ -165,9 +181,9 @@
     },
     created() {
       /**
-      * 在加载完成后判断当前面包屑
-      * 在完成路由切换的时候判断当前面包屑导航
-      * */
+       * 在加载完成后判断当前面包屑
+       * 在完成路由切换的时候判断当前面包屑导航
+       * */
       this.breadcrumb(this.$route.path.toLowerCase())
       router.afterEach(() => {
         this.breadcrumb(this.$route.path.toLowerCase())
@@ -253,5 +269,23 @@
   .username {
     cursor: pointer;
     margin-right: 5px;
+  }
+
+  .warp2 {
+    height: 36px;
+    overflow: hidden;
+    width: 100%;
+    margin: auto;
+    border-radius: 2px;
+  }
+
+  .warp2 .test2 {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  @media (max-width: 768px) {
+    .warp2{
+      width: auto;
+    }
   }
 </style>

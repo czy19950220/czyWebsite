@@ -68,7 +68,11 @@
         model: '',
       }
     },
-    computed: {},
+    computed: {
+      user() {
+        return this.$store.getters.users;
+      },
+    },
     watch: {},
     methods: {
       //预览文章
@@ -121,7 +125,7 @@
       }
     },
     created() {
-
+      this.config.imageUploadURL += '?id='+ this.user.id;
     }
     ,
     mounted() {
