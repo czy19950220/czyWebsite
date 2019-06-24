@@ -19,41 +19,6 @@ const state = {
       tagName: 'Index',
       tagRouter: '/czy/dashboard',
       breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
-    },{
-      closable:false,
-      tagName: 'Index',
-      tagRouter: '/czy/dashboard',
-      breadcrumb: 'Index'
     }
   ],//导航标签和面包屑
 };

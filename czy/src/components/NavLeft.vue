@@ -46,9 +46,14 @@
           },
           {
             closable: true,
-            tagName: '博客文章',
+            tagName: '博文编辑',
             tagRouter: '/czy/blog',
-            breadcrumb: '博客文章'
+            breadcrumb: '博文编辑'
+          },{
+            closable: true,
+            tagName: '博文统计',
+            tagRouter: '/czy/blogtable',
+            breadcrumb: '博文统计'
           }
         ]
       }
@@ -138,4 +143,7 @@
   /*.el-menu-item.is-active {
     background-color: #ecf5ff !important;
   }*/
+  .el-menu{
+    border-right: solid 1px #ecbfbf !important;
+  }
 </style>

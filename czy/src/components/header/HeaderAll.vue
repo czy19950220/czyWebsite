@@ -174,7 +174,7 @@
         for (let i = 0; i < menuArr.length; i++) {
           if (menuArr[i].tagRouter == path) {
             this.breadcrumbName = menuArr[i].breadcrumb
-            return;
+            break;
           }
         }
       }
@@ -184,10 +184,12 @@
        * 在加载完成后判断当前面包屑
        * 在完成路由切换的时候判断当前面包屑导航
        * */
-      this.breadcrumb(this.$route.path.toLowerCase())
       router.afterEach(() => {
         this.breadcrumb(this.$route.path.toLowerCase())
       })
+    },
+    mounted(){
+      this.breadcrumb(this.$route.path.toLowerCase())
     }
   }
 </script>

@@ -42,36 +42,12 @@ export const constantRouterMap = [
         path: 'blog',
         name: 'blog',
         component : resolve => require(['@/pages/blog/Index.vue'],resolve)
-      }
-    ]
-  },
-  {
-    path: '/czy2',
-    name: 'index-two',
-    meta: {title: '首页页面'},
-    redirect:'/czy2/dashboard',
-    component: resolve => require(['@/pages/shouye/IndexTwo.vue'], resolve),
-    children:[
-      {
-        path: 'dashboard',
-        name: 'index',
-        component : resolve => require(['@/pages/index/Index.vue'],resolve)
       },
       {
-        path: 'novel',
-        name: 'novel',
-        component : resolve => require(['@/pages/novel/Index.vue'],resolve)
+        path: 'blogtable',
+        name: 'blog-table',
+        component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
       },
-      {
-        path: 'flappybird',
-        name: 'flappyBird',
-        component : resolve => require(['@/pages/flappybird/Index.vue'],resolve)
-      },
-      {
-        path: 'blog',
-        name: 'blog',
-        component : resolve => require(['@/pages/blog/Index.vue'],resolve)
-      }
     ]
   },
   {

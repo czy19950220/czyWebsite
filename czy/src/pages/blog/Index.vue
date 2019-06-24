@@ -21,7 +21,7 @@
       <div v-if="edit">
         <froala :tag="'textarea'" :config="config" v-model="model"></froala>
       </div>
-      <froalaView v-show="editView" v-model="model" ></froalaView>
+      <froalaView v-show="editView" v-model="model"></froalaView>
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@
     data() {
       return {
         sIP: 'http://47.103.42.176:19680',
-        sIP2:'http://czy-study.club:19680',
+        sIP2: 'http://czy-study.club:19680',
         theWidth: 100,
         edit: false,
         editView: true,
@@ -43,6 +43,9 @@
           theme: 'royal',
           imageUpload: true,
           imageUploadMethod: "POST",
+          imageUploadParams: {
+            id: 'my_editor'
+          },
           imageManagerDeleteMethod: 'POST',
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
@@ -60,7 +63,7 @@
               //console.log('initialized')
             },
           },
-          toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo','insertAudio', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
+          toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertAudio', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
           toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
           toolbarButtonsSM: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
           language: 'zh_cn'
@@ -82,7 +85,12 @@
       },
       //提交文章代码
       uploadHtml() {
-        var params = {html: this.model};
+        var params = {
+          html: this.model,
+          blogID: this.$route.query.blogID,
+          titleName: 'youxi',
+          uid: this.user.id
+        };
         this.$axios.post(this.sIP2 + "/froala/uploadHtml", params).then((res) => {
           console.log(res.data)
           if (res.data == '1') {
@@ -108,24 +116,21 @@
         this.editView = false;
       },
       //初始化编辑器
-      froalaInit() {
-        this.$axios.post(this.sIP2 + "/froala/getHtml", params).then((res) => {
-          let str = decodeURI(this.$route.hash)
-        })
-      },
-      //初始化编辑器
       initBlog() {
-        let uid = this.$route.query.uid;
         let blogID = this.$route.query.blogID;
-        let params = {uid: uid, blogID: blogID};
-        this.$axios.post(this.sIP2 + "/froala/getHtml", params).then((res) => {
+        this.$axios.post(this.sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
           this.model = res.data.result.getHtml;
           //console.log(res.data.result.getHtml)
         })
       }
     },
     created() {
-      this.config.imageUploadURL += '?id='+ this.user.id;
+      this.config.imageUploadURL += '?id=' + this.user.id;
+      this.config.imageUploadURL += '?id=' + this.user.id;
+      this.config.imageManagerDeleteURL += '?id=' + this.user.id;
+      this.config.imageManagerLoadURL += '?id=' + this.user.id;
+      this.config.fileUploadURL += '?id=' + this.user.id;
+      this.config.videoUploadURL += '?id=' + this.user.id;
     }
     ,
     mounted() {
@@ -140,7 +145,7 @@
     height: 100%;
   }
 
-  .fr-wrapper>div:first-child{
+  .fr-wrapper > div:first-child {
     display: none !important;
   }
 
@@ -151,7 +156,8 @@
     left: 0px;
     top: 0px;
   }
-  .fr-box.fr-fullscreen{
-    left: unset!important;
+
+  .fr-box.fr-fullscreen {
+    left: unset !important;
   }
 </style>
