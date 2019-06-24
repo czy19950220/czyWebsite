@@ -32,9 +32,8 @@
     components: {},
     name: "Index",
     data() {
+      let self = this;
       return {
-        sIP: 'http://47.103.42.176:19680',
-        sIP2: 'http://czy-study.club:19680',
         theWidth: 100,
         edit: false,
         editView: true,
@@ -50,14 +49,14 @@
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
           //imageUploadURL: 'http://127.0.0.1:7001/blog/uploadimage/',
-          imageUploadURL: 'http://czy-study.club:19680/froala/upload_images',
-          imageManagerDeleteURL: 'http://czy-study.club:19680/froala/deleteImage',
-          imageManagerLoadURL: 'http://czy-study.club:19680/froala/listpic',
-          fileUploadURL: 'http://czy-study.club:19680/froala/uploadfile',
+          imageUploadURL: self.$sIP2+'/froala/upload_images',
+          imageManagerDeleteURL: self.$sIP2+'/froala/deleteImage',
+          imageManagerLoadURL: self.$sIP2+'/froala/listpic',
+          fileUploadURL: self.$sIP2+'/froala/uploadfile',
           fileAllowedTypes: ['*'],//文件类型
           fileMaxSize: 1024 * 1024 * 1024 * 100,       //文件上传大小最大10g
           videoMaxSize: 1024 * 1024 * 1024 * 100,
-          videoUploadURL: 'http://czy-study.club:19680/froala/uploadvideo',
+          videoUploadURL: self.$sIP2+'/froala/uploadvideo',
           events: {
             'froalaEditor.initialized': function () {
               //console.log('initialized')
@@ -91,7 +90,7 @@
           titleName: 'youxi',
           uid: this.user.id
         };
-        this.$axios.post(this.sIP2 + "/froala/uploadHtml", params).then((res) => {
+        this.$axios.post(this.$sIP2 + "/froala/uploadHtml", params).then((res) => {
           console.log(res.data)
           if (res.data == '1') {
             this.$message({
@@ -117,8 +116,8 @@
       },
       //初始化编辑器
       initBlog() {
-        let blogID = this.$route.query.blogID;
-        this.$axios.post(this.sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
+        let blogID = this.$route.query.blogID || 1;
+        this.$axios.post(this.$sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
           this.model = res.data.result.getHtml;
           //console.log(res.data.result.getHtml)
         })

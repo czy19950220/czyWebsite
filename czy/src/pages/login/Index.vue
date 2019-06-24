@@ -1,5 +1,5 @@
 <template>
-  <div class="login-con" :style="{backgroundImage:  'url('+ sIP+'/public/images/JS.png'+')' }">
+  <div class="login-con" :style="{backgroundImage:  'url('+ this.$sIP2+'/public/images/JS.jpeg'+')' }">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
@@ -23,7 +23,6 @@
     name: "index",
     data() {
       return {
-        sIP: 'http://czy-study.club:19680',
         ruleForm: {
           username: 'czy',//用户名
           password: '123456',//密码
@@ -49,7 +48,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$axios.post(`${this.sIP}/users`, this.ruleForm).then((res) => {
+            this.$axios.post(`${this.$sIP2}/users`, this.ruleForm).then((res) => {
               //console.log(res.data)
               if (res.data == '用户不存在'|| res.data == '密码错误'|| res.data == 'err') {
                 this.$message.error({
