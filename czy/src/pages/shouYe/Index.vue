@@ -30,7 +30,19 @@
                   <nav-left></nav-left>
                 </el-col>
               </el-row>
-              <router-view style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"></router-view>
+              <keep-alive>
+                <router-view
+                  style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                  v-if="$route.meta.keepAlive">
+                  <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+                </router-view>
+              </keep-alive>
+
+              <router-view
+                style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                v-if="!$route.meta.keepAlive">
+                <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+              </router-view>
             </el-scrollbar>
           </el-col>
           <el-col :xs="24" :sm="0" style="">

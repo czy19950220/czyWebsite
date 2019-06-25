@@ -1,28 +1,46 @@
 <template>
   <div class="swiper-no-swiping" style="margin-bottom:100px">
     <br>
-    <el-row>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="20">
-        <el-button @click="init()">继续编辑</el-button>
-        <el-button type="primary" @click="destroy()">预览文章</el-button>
-        <el-button type="warning" @click="uploadHtml()">提交文章</el-button>
-        <el-slider
-          :min="30"
-          v-model="theWidth"
-          show-input>
-        </el-slider>
-      </el-col>
-      <el-col :span="2"></el-col>
-
-    </el-row>
-    <br>
     <div class="index" :style="{width:theWidth+'%'}">
       <div v-if="edit">
         <froala :tag="'textarea'" :config="config" v-model="model"></froala>
       </div>
       <froalaView v-show="editView" v-model="model"></froalaView>
     </div>
+    <el-divider><i class="el-icon-upload2"></i></el-divider>
+    <el-row>
+      <el-col :span="2">&nbsp;</el-col>
+      <el-col :span="20">
+        <el-form
+          style="max-width: 500px"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+          label-width="100px"
+          class="demo-ruleForm">
+          <el-form-item label="文章名" prop="blogNameInput">
+            <el-input clearable maxlength="50" v-model="ruleForm.blogNameInput"></el-input>
+          </el-form-item>
+          <el-form-item label="标签栏" prop="blogNameTag">
+            <el-input clearable maxlength="30" v-model="ruleForm.blogNameTag"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="init()">继续编辑</el-button>
+            <el-button type="primary" @click="destroy()">预览文章</el-button>
+            <el-button type="warning" @click="uploadHtml('ruleForm')">提交文章</el-button>
+          </el-form-item>
+        </el-form>
+
+        <!--<el-slider
+          :min="30"
+          v-model="theWidth"
+          show-input>
+        </el-slider>-->
+      </el-col>
+      <el-col :span="2"></el-col>
+
+    </el-row>
+
   </div>
 </template>
 
@@ -34,6 +52,20 @@
     data() {
       let self = this;
       return {
+        ruleForm: {
+          blogNameInput: '',//博客文章名
+          blogNameTag: ''//标签
+        },
+        rules: {
+          blogNameInput: [
+            {required: true, message: '请输入文章名', trigger: 'blur'},
+            {min: 1, max: 50, message: '长度在 1 到 50 个字符', trigger: 'blur'}
+          ],
+          blogNameTag: [
+            {required: true, message: '请输入标签，多个标签用||隔开', trigger: 'blur'},
+            {min: 1, max: 30, message: '长度在 1 到 30 个字符', trigger: 'blur'}
+          ]
+        },
         theWidth: 100,
         edit: false,
         editView: true,
@@ -49,14 +81,14 @@
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
           //imageUploadURL: 'http://127.0.0.1:7001/blog/uploadimage/',
-          imageUploadURL: self.$sIP2+'/froala/upload_images',
-          imageManagerDeleteURL: self.$sIP2+'/froala/deleteImage',
-          imageManagerLoadURL: self.$sIP2+'/froala/listpic',
-          fileUploadURL: self.$sIP2+'/froala/uploadfile',
+          imageUploadURL: self.$sIP2 + '/froala/upload_images',
+          imageManagerDeleteURL: self.$sIP2 + '/froala/deleteImage',
+          imageManagerLoadURL: self.$sIP2 + '/froala/listpic',
+          fileUploadURL: self.$sIP2 + '/froala/uploadfile',
           fileAllowedTypes: ['*'],//文件类型
           fileMaxSize: 1024 * 1024 * 1024 * 100,       //文件上传大小最大10g
           videoMaxSize: 1024 * 1024 * 1024 * 100,
-          videoUploadURL: self.$sIP2+'/froala/uploadvideo',
+          videoUploadURL: self.$sIP2 + '/froala/uploadvideo',
           events: {
             'froalaEditor.initialized': function () {
               //console.log('initialized')
@@ -83,31 +115,42 @@
         this.editView = true;
       },
       //提交文章代码
-      uploadHtml() {
-        var params = {
-          html: this.model,
-          blogID: this.$route.query.blogID,
-          titleName: 'youxi',
-          uid: this.user.id
-        };
-        this.$axios.post(this.$sIP2 + "/froala/uploadHtml", params).then((res) => {
-          console.log(res.data)
-          if (res.data == '1') {
-            this.$message({
-              message: '更新成功',
-              duration: 500,
-              type: 'success',
-              showClose: true
-            });
-          } else if (res.data == '2') {
-            this.$message({
-              message: '添加成功',
-              duration: 500,
-              type: 'success',
-              showClose: true
-            });
+      uploadHtml(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let params = {
+              html: this.model,
+              blogID: this.$route.query.blogID,
+              titleName: this.ruleForm.blogNameInput,
+              uid: this.user.id,
+              blogNameTag: this.ruleForm.blogNameTag
+            };
+            this.$axios.post(this.$sIP2 + "/froala/uploadHtml", params).then((res) => {
+              console.log(res.data)
+              if (res.data == '1') {
+                this.$message({
+                  message: '更新成功',
+                  duration: 500,
+                  type: 'success',
+                  showClose: true
+                });
+              } else if (res.data == '2') {
+                this.$message({
+                  message: '添加成功',
+                  duration: 500,
+                  type: 'success',
+                  showClose: true
+                });
+              } else {
+                this.$message.error('异常错误');
+              }
+            })
+          } else {
+            this.$message.error('检查错误');
+            return false;
           }
-        })
+        });
+
       },
       //继续编辑
       init() {
@@ -119,21 +162,33 @@
         let blogID = this.$route.query.blogID || 1;
         this.$axios.post(this.$sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
           this.model = res.data.result.getHtml;
+          this.ruleForm.blogNameInput = res.data.result.blogName;//博客文章名
+          this.ruleForm.blogNameTag = res.data.result.text;//标签
           //console.log(res.data.result.getHtml)
         })
       }
     },
     created() {
-      this.config.imageUploadURL += '?id=' + this.user.id;
+      this.initBlog();
+      //this.config.imageUploadURL += '?id=' + this.user.id;
       this.config.imageUploadURL += '?id=' + this.user.id;
       this.config.imageManagerDeleteURL += '?id=' + this.user.id;
       this.config.imageManagerLoadURL += '?id=' + this.user.id;
       this.config.fileUploadURL += '?id=' + this.user.id;
       this.config.videoUploadURL += '?id=' + this.user.id;
-    }
-    ,
+    },
     mounted() {
-      this.initBlog();
+      console.log(this.$route)
+      //this.$route.meta.keepAlive = true;
+    },
+    beforeRouteLeave(to, from, next) {
+      //离开时，将自身缓存下来
+      from.meta.keepAlive = true;
+      console.log(from)
+      if (!from.meta.keepAlive) {
+        from.meta.keepAlive = true;//当我们进入到C时开启B的缓存
+      }
+      next();
     }
   }
 </script>

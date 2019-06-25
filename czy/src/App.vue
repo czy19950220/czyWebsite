@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <router-view/>
+    <router-view/>
   </div>
 </template>
 
@@ -11,6 +11,10 @@
   export default {
     name: 'App',
     methods: {
+      /**
+       * @param value 值为object或者string、undefined、null
+       * 判断该项内容是否为空
+       * */
       isEmpty(value) {
         return (
           value === undefined ||
@@ -24,26 +28,29 @@
       if (localStorage.token) {
         //console.log(1111)
         let users = jwtDecode(localStorage.token);
-        this.$store.dispatch('setisAuthenicated',!this.isEmpty(users));
-        this.$store.dispatch('setUsers',users);
+        this.$store.dispatch('setisAuthenicated', !this.isEmpty(users));
+        this.$store.dispatch('setUsers', users);
       }
     }
   }
 </script>
 
 <style>
-  #app{
+  #app {
     min-width: 300px;
     overflow: hidden;
   }
-  .el-scrollbar{
+
+  .el-scrollbar {
     height: 100%;
   }
-  .el-scrollbar__wrap{
+
+  .el-scrollbar__wrap {
     overflow: scroll;
-    overflow-x:auto !important;
+    overflow-x: auto !important;
   }
-  .el-scrollbar__bar{
+
+  .el-scrollbar__bar {
     z-index: 9999;
   }
 

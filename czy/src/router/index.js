@@ -26,26 +26,41 @@ export const constantRouterMap = [
       {
         path: 'dashboard',
         name: 'index',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
         component : resolve => require(['@/pages/index/Index.vue'],resolve)
       },
       {
         path: 'novel',
         name: 'novel',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
         component : resolve => require(['@/pages/novel/Index.vue'],resolve)
       },
       {
         path: 'flappybird',
         name: 'flappyBird',
+        meta: {
+          keepAlive: false // no需要被缓存
+        },
         component : resolve => require(['@/pages/flappybird/Index.vue'],resolve)
       },
       {
         path: 'blog',
         name: 'blog',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
         component : resolve => require(['@/pages/blog/Index.vue'],resolve)
       },
       {
         path: 'blogtable',
         name: 'blog-table',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
         component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
       },
     ]
