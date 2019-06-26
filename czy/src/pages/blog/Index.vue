@@ -106,6 +106,9 @@
       user() {
         return this.$store.getters.users;
       },
+      blogID() {
+        return this.$store.getters.blogID;
+      },
     },
     watch: {},
     methods: {
@@ -159,7 +162,7 @@
       },
       //初始化编辑器
       initBlog() {
-        let blogID = this.$route.query.blogID || 1;
+        let blogID = this.$route.query.blogID || this.blogID;
         this.$axios.post(this.$sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
           this.model = res.data.result.getHtml;
           this.ruleForm.blogNameInput = res.data.result.blogName;//博客文章名
@@ -170,7 +173,6 @@
     },
     created() {
       this.initBlog();
-      //this.config.imageUploadURL += '?id=' + this.user.id;
       this.config.imageUploadURL += '?id=' + this.user.id;
       this.config.imageManagerDeleteURL += '?id=' + this.user.id;
       this.config.imageManagerLoadURL += '?id=' + this.user.id;
@@ -178,17 +180,7 @@
       this.config.videoUploadURL += '?id=' + this.user.id;
     },
     mounted() {
-      console.log(this.$route)
-      //this.$route.meta.keepAlive = true;
-    },
-    beforeRouteLeave(to, from, next) {
-      //离开时，将自身缓存下来
-      from.meta.keepAlive = true;
-      console.log(from)
-      if (!from.meta.keepAlive) {
-        from.meta.keepAlive = true;//当我们进入到C时开启B的缓存
-      }
-      next();
+
     }
   }
 </script>

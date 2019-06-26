@@ -5,3 +5,4 @@ export const sourceId = state => state.sourceId;
 export const users = state => state.users;
 export const isCollapse = state => state.isCollapse;
 export const tagMenu = state => state.tagMenu;
+export const blogID = state => state.blogID;

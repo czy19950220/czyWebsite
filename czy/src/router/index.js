@@ -35,7 +35,7 @@ export const constantRouterMap = [
         path: 'novel',
         name: 'novel',
         meta: {
-          keepAlive: true // 需要被缓存
+          keepAlive: false // 需要被缓存
         },
         component : resolve => require(['@/pages/novel/Index.vue'],resolve)
       },
@@ -48,10 +48,10 @@ export const constantRouterMap = [
         component : resolve => require(['@/pages/flappybird/Index.vue'],resolve)
       },
       {
-        path: 'blog',
-        name: 'blog',
+        path: 'blogdetail',
+        name: 'blogdetail',
         meta: {
-          keepAlive: true // 需要被缓存
+          keepAlive: false // 需要被缓存
         },
         component : resolve => require(['@/pages/blog/Index.vue'],resolve)
       },

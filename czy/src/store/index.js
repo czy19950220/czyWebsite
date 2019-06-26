@@ -19,8 +19,9 @@ const state = {
       tagName: 'Index',
       tagRouter: '/czy/dashboard',
       breadcrumb: 'Index'
-    }
+    },
   ],//导航标签和面包屑
+  blogID: 1,//博文ID
 };
 export default new Vuex.Store({
   state,

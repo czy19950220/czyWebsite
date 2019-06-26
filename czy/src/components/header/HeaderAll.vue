@@ -4,7 +4,6 @@
       <!--导航等-->
       <el-col :xs="0" :sm="15" class="border-bottom">
         <el-row>
-
           <!--面包屑-->
           <el-col :xs="24" :sm="24">
             <el-breadcrumb separator="/" class="breadcrumb">
@@ -12,27 +11,25 @@
               <el-breadcrumb-item>{{breadcrumbName}}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
-
           <!--标签-->
           <el-col class="swiper-no-swiping" :xs="24" :sm="24" style="height: 32px;">
-            <scroll-bar class="warp2"
-                        :watchValue="tagMenu"
-                        :watchResize="true"
-                        overflow="hidden-y">
-              <div class="test2">
-                <el-tag
-                  :key="index"
-                  :class="tag.tagRouter == $route.path.toLowerCase()? 'is-active-tag':''"
-                  :type="tag.tagRouter == $route.path.toLowerCase()?'danger':'info'"
-                  :effect="tag.tagRouter == $route.path.toLowerCase() ?'dark':'plain'"
-                  v-for="(tag,index) in tagMenu"
-                  :closable="tag.closable"
-                  @click="tagMenuRouter(tag)"
-                  @close="handleClose(tag.tagName,tag.tagRouter)">
-                  {{tag.tagName}}
-                </el-tag>
-              </div>
-            </scroll-bar>
+            <swiper :options="swiperOption2">
+              <swiper-slide class="text">
+                <div class="content">
+                  <el-tag
+                    :key="index"
+                    :class="tag.tagRouter.includes($route.path.toLowerCase())? 'is-active-tag':''"
+                    :type="tag.tagRouter.includes($route.path.toLowerCase())?'danger':'info'"
+                    :effect="tag.tagRouter.includes($route.path.toLowerCase()) ?'dark':'plain'"
+                    v-for="(tag,index) in tagMenu"
+                    :closable="tag.closable"
+                    @click="tagMenuRouter(tag)"
+                    @close="handleClose(tag.tagName,tag.tagRouter)">
+                    {{tag.tagName}}
+                  </el-tag>
+                </div>
+              </swiper-slide>
+            </swiper>
           </el-col>
         </el-row>
       </el-col>
@@ -64,10 +61,14 @@
 
 <script>
   import router from '../../router'
-  import scrollBar from 'vue-scroll-bar';
+  import 'swiper/dist/css/swiper.css'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
 
   export default {
-    components: {scrollBar},
+    components: {
+      swiper,
+      swiperSlide
+    },
     name: "header-all",
     data() {
       return {
@@ -80,7 +81,17 @@
         tagName: {},
         tagClass: 'is-active-tag text-danger',
         menuClass: 'el-icon-s-unfold menu-header',
-        breadcrumbName: ''
+        breadcrumbName: '',//面包屑
+        swiperOption2: { //轮播
+          direction: 'horizontal',
+          slidesPerView: 'auto',
+          freeMode: true,
+          noSwiping : false,
+          scrollbar: {
+            el: '.swiper-scrollbar'
+          },
+          mousewheel: true
+        }
       }
     },
     computed: {
@@ -89,6 +100,12 @@
       },
       tagMenu() {
         return this.$store.getters.tagMenu;
+      },
+      blogID() {
+        return this.$store.getters.blogID;
+      },
+      swiper() {
+        return this.$refs.swiperHeader.swiper
       }
     },
     methods: {
@@ -98,7 +115,15 @@
        * @param tag 参数可以设置为是路由例如'/czy/dashboard'。这里已经循环加入了
        * */
       tagMenuRouter(tag) {
-        this.$router.push(tag.tagRouter);
+        //mySwiper.slideNext();
+        //this.swiper.slideNext();
+        //console.log(tag.tagRouter)
+        if (tag.tagRouter == '/czy/blogdetail'){
+          this.$router.push(tag.tagRouter+'?blogID='+this.blogID);
+        }else {
+          this.$router.push(tag.tagRouter);
+        }
+
       },
       //关闭标签
       /**
@@ -272,22 +297,14 @@
     cursor: pointer;
     margin-right: 5px;
   }
-
-  .warp2 {
-    height: 36px;
-    overflow: hidden;
-    width: 100%;
-    margin: auto;
-    border-radius: 2px;
+  .text {
+    height: 100%;
+    overflow-y: hidden;
+    width: auto;
   }
 
-  .warp2 .test2 {
-    display: inline-block;
+  .content {
+    height: 100%;
     white-space: nowrap;
-  }
-  @media (max-width: 768px) {
-    .warp2{
-      width: auto;
-    }
   }
 </style>

@@ -9,7 +9,7 @@
        || data.text.toLowerCase().includes(search.toLowerCase()))"
       @cell-click="toBlog"
       :cell-class-name="setCellClass"
-      style="width: 90%;margin: auto;padding: 10px">
+      style="width: 90%;margin: auto;margin: 10px">
       <el-table-column
         label="时间"
         prop="date">
@@ -129,7 +129,8 @@
       toBlog(row, column, cell, event) {
         if (column.property == 'blogName') {
           //console.log(row)
-          this.$router.push({path: 'blog', query: {blogID: row.blogID}});
+          this.$store.dispatch('setBlogID', row.blogID);
+          this.$router.push({path: 'blogdetail', query: {blogID: row.blogID}});
         }
       },
       //设置单元格样式
@@ -140,11 +141,13 @@
           return ''
         }
       },
+      //改变表格每页大小
       handleSizeChange(val) {
         this.pageCon = val;
         this.currentPage4 = 1;
         console.log(`每页 ${val} 条`);
       },
+      //表格切页
       handleCurrentChange(val) {
         this.currentPage4 = val;
         console.log(`当前页: ${val}`);

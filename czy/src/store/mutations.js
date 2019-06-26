@@ -19,3 +19,6 @@ export const setIsCollapse = (state, data) => {
 export const setTagMenu = (state, data) => {
   state.tagMenu = data;
 };
+export const setBlogID = (state, data) => {
+  state.blogID = data;
+};

@@ -1,25 +1,40 @@
 <template>
   <div>
-    <el-date-picker
-      v-model="value1"
-      type="datetime"
-      placeholder="选择日期时间">
-    </el-date-picker>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
   </div>
 </template>
 
 <script>
+  import 'swiper/dist/css/swiper.css'
+  import {swiper, swiperSlide} from 'vue-awesome-swiper'
+
   export default {
+    components: {
+      swiper,
+      swiperSlide
+    },
     name: "index",
-    data(){
-      return{
-        value1:'2019-06-20 08:40:52'
+    data() {
+      return {
+        swiperOption: { //轮播
+          direction: 'horizontal',
+          slidesPerView: 'auto',
+          freeMode: true,
+          scrollbar: {
+            el: '.swiper-scrollbar'
+          },
+          mousewheel: true
+        }
+
       }
     },
-    created(){
-      $("input[type=text]").each(function () {
-        $(this).attr("disabled", false);
-      });
+    created() {
+
     }
   }
 </script>

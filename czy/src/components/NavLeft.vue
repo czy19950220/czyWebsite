@@ -2,23 +2,22 @@
   <el-scrollbar class="nav-bar">
     <el-menu
       style="padding-bottom: 70px;"
-      router
-      :default-active="this.$route.path.toLowerCase()"
+      :default-active="defaultActive"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose">
-      <el-menu-item index="/czy/dashboard">
+      <el-menu-item index="主页">
         <i class="el-icon-monitor"></i>
         <span slot="title">主页</span>
       </el-menu-item>
       <el-menu-item-group>
         <template slot="title">学习杂记</template>
         <el-menu-item
-          @click="addTag(tag)"
           class="list-group-item"
+          @click="addTag(tag)"
           v-for="(tag,index) in routePath"
           :key="index"
-          :index="tag.tagRouter">
+          :index="tag.tagName">
           <span slot="title">{{tag.tagName}}</span>
         </el-menu-item>
       </el-menu-item-group>
@@ -31,6 +30,7 @@
     name: "nav-left",
     data() {
       return {
+        defaultActive: '主页',
         routePath: [
           {
             closable: true,
@@ -47,9 +47,9 @@
           {
             closable: true,
             tagName: '博文编辑',
-            tagRouter: '/czy/blog',
+            tagRouter: '/czy/blogdetail',
             breadcrumb: '博文编辑'
-          },{
+          }, {
             closable: true,
             tagName: '博文统计',
             tagRouter: '/czy/blogtable',
@@ -65,6 +65,22 @@
       tagMenu() {
         return this.$store.getters.tagMenu;
       },
+      blogID() {
+        return this.$store.getters.blogID;
+      },
+    },
+    watch: {
+      $route(to, from) {//监听路由变化，设置当前默认路由
+        for (let i = 0; i < this.routePath.length; i++) {
+          if (to.path.includes(this.routePath[i].tagRouter)){
+            this.defaultActive = this.routePath[i].tagName;
+            //console.log(this.defaultActive);
+            break;
+          }else {
+            this.defaultActive = '主页'
+          }
+        }
+      }
     },
     methods: {
       //第一次加载时检查是否有标签
@@ -74,6 +90,7 @@
         let arr = this.routePath, that = this;
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].tagRouter == path) {
+            this.defaultActive = this.routePath[i].tagName;
             that.addTag(arr[i])
             return;
           }
@@ -92,6 +109,9 @@
       addTag(tag) {
         let arr = this.tagMenu;
         let num = 0;
+        let path = tag.tagRouter == '/czy/blogdetail' ? `${tag.tagRouter}?blogID=${this.blogID}` : tag.tagRouter;
+        //console.log(path)
+        this.$router.push(path);
         //先查询是否有该条信息
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].tagRouter == tag.tagRouter) {
@@ -143,7 +163,7 @@
   /*.el-menu-item.is-active {
     background-color: #ecf5ff !important;
   }*/
-  .el-menu{
+  .el-menu {
     border-right: solid 1px #ecbfbf !important;
   }
 </style>
