@@ -33,10 +33,12 @@
         </template>
         <template slot-scope="scope">
           <el-button
+            class="blog-button"
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">Edit
           </el-button>
           <el-button
+            class="blog-button"
             size="mini"
             type="danger"
             @click="handleDelete(scope.$index, scope.row)">Delete
@@ -57,7 +59,12 @@
       </el-pagination>
     </div>
     <!--修改-->
-    <el-dialog title="修改信息" :visible.sync="dialogFormVisible" center :modal="true" append-to-body>
+    <el-dialog
+      title="修改信息"
+      :visible.sync="dialogFormVisible"
+      center
+      :modal="true"
+      append-to-body>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
         <el-form-item label="名称" prop="name">
           <el-input v-model="ruleForm.name"></el-input>
@@ -237,5 +244,12 @@
   .block {
     margin: auto;
     text-align: center;
+  }
+  .el-dialog{
+    min-width: 310px;
+  }
+  .blog-button{
+    margin: 2px auto;
+    margin-left: 0px!important;
   }
 </style>
