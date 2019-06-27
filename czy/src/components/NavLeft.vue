@@ -49,11 +49,18 @@
             tagName: '博文编辑',
             tagRouter: '/czy/blogdetail',
             breadcrumb: '博文编辑'
-          }, {
+          },
+          {
             closable: true,
             tagName: '博文统计',
             tagRouter: '/czy/blogtable',
             breadcrumb: '博文统计'
+          },
+          {
+            closable: true,
+            tagName: 'echarts',
+            tagRouter: '/czy/echarts',
+            breadcrumb: 'echarts'
           }
         ]
       }
@@ -72,11 +79,11 @@
     watch: {
       $route(to, from) {//监听路由变化，设置当前默认路由
         for (let i = 0; i < this.routePath.length; i++) {
-          if (to.path.includes(this.routePath[i].tagRouter)){
+          if (to.path.includes(this.routePath[i].tagRouter)) {
             this.defaultActive = this.routePath[i].tagName;
             //console.log(this.defaultActive);
             break;
-          }else {
+          } else {
             this.defaultActive = '主页'
           }
         }

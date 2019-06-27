@@ -18,9 +18,9 @@
                 <div class="content">
                   <el-tag
                     :key="index"
-                    :class="tag.tagRouter.includes($route.path.toLowerCase())? 'is-active-tag':''"
-                    :type="tag.tagRouter.includes($route.path.toLowerCase())?'danger':'info'"
-                    :effect="tag.tagRouter.includes($route.path.toLowerCase()) ?'dark':'plain'"
+                    :class="$route.path.toLowerCase().includes(tag.tagRouter)? 'is-active-tag':''"
+                    :type="$route.path.toLowerCase().includes(tag.tagRouter)?'danger':'info'"
+                    :effect="$route.path.toLowerCase().includes(tag.tagRouter) ?'dark':'plain'"
                     v-for="(tag,index) in tagMenu"
                     :closable="tag.closable"
                     @click="tagMenuRouter(tag)"

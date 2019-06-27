@@ -63,6 +63,22 @@ export const constantRouterMap = [
         },
         component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
       },
+      {
+        path: 'echarts',
+        name: 'echarts',
+        redirect: '/czy/echarts/polardiagram',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
+        component : resolve => require(['@/pages/echarts/Index.vue'],resolve),
+        children:[
+          {
+            path: 'polardiagram',
+            name: 'polar-diagram',
+            component : resolve => require(['@/pages/echarts/polarDiagram.vue'],resolve),
+          }
+        ]
+      },
     ]
   },
   {
