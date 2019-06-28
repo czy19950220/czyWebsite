@@ -1,5 +1,5 @@
 <template>
-  <div class="login-con" style="background-image: url('../../assets/imgs/JS.jpeg') }">
+  <div class="login-con">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
@@ -129,7 +129,7 @@
   .login-con {
     height: 100%;
     width: 100%;
-    /*background-image: url("http://czy-15736873451.club:19680/public/images/JS.png");*/
+    background-image: url("./../../assets/imgs/JS.jpeg");
     background-size: cover;
     background-position: 50% 50%;
   }
