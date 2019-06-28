@@ -29,8 +29,6 @@ Vue.component('v-chart', ECharts)
 /*endregion*/
 
 // Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg'
-Vue.use(VueFroala)
 
 Vue.use(ElementUI);
 

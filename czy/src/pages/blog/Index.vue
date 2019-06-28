@@ -52,8 +52,10 @@
   require('font-awesome/css/font-awesome.css')
   require('froala-editor/css/froala_style.min.css')
   require ('froala-editor/js/languages/zh_cn')
+  import Vue from 'vue'
+  import VueFroala from 'vue-froala-wysiwyg'
+  Vue.use(VueFroala)
   export default {
-    components: {},
     name: "Index",
     data() {
       let self = this;
