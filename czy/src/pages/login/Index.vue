@@ -129,7 +129,7 @@
   .login-con {
     height: 100%;
     width: 100%;
-    background-image: url("./../../assets/imgs/JS.jpeg");
+    /*background-image: url("./../../assets/imgs/JS.jpeg");*/
     background-size: cover;
     background-position: 50% 50%;
   }
