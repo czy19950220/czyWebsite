@@ -1,5 +1,5 @@
 <template>
-  <div class="login-con" :style="{backgroundImage:  'url('+ this.$sIP2+'/public/images/JS.jpeg'+')' }">
+  <div class="login-con" style="background-image: url('../../assets/imgs/JS.jpeg') }">
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <el-form-item label="用户名" prop="username">
         <el-input v-model="ruleForm.username" autocomplete="off"></el-input>

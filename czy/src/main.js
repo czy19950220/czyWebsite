@@ -8,7 +8,6 @@ import store from './store/index';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/display.css';
 import 'element-ui/lib/theme-chalk/index.css';
-import $ from "jquery";//引入jquery
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 require('es6-promise').polyfill();
