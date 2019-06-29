@@ -9,6 +9,9 @@ export const constantRouterMap = [
   {
     path: '/',
     redirect: '/login'
+  },{
+    path: '/czy/echarts',
+    redirect: '/czy/echarts/barchart'
   },
   {
     path: '/login',
@@ -35,7 +38,7 @@ export const constantRouterMap = [
         path: 'novel',
         name: 'novel',
         meta: {
-          keepAlive: false // 需要被缓存
+          keepAlive: true // 需要被缓存
         },
         component : resolve => require(['@/pages/novel/Index.vue'],resolve)
       },
@@ -58,27 +61,22 @@ export const constantRouterMap = [
       {
         path: 'blogtable',
         name: 'blog-table',
-        meta: {
-          keepAlive: true // 需要被缓存
-        },
+        meta: {keepAlive: true}, // 需要被缓存
         component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
       },
       {
-        path: 'echarts',
-        name: 'echarts',
-        redirect: '/czy/echarts/polardiagram',
-        meta: {
-          keepAlive: true // 需要被缓存
-        },
-        component : resolve => require(['@/pages/echarts/Index.vue'],resolve),
-        children:[
-          {
-            path: 'polardiagram',
-            name: 'polar-diagram',
-            component : resolve => require(['@/pages/echarts/polarDiagram.vue'],resolve),
-          }
-        ]
+        path: 'echarts/barchart',
+        name: 'bar-chart',
+        meta: {keepAlive: false}, // 需要被缓存
+        component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
       },
+      {
+        path: 'echarts/polardiagram',
+        name: 'polar-diagram',
+        meta: {keepAlive: false}, // 需要被缓存
+        component: resolve => require(['@/pages/echarts/polarDiagram.vue'], resolve),
+      }
+
     ]
   },
   {
@@ -90,6 +88,6 @@ export const constantRouterMap = [
 
 //实例化vue的时候只挂载constantRouter
 export default new Router({
-  //mode:'history',
+  mode:'history',
   routes: constantRouterMap
 });

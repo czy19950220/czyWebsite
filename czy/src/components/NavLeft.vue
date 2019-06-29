@@ -6,7 +6,7 @@
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose">
-      <el-menu-item index="主页">
+      <el-menu-item index="主页" @click="$router.push('/czy/dashboard')">
         <i class="el-icon-monitor"></i>
         <span slot="title">主页</span>
       </el-menu-item>
@@ -59,7 +59,7 @@
           {
             closable: true,
             tagName: 'echarts',
-            tagRouter: '/czy/echarts',
+            tagRouter: '/czy/echarts/barchart',
             breadcrumb: 'echarts'
           }
         ]
@@ -78,11 +78,17 @@
     },
     watch: {
       $route(to, from) {//监听路由变化，设置当前默认路由
+        this.fisrtLoadTag()
         for (let i = 0; i < this.routePath.length; i++) {
           if (to.path.includes(this.routePath[i].tagRouter)) {
             this.defaultActive = this.routePath[i].tagName;
             //console.log(this.defaultActive);
             break;
+          }else if(to.path.includes('echarts')&&this.routePath[i].tagRouter.includes('echarts')){
+            //this.routePath[i].tagRouter = '/czy/echarts/polardiagram';
+            console.log('this.routePath[i].tagName')
+            console.log(this.routePath[i].tagName)
+            this.defaultActive = this.routePath[i].tagName;
           } else {
             this.defaultActive = '主页'
           }
@@ -95,11 +101,19 @@
         //通过对比路由添加标签
         let path = this.$route.path.toLowerCase();
         let arr = this.routePath, that = this;
+        //onsole.log(this.routePath)
         for (let i = 0; i < arr.length; i++) {
-          if (arr[i].tagRouter == path) {
+          if (path.includes('echarts') && arr[i].tagRouter.includes('echarts')) {
+            //console.log(arr[i].tagRouter,path)
             this.defaultActive = this.routePath[i].tagName;
             that.addTag(arr[i])
-            return;
+            break;
+          }
+          if (path.includes(arr[i].tagRouter)) {
+            //console.log(arr[i].tagRouter,path)
+            this.defaultActive = this.routePath[i].tagName;
+            that.addTag(arr[i])
+            break;
           }
         }
       },

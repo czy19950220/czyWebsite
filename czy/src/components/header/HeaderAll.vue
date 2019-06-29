@@ -86,7 +86,7 @@
           direction: 'horizontal',
           slidesPerView: 'auto',
           freeMode: true,
-          noSwiping : false,
+          noSwiping: false,
           scrollbar: {
             el: '.swiper-scrollbar'
           },
@@ -108,6 +108,11 @@
         return this.$refs.swiperHeader.swiper
       }
     },
+    watch: {
+      $route(to, from) {
+        this.breadcrumb(this.$route.path.toLowerCase())
+      }
+    },
     methods: {
       //点击
       /**
@@ -118,9 +123,9 @@
         //mySwiper.slideNext();
         //this.swiper.slideNext();
         //console.log(tag.tagRouter)
-        if (tag.tagRouter == '/czy/blogdetail'){
-          this.$router.push(tag.tagRouter+'?blogID='+this.blogID);
-        }else {
+        if (tag.tagRouter == '/czy/blogdetail') {
+          this.$router.push(tag.tagRouter + '?blogID=' + this.blogID);
+        } else {
           this.$router.push(tag.tagRouter);
         }
 
@@ -142,7 +147,8 @@
           }
         }
         //配置到vuex中，同时如果是当前页的路由就跳转到最后一个标签的路由
-        if (tagRouter != this.$route.path.toLowerCase()) {
+        if (!this.$route.path.toLowerCase().includes(tagRouter)) {
+          //console.log(tagRouter,this.$route.path.toLowerCase())
           this.$store.dispatch('setTagMenu', arr);
           return;
         } else {
@@ -195,11 +201,17 @@
        * @param path 参数必须是当前路由的toLowerCase()==>this.$route.path.toLowerCase();
        * */
       breadcrumb(path) {
+        //console.log(path)
         let menuArr = this.tagMenu;
         for (let i = 0; i < menuArr.length; i++) {
-          if (menuArr[i].tagRouter == path) {
+          if (path.includes(menuArr[i].tagRouter)) {
+            //console.log(menuArr[i].breadcrumb)
             this.breadcrumbName = menuArr[i].breadcrumb
-            break;
+          }
+          if (path.includes('echarts') && menuArr[i].tagRouter.includes('echarts')) {
+            //console.log('menuArr[i].breadcrumb')
+            //console.log(menuArr[i].breadcrumb)
+            this.breadcrumbName = menuArr[i].breadcrumb
           }
         }
       }
@@ -209,11 +221,11 @@
        * 在加载完成后判断当前面包屑
        * 在完成路由切换的时候判断当前面包屑导航
        * */
-      router.afterEach(() => {
-        this.breadcrumb(this.$route.path.toLowerCase())
-      })
+      /*router.afterEach(() => {
+
+      })*/
     },
-    mounted(){
+    mounted() {
       this.breadcrumb(this.$route.path.toLowerCase())
     }
   }
@@ -297,6 +309,7 @@
     cursor: pointer;
     margin-right: 5px;
   }
+
   .text {
     height: 100%;
     overflow-y: hidden;
