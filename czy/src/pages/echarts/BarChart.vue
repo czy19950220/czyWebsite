@@ -7,7 +7,7 @@
 
 <script>
   import getBar from './bar'
-  import IndexHeader from './IndexHeader'
+  import IndexHeader from './Index'
   export default {
     components:{
       IndexHeader

@@ -59,7 +59,13 @@
           {
             closable: true,
             tagName: 'echarts',
-            tagRouter: '/czy/echarts/barchart',
+            tagRouter: '/czy/echarts-barchart',
+            breadcrumb: 'echarts'
+          },
+          {
+            closable: true,
+            tagName: 'echarts2',
+            tagRouter: '/czy/echarts-polardiagram',
             breadcrumb: 'echarts'
           }
         ]
@@ -79,7 +85,7 @@
     watch: {
       $route(to, from) {//监听路由变化，设置当前默认路由
         this.fisrtLoadTag()
-        for (let i = 0; i < this.routePath.length; i++) {
+        /*for (let i = 0; i < this.routePath.length; i++) {
           if (to.path.includes(this.routePath[i].tagRouter)) {
             this.defaultActive = this.routePath[i].tagName;
             //console.log(this.defaultActive);
@@ -92,7 +98,7 @@
           } else {
             this.defaultActive = '主页'
           }
-        }
+        }*/
       }
     },
     methods: {

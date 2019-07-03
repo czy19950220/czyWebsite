@@ -9,9 +9,6 @@ export const constantRouterMap = [
   {
     path: '/',
     redirect: '/login'
-  },{
-    path: '/czy/echarts',
-    redirect: '/czy/echarts/barchart'
   },
   {
     path: '/login',
@@ -65,13 +62,13 @@ export const constantRouterMap = [
         component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
       },
       {
-        path: 'echarts/barchart',
+        path: 'echarts-barchart',
         name: 'bar-chart',
         meta: {keepAlive: false}, // 需要被缓存
         component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
       },
       {
-        path: 'echarts/polardiagram',
+        path: 'echarts-polardiagram',
         name: 'polar-diagram',
         meta: {keepAlive: false}, // 需要被缓存
         component: resolve => require(['@/pages/echarts/polarDiagram.vue'], resolve),
@@ -80,10 +77,16 @@ export const constantRouterMap = [
     ]
   },
   {
+    path: 'echarts',
+    name: 'echarts',
+    meta: {keepAlive: true}, // 需要被缓存
+    component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
+  },
+  {
     path: '*',
     name: 'not-found',
     component: resolve => require(['@/pages/404/NotFound.vue'], resolve)
-  }
+  },
 ]
 
 //实例化vue的时候只挂载constantRouter
