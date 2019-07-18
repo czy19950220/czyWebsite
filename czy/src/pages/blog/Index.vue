@@ -51,9 +51,10 @@
   require('froala-editor/css/froala_editor.pkgd.min.css')
   require('font-awesome/css/font-awesome.css')
   require('froala-editor/css/froala_style.min.css')
-  require ('froala-editor/js/languages/zh_cn')
+  require('froala-editor/js/languages/zh_cn')
   import Vue from 'vue'
   import VueFroala from 'vue-froala-wysiwyg'
+
   Vue.use(VueFroala)
   export default {
     name: "Index",
@@ -80,6 +81,7 @@
         config: {
           fullPage: true,
           theme: 'royal',
+          charCounterMax: 200000,
           imageUpload: true,
           imageUploadMethod: "POST",
           imageUploadParams: {
