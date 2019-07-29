@@ -23,10 +23,20 @@
         return {x: x, y: y};
       },
       fanShu() {
+        /*步骤
+        * 1：获取开始触摸点的位置，判断所在区域
+        * 2：绘制B,C,A区域
+        * */
+
         let self = this;
 
         class begin {
           constructor() {
+            this.STYLE_LEFT = "STYLE_LEFT";//点击左边区域
+            this.STYLE_RIGHT = "STYLE_RIGHT";//点击右边区域
+            this.STYLE_MIDDLE = "STYLE_MIDDLE";//点击中间区域
+            this.STYLE_TOP_RIGHT = "STYLE_TOP_RIGHT";//f点在右上角
+            this.STYLE_LOWER_RIGHT = "STYLE_LOWER_RIGHT";//f点在右下角
             /*a是触摸点，
             f是触摸点相对的边缘角
             ，eh我们设置为af的垂直平分线，
@@ -58,16 +68,20 @@
             this.d = new MyPoint();
             this.i = new MyPoint();
             this.reSize();//窗口大小改变
-            this.startTopRight = false;//是否从右上角开始的翻书
+            this.style = "STYLE_LEFT";
+            this.startCancelAnimTimer = null;
             if (!this.canvas.getContext) {
               alert("不支持")
             }
             //endregion
             this.init();//canvas大小
+            this.ctx.fillStyle = "#d6da81";
             this.calcPointsXY(this.a, this.f);//各个点的坐标
             this.startTouch();//判断触摸点
             this.touchMove();//滑动式绘图
+            this.touchEnd();//结束
           }
+
           //开始触摸
           startTouch() {
             this.canvas.ontouchstart = (e) => {
@@ -77,51 +91,52 @@
               y = e.clientY || e.x || e.changedTouches[0].clientY;
               let windowWidth = document.documentElement.clientWidth;
               let windowHeight = document.documentElement.clientHeight;
-              this.f = y > this.viewHeight / 2 ? {x: this.viewWidth, y: this.viewHeight} : {x: this.viewWidth, y: 0};
-              this.startTopRight = y > this.viewHeight / 2 ? false : true;
-              console.log(this.startTopRight);
+              this.judgeArea(x, y);
             }
           }
+
           //触摸滑动中
           touchMove() {
             this.canvas.ontouchmove = (e) => {
               this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-              this.ctx.fillStyle = "#fff";
               let x, y = 0;
               e = e || window.event;
-              x = (e.clientX || e.y || e.changedTouches[0].clientX) > this.viewWidth - 100 ? this.viewWidth / 2 - 100 : (e.clientX || e.y || e.changedTouches[0].clientX);
-              if (this.startTopRight) {
-                y = (e.clientY || e.x || e.changedTouches[0].clientY) > this.viewHeight / 2 ? this.viewHeight / 2 : (e.clientY || e.x || e.changedTouches[0].clientY);
-              } else {
-                y = (e.clientY || e.x || e.changedTouches[0].clientY) < this.viewHeight / 2 ? this.viewHeight / 2 : (e.clientY || e.x || e.changedTouches[0].clientY);
-              }
+              x = (e.clientX || e.y || e.changedTouches[0].clientX);
+              y = (e.clientY || e.x || e.changedTouches[0].clientY);
+              let touchPoint = {x: x, y: y};//设置触摸点
+              this.setTouchPoint(x, y, this.style);
+              this.onDraw();//描点
+            }
+          }
 
-              let windowWidth = document.documentElement.clientWidth;
-              let windowHeight = document.documentElement.clientHeight;
-              this.a = {x: x, y: y};
-              this.calcPointsXY(this.a, this.f);
-              /*if(this.calcPointCX(this.a,this.f)>0){
-                this.a.x = x;
-                this.a.y = y;
-                this.calcPointsXY(this.a,this.f);
-              }else {
-                this.calcPointsXY(this.a,this.f);
-              }*/
-              //cbd 起点为c，控制点为e，终点为b；kij是起点为k，控制点为h，终点为j
-              //绘制二次贝塞尔曲线
-              /*this.drawQuXian(this.c.x, this.c.y, this.e.x, this.e.y, this.b.x, this.b.y);
-              this.drawQuXian(this.k.x, this.k.y, this.h.x, this.h.y, this.j.x, this.j.y);
-              this.drawZhiXian(this.a.x, this.a.y, this.b.x, this.b.y);
-              this.drawZhiXian(this.a.x, this.a.y, this.k.x, this.k.y);
-              this.drawZhiXian(this.d.x, this.d.y, this.i.x, this.i.y);*/
+          //滑动结束
+          touchEnd() {
+            this.canvas.ontouchend = (e) => {
+              e = e || window.event;
+              let x = 0, y = 0;
+              e = e || window.event;
+              x = this.viewWidth;
+              y = this.viewHeight;
+              /*if (this.style == this.STYLE_TOP_RIGHT) {
+                this.a = {x: x, y: 0}
+              } else if (this.style == this.STYLE_LOWER_RIGHT) {
+                this.a = {x: x, y: y};
+              } else {
+                this.a = {x: x, y: y};
+              }
               this.makeAreaContentB();
               this.makeAreaContentC();
-              if (this.startTopRight) {
+              if (this.style == this.STYLE_TOP_RIGHT) {
+                //this.setTouchPoint(x, y, this.style);
                 this.makeAreaContentATopRight();
+              } else if (this.style == this.STYLE_LOWER_RIGHT) {
+                //this.setTouchPoint(x, y, this.style);
+                this.makeAreaContentA();
               } else {
                 this.makeAreaContentA();
-              }
-              this.onDraw();//描点
+                this.setDefaultPath();//重置默认界面
+              }*/
+              this.startCancelAnim();
             }
           }
 
@@ -226,6 +241,16 @@
           }
 
           onDraw() {
+            //绘制三个区域
+            this.makeAreaContentB();
+            this.makeAreaContentC();
+            if (this.style == this.STYLE_TOP_RIGHT) {
+              this.makeAreaContentATopRight();
+            } else if (this.style == this.STYLE_LOWER_RIGHT) {
+              this.makeAreaContentA();
+            } else {
+              this.makeAreaContentA();
+            }
             //绘制各标识点
             this.ctx.font = "20px 宋体";
             this.ctx.fillStyle = "#000000";
@@ -240,6 +265,14 @@
             this.ctx.fillText("k", this.k.x, this.k.y);
             this.ctx.fillText("d", this.d.x, this.d.y);
             this.ctx.fillText("i", this.i.x, this.i.y);
+            //cbd 起点为c，控制点为e，终点为b；kij是起点为k，控制点为h，终点为j
+            //绘制二次贝塞尔曲线
+            /*this.drawQuXian(this.c.x, this.c.y, this.e.x, this.e.y, this.b.x, this.b.y);
+            this.drawQuXian(this.k.x, this.k.y, this.h.x, this.h.y, this.j.x, this.j.y);
+            this.drawZhiXian(this.a.x, this.a.y, this.b.x, this.b.y);
+            this.drawZhiXian(this.a.x, this.a.y, this.k.x, this.k.y);
+            this.drawZhiXian(this.d.x, this.d.y, this.i.x, this.i.y);*/
+
           }
 
           /**
@@ -285,6 +318,74 @@
           }
 
           /**
+           * 设置触摸点
+           * @param x
+           * @param y
+           * @param style
+           */
+          setTouchPoint(x, y, style) {
+            let touchPoint = {x: x, y: y};
+            this.a = {x: x, y: y};
+            this.style = style;
+            this.calcPointsXY(this.a, this.f);
+            switch (style) {
+              case "STYLE_TOP_RIGHT":
+                this.f.x = this.viewWidth;
+                this.f.y = 0;
+                this.calcPointsXY(this.a, this.f);
+                if (this.calcPointCX(touchPoint, this.f) < 0) {//如果c点x坐标小于0则重新测量a点坐标
+                  this.calcPointAByTouchPoint();
+                  this.calcPointsXY(this.a, this.f);
+                }
+                this.postInvalidate();
+                break;
+              case "STYLE_LEFT":
+                break;
+              case "STYLE_MIDDLE":
+                this.a.y = this.viewHeight - 1;
+                this.f.x = this.viewWidth;
+                this.f.y = this.viewHeight;
+                this.calcPointsXY(this.a, this.f);
+                this.postInvalidate();
+                break;
+              case "STYLE_RIGHT":
+                this.a.y = this.viewHeight - 1;
+                this.f.x = this.viewWidth;
+                this.f.y = this.viewHeight;
+                this.calcPointsXY(this.a, this.f);
+                this.postInvalidate();
+                break;
+              case "STYLE_LOWER_RIGHT":
+                this.f.x = this.viewWidth;
+                this.f.y = this.viewHeight;
+                this.calcPointsXY(this.a, this.f);
+                if (this.calcPointCX(touchPoint, this.f) < 0) {//如果c点x坐标小于0则重新测量a点坐标
+                  this.calcPointAByTouchPoint();
+                  this.calcPointsXY(this.a, this.f);
+                }
+                this.postInvalidate();
+                break;
+              default:
+                break;
+            }
+          }
+
+          /**
+           * 如果c点x坐标小于0,根据触摸点重新测量a点坐标
+           */
+          calcPointAByTouchPoint() {
+            let w0 = this.viewWidth - this.c.x;
+
+            let w1 = Math.abs(this.f.x - this.a.x);
+            let w2 = this.viewWidth * w1 / w0;
+            this.a.x = Math.abs(this.f.x - w2);
+
+            let h1 = Math.abs(this.f.y - this.a.y);
+            let h2 = w2 * h1 / w1;
+            this.a.y = Math.abs(this.f.y - h2);
+          }
+
+          /**
            * 计算两线段相交点坐标
            * @param lineOne_My_pointOne
            * @param lineOne_My_pointTwo
@@ -318,6 +419,59 @@
               this.calcPointsXY(this.a, this.f);//各个点的坐标
             }
           }
+
+          postInvalidate() {
+
+          }
+
+          //判断点击区域
+          judgeArea(x, y) {
+            //获取点击的区域位置，左，右上，右中，右下，中
+            if (x <= this.viewWidth / 3) {//左
+              this.style = this.STYLE_LEFT;
+              this.setTouchPoint(x, y, this.style);
+            } else if (x > this.viewWidth / 3 && y <= this.viewHeight / 3) {//上
+              this.style = this.STYLE_TOP_RIGHT;
+              this.setTouchPoint(x, y, this.style);
+            } else if (x > this.viewWidth * 2 / 3 && y > this.viewHeight / 3 && y <= this.viewHeight * 2 / 3) {//右
+              this.style = this.STYLE_RIGHT;
+              this.setTouchPoint(x, y, this.style);
+            } else if (x > this.viewWidth / 3 && y > this.viewHeight * 2 / 3) {//下
+              this.style = this.STYLE_LOWER_RIGHT;
+              this.setTouchPoint(x, y, this.style);
+            } else if (x > this.viewWidth / 3 && x < this.viewWidth * 2 / 3 && y > this.viewHeight / 3 && y < this.viewHeight * 2 / 3) {//中
+              this.style = this.STYLE_MIDDLE;
+            }
+            console.log("开始触摸的区域：" + this.style);
+          }
+
+          setDefaultPath() {
+
+          }
+
+          startCancelAnim() {
+            let dx = this.a.x, dy = this.a.y;
+            let time = 200;
+            this.startCancelAnimTimer = setInterval(() => {
+              time -= 10;
+              this.a.x = parseInt(this.a.x + (this.viewWidth - dx) / 20);
+              //console.log(this.a.x, this.a.y);
+              //让a滑动到f点所在位置，留出1像素是为了防止当a和f重叠时出现View闪烁的情况
+              if (this.style == "STYLE_TOP_RIGHT") {
+                this.a.y = Math.abs(this.a.y - dy / 20);
+              } else {
+                this.a.y = Math.abs(this.a.y + (this.viewHeight - dy) / 20);
+              }
+              if (time < 0) {
+                clearInterval(this.startCancelAnimTimer);
+                this.a = this.style == "STYLE_TOP_RIGHT" ?
+                  {x: this.viewWidth, y: 0} : {x: this.viewWidth, y: this.viewHeight};
+              }
+              this.setTouchPoint(this.a.x, this.a.y, this.style);
+              this.onDraw()
+            }, 10);
+          }
+
         }
 
         class BookPageView {
