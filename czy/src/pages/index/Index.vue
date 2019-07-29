@@ -1,7 +1,6 @@
 <template>
   <div class="index-con" style="padding-bottom: 70px;">
-    asdasd
-    <li v-for="n in 80">{{n}}</li>
+    <li v-for="n in 80" v-bind:class="[isblue==n ? big : '']" :key="n">{{n}}</li>
   </div>
 </template>
 
@@ -12,9 +11,13 @@
     components: {},
     name: "index",
     data() {
-      return {}
+      return {
+        isblue:5,
+        big:'big'
+      }
     },
-    methods: {},
+    methods: {
+    },
     created() {
       this.$axios.get(`${this.$sIP2}/novel/search`).then((res) => {
         console.log(res.data)
@@ -26,4 +29,7 @@
 </script>
 
 <style>
+  .big{
+    font-size: 100px;
+  }
 </style>

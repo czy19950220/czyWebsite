@@ -11,6 +11,12 @@ export const constantRouterMap = [
     redirect: '/login'
   },
   {
+    path: '/canvas',
+    name: 'canvas',
+    meta: {title: 'canvas'},
+    component: resolve => require(['@/pages/canvas/Index.vue'], resolve)
+  },
+  {
     path: '/login',
     name: 'user',
     meta: {title: '登录界面'},
