@@ -147,6 +147,8 @@
            利用path绘制处区域A*/
           makeAreaContentA() {
             this.ctx.beginPath();
+            this.ctx.fillStyle = "#fff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 240);
             this.ctx.moveTo(0, this.viewHeight);//移动到左下角
             this.ctx.lineTo(this.c.x, this.c.y);//移动到c点
             this.ctx.quadraticCurveTo(this.e.x, this.e.y, this.b.x, this.b.y);//从c到b画贝塞尔曲线，控制点为e
@@ -157,6 +159,11 @@
             this.ctx.lineTo(0, 0);//移动到右上角
             this.ctx.fillStyle = "#d6da81";
             this.ctx.fill();
+            this.ctx.closePath();
+            this.ctx.stroke();
+            this.ctx.save();
+            this.ctx.restore();
+
           }
 
           makeAreaContentATopRight() {
@@ -171,6 +178,10 @@
             this.ctx.lineTo(0, 0);//移动到左上角
             this.ctx.fillStyle = "#d6da81";
             this.ctx.fill();
+            this.ctx.closePath();
+            this.ctx.stroke();
+            this.ctx.save();
+            this.ctx.restore();
           }
 
           /*区域C理论上应该是由点a,b,d,i,k连接而成的闭合区域,
@@ -187,6 +198,10 @@
             this.ctx.lineTo(this.k.x, this.k.y);//移动到k点
             this.ctx.fillStyle = "#da7556";
             this.ctx.fill();
+            this.ctx.closePath();
+            this.ctx.stroke();
+            this.ctx.save();
+            //this.ctx.restore();
           }
 
           makeAreaContentB() {
@@ -198,6 +213,12 @@
             this.ctx.lineTo(0, 0);//移动到左上角
             this.ctx.fillStyle = "#9c7dda";
             this.ctx.fill();
+            this.ctx.fillStyle = "#fff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 140);
+            this.ctx.closePath();
+            this.ctx.stroke();
+            this.ctx.save();
+            //this.ctx.restore();
           }
 
           //起始点,//控制点,// 结束点
@@ -243,7 +264,6 @@
           onDraw() {
             //绘制三个区域
             this.makeAreaContentB();
-            this.makeAreaContentC();
             if (this.style == this.STYLE_TOP_RIGHT) {
               this.makeAreaContentATopRight();
             } else if (this.style == this.STYLE_LOWER_RIGHT) {
@@ -251,6 +271,9 @@
             } else {
               this.makeAreaContentA();
             }
+            this.ctx.fillStyle = "#fff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 440);
+            this.makeAreaContentC();
             //绘制各标识点
             this.ctx.font = "20px 宋体";
             this.ctx.fillStyle = "#000000";
