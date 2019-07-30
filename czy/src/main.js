@@ -33,8 +33,8 @@ Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
-Vue.prototype.$sIP = 'czy-15736873451.club:3003';
-Vue.prototype.$sIP2 = 'http://118.25.73.39:3003';
+Vue.prototype.$sIP = 'https://czy-15736873451.club:3003';
+Vue.prototype.$sIP2 = 'https://118.25.73.39:3003';
 Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的地址，跨域所以转一下读书神器的连接（也可以使用nodejs转，但是自己的电脑关了之后就无法访问了）
 /* eslint-disable no-new */
 

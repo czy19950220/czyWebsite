@@ -172,7 +172,7 @@
       },
       //初始化编辑器
       initBlog() {
-        let blogID = this.$route.query.blogID || this.blogID;
+        let blogID =  this.blogID || this.$route.query.blogID ;
         this.$axios.post(this.$sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
           this.model = res.data.result.getHtml;
           this.ruleForm.blogNameInput = res.data.result.blogName;//博客文章名

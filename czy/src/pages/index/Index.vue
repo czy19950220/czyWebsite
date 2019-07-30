@@ -16,11 +16,11 @@
     },
     methods: {},
     created() {
-      this.$axios.get(`${this.$sIP2}/novel/search`).then((res) => {
+     /* this.$axios.get(`${this.$sIP2}/novel/search`).then((res) => {
         console.log(res.data)
       }).catch(err => {
         console.log(err)
-      })
+      })*/
     }
   }
 </script>
