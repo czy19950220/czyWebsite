@@ -23,9 +23,13 @@
         return {x: x, y: y};
       },
       fanShu() {
-        /*步骤
+        /*步骤：
+        * 0：清除画布
         * 1：获取开始触摸点的位置，判断所在区域
         * 2：绘制B,C,A区域
+        * 3：先画B的背景，然后画底层的文字
+        * 4：然后画C层背景和文字
+        * 5：最后画A层并裁剪
         * */
 
         let self = this;
@@ -98,6 +102,7 @@
           //触摸滑动中
           touchMove() {
             this.canvas.ontouchmove = (e) => {
+              this.ctx.clearRect(0,0,this.viewWidth,this.viewHeight);
               this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
               let x, y = 0;
               e = e || window.event;
@@ -147,8 +152,6 @@
            利用path绘制处区域A*/
           makeAreaContentA() {
             this.ctx.beginPath();
-            this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 240);
             this.ctx.moveTo(0, this.viewHeight);//移动到左下角
             this.ctx.lineTo(this.c.x, this.c.y);//移动到c点
             this.ctx.quadraticCurveTo(this.e.x, this.e.y, this.b.x, this.b.y);//从c到b画贝塞尔曲线，控制点为e
@@ -160,10 +163,7 @@
             this.ctx.fillStyle = "#d6da81";
             this.ctx.fill();
             this.ctx.closePath();
-            this.ctx.stroke();
-            this.ctx.save();
-            this.ctx.restore();
-
+            this.ctx.clip();
           }
 
           makeAreaContentATopRight() {
@@ -179,9 +179,7 @@
             this.ctx.fillStyle = "#d6da81";
             this.ctx.fill();
             this.ctx.closePath();
-            this.ctx.stroke();
-            this.ctx.save();
-            this.ctx.restore();
+            this.ctx.clip();
           }
 
           /*区域C理论上应该是由点a,b,d,i,k连接而成的闭合区域,
@@ -196,15 +194,16 @@
             this.ctx.lineTo(this.b.x, this.b.y);//移动到b点
             this.ctx.lineTo(this.a.x, this.a.y);//移动到a点
             this.ctx.lineTo(this.k.x, this.k.y);//移动到k点
+            this.ctx.shadowBlur=40;
+            this.ctx.shadowColor="#000000";//阴影
             this.ctx.fillStyle = "#da7556";
             this.ctx.fill();
             this.ctx.closePath();
-            this.ctx.stroke();
-            this.ctx.save();
             //this.ctx.restore();
           }
 
           makeAreaContentB() {
+            //整个背景
             //this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
             this.ctx.lineTo(0, this.viewHeight);//移动到左下角
@@ -212,13 +211,8 @@
             this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
             this.ctx.lineTo(0, 0);//移动到左上角
             this.ctx.fillStyle = "#9c7dda";
-            this.ctx.fill();
-            this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 140);
             this.ctx.closePath();
-            this.ctx.stroke();
-            this.ctx.save();
-            //this.ctx.restore();
+            this.ctx.fill();
           }
 
           //起始点,//控制点,// 结束点
@@ -263,7 +257,14 @@
 
           onDraw() {
             //绘制三个区域
+            this.init();//由于clearRect不好使，所以用这个了
+            //this.ctx.clearRect(0,0,this.viewWidth,this.viewHeight);
+            this.ctx.shadowBlur=0;
             this.makeAreaContentB();
+            this.ctx.fillStyle = "#000";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 240);
+            this.makeAreaContentC();
+            this.ctx.shadowBlur=0;
             if (this.style == this.STYLE_TOP_RIGHT) {
               this.makeAreaContentATopRight();
             } else if (this.style == this.STYLE_LOWER_RIGHT) {
@@ -271,10 +272,11 @@
             } else {
               this.makeAreaContentA();
             }
+            //当前页内容
             this.ctx.fillStyle = "#fff";
             this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 440);
-            this.makeAreaContentC();
-            //绘制各标识点
+
+            //region:绘制各标识点
             this.ctx.font = "20px 宋体";
             this.ctx.fillStyle = "#000000";
             this.ctx.fillText("a", this.a.x, this.a.y);
@@ -288,6 +290,7 @@
             this.ctx.fillText("k", this.k.x, this.k.y);
             this.ctx.fillText("d", this.d.x, this.d.y);
             this.ctx.fillText("i", this.i.x, this.i.y);
+            //endregion
             //cbd 起点为c，控制点为e，终点为b；kij是起点为k，控制点为h，终点为j
             //绘制二次贝塞尔曲线
             /*this.drawQuXian(this.c.x, this.c.y, this.e.x, this.e.y, this.b.x, this.b.y);
@@ -295,7 +298,6 @@
             this.drawZhiXian(this.a.x, this.a.y, this.b.x, this.b.y);
             this.drawZhiXian(this.a.x, this.a.y, this.k.x, this.k.y);
             this.drawZhiXian(this.d.x, this.d.y, this.i.x, this.i.y);*/
-
           }
 
           /**
