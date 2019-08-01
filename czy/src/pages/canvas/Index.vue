@@ -187,6 +187,7 @@
           也就不能只用path的情况下直接绘制出区域C，我们需要用PorterDuffXfermode方面的知识“曲线救国”。
           我们试着先将点a,b,d,i,k连接起来，观察闭合区域与区域A之间的联系。*/
           makeAreaContentC() {
+            this.ctx.save();
             //this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
             this.ctx.moveTo(this.i.x, this.i.y);//移动到i点
@@ -199,7 +200,29 @@
             this.ctx.fillStyle = "#da7556";
             this.ctx.fill();
             this.ctx.closePath();
-            //this.ctx.restore();
+            this.ctx.clip();
+            this.ctx.beginPath();
+            this.ctx.lineTo(0, this.viewHeight);//移动到左下角
+            this.ctx.lineTo(this.viewWidth, this.viewHeight);//移动到右下角
+            this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
+            this.ctx.lineTo(0, 0);//移动到左上角
+            this.ctx.fillStyle = "#d1aada";
+            this.ctx.closePath();
+            this.ctx.fill();
+            let eh = Math.hypot(this.f.x - this.e.x,this.h.y - this.f.y);
+            let sin0 = (this.f.x - this.e.x) / eh;
+            let cos0 = (this.h.y - this.f.y) / eh;
+            //回坐标
+            //this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+            //翻转镜像，
+            //this.ctx.scale(-1,1);
+            this.ctx.translate(this.viewWidth -(this.viewWidth-this.d.x),0);
+            this.ctx.rotate(-2 * sin0 * cos0);
+            //this.ctx.rotate(- sin0 * cos0);
+            this.ctx.fillStyle = "#0012ff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 50, 80);
+            this.ctx.restore();
+
           }
 
           makeAreaContentB() {
@@ -210,9 +233,13 @@
             this.ctx.lineTo(this.viewWidth, this.viewHeight);//移动到右下角
             this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
             this.ctx.lineTo(0, 0);//移动到左上角
-            this.ctx.fillStyle = "#9c7dda";
+            this.ctx.fillStyle = "#483034";
             this.ctx.closePath();
             this.ctx.fill();
+          }
+
+          drawPathCContent(){
+
           }
 
           //起始点,//控制点,// 结束点
@@ -261,8 +288,9 @@
             //this.ctx.clearRect(0,0,this.viewWidth,this.viewHeight);
             this.ctx.shadowBlur=0;
             this.makeAreaContentB();
+            //下一页内容
             this.ctx.fillStyle = "#000";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 240);
+            this.ctx.fillText("这是在B区域BBBBBBBBBB", this.viewWidth - 160, this.viewHeight - 240);
             this.makeAreaContentC();
             this.ctx.shadowBlur=0;
             if (this.style == this.STYLE_TOP_RIGHT) {
@@ -274,7 +302,7 @@
             }
             //当前页内容
             this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAA", this.viewWidth - 160, this.viewHeight - 440);
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
 
             //region:绘制各标识点
             this.ctx.font = "20px 宋体";
