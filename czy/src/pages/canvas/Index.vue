@@ -33,7 +33,8 @@
         * */
 
         let self = this;
-
+        let bgImg = new Image();
+        bgImg.src="https://czy-1257069199.cos.ap-beijing.myqcloud.com/my-app/novel/bg5.jpg";
         class begin {
           constructor() {
             this.STYLE_LEFT = "STYLE_LEFT";//点击左边区域
@@ -151,6 +152,8 @@
            修改BookPageView，
            利用path绘制处区域A*/
           makeAreaContentA() {
+
+            this.ctx.save();
             this.ctx.beginPath();
             this.ctx.moveTo(0, this.viewHeight);//移动到左下角
             this.ctx.lineTo(this.c.x, this.c.y);//移动到c点
@@ -160,10 +163,14 @@
             this.ctx.quadraticCurveTo(this.h.x, this.h.y, this.j.x, this.j.y);//从k到j画贝塞尔曲线，控制点为h
             this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
             this.ctx.lineTo(0, 0);//移动到右上角
-            this.ctx.fillStyle = "#d6da81";
-            this.ctx.fill();
             this.ctx.closePath();
             this.ctx.clip();
+            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
+            //当前页A内容
+            this.ctx.fillStyle = "#fff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
+            this.ctx.restore();
+
           }
 
           makeAreaContentATopRight() {
@@ -176,10 +183,13 @@
             this.ctx.lineTo(this.viewWidth, this.viewHeight);//移动到右下角
             this.ctx.lineTo(0, this.viewHeight);//移动到左下角
             this.ctx.lineTo(0, 0);//移动到左上角
-            this.ctx.fillStyle = "#d6da81";
-            this.ctx.fill();
             this.ctx.closePath();
             this.ctx.clip();
+            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
+            //当前页A内容
+            this.ctx.fillStyle = "#fff";
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
+            this.ctx.restore();
           }
 
           /*区域C理论上应该是由点a,b,d,i,k连接而成的闭合区域,
@@ -190,8 +200,10 @@
             this.ctx.save();
             //this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
+            this.ctx.moveTo(this.j.x, this.j.y);//移动到i点
             this.ctx.moveTo(this.i.x, this.i.y);//移动到i点
             this.ctx.lineTo(this.d.x, this.d.y);//移动到d点
+            this.ctx.lineTo(this.c.x, this.c.y);//移动到d点
             this.ctx.lineTo(this.b.x, this.b.y);//移动到b点
             this.ctx.lineTo(this.a.x, this.a.y);//移动到a点
             this.ctx.lineTo(this.k.x, this.k.y);//移动到k点
@@ -233,9 +245,10 @@
             this.ctx.lineTo(this.viewWidth, this.viewHeight);//移动到右下角
             this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
             this.ctx.lineTo(0, 0);//移动到左上角
-            this.ctx.fillStyle = "#483034";
+            //this.ctx.fillStyle = "#483034";
+            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
             this.ctx.closePath();
-            this.ctx.fill();
+            //this.ctx.fill();
           }
 
           drawPathCContent(){
@@ -300,10 +313,6 @@
             } else {
               this.makeAreaContentA();
             }
-            //当前页内容
-            this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
-
             //region:绘制各标识点
             this.ctx.font = "20px 宋体";
             this.ctx.fillStyle = "#000000";
