@@ -34,7 +34,8 @@
 
         let self = this;
         let bgImg = new Image();
-        bgImg.src="https://czy-1257069199.cos.ap-beijing.myqcloud.com/my-app/novel/bg5.jpg";
+        bgImg.src = "https://czy-1257069199.cos.ap-beijing.myqcloud.com/my-app/novel/bg5.jpg";
+
         class begin {
           constructor() {
             this.STYLE_LEFT = "STYLE_LEFT";//点击左边区域
@@ -103,7 +104,7 @@
           //触摸滑动中
           touchMove() {
             this.canvas.ontouchmove = (e) => {
-              this.ctx.clearRect(0,0,this.viewWidth,this.viewHeight);
+              this.ctx.clearRect(0, 0, this.viewWidth, this.viewHeight);
               this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
               let x, y = 0;
               e = e || window.event;
@@ -152,7 +153,6 @@
            修改BookPageView，
            利用path绘制处区域A*/
           makeAreaContentA() {
-
             this.ctx.save();
             this.ctx.beginPath();
             this.ctx.moveTo(0, this.viewHeight);//移动到左下角
@@ -165,10 +165,10 @@
             this.ctx.lineTo(0, 0);//移动到右上角
             this.ctx.closePath();
             this.ctx.clip();
-            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
+            this.ctx.drawImage(bgImg, 0, 0, this.viewWidth, this.viewHeight);
             //当前页A内容
             this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 50, 80);
             this.ctx.restore();
 
           }
@@ -185,10 +185,10 @@
             this.ctx.lineTo(0, 0);//移动到左上角
             this.ctx.closePath();
             this.ctx.clip();
-            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
+            this.ctx.drawImage(bgImg, 0, 0, this.viewWidth, this.viewHeight);
             //当前页A内容
             this.ctx.fillStyle = "#fff";
-            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",50, 80);
+            this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 50, 80);
             this.ctx.restore();
           }
 
@@ -197,6 +197,8 @@
           也就不能只用path的情况下直接绘制出区域C，我们需要用PorterDuffXfermode方面的知识“曲线救国”。
           我们试着先将点a,b,d,i,k连接起来，观察闭合区域与区域A之间的联系。*/
           makeAreaContentC() {
+            this.ctx.shadowBlur = 40;
+            this.ctx.shadowColor = "#000000";//阴影
             this.ctx.save();
             //this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.beginPath();
@@ -207,12 +209,17 @@
             this.ctx.lineTo(this.b.x, this.b.y);//移动到b点
             this.ctx.lineTo(this.a.x, this.a.y);//移动到a点
             this.ctx.lineTo(this.k.x, this.k.y);//移动到k点
-            this.ctx.shadowBlur=40;
-            this.ctx.shadowColor="#000000";//阴影
-            this.ctx.fillStyle = "#da7556";
-            this.ctx.fill();
             this.ctx.closePath();
+            this.ctx.fill();
             this.ctx.clip();
+            let eh = Math.hypot(this.f.x - this.e.x, this.h.y - this.f.y);
+            let sin0 = (this.f.x - this.e.x) / eh;
+            let cos0 = (this.h.y - this.f.y) / eh;
+            this.ctx.shadowBlur = 0;
+            this.ctx.scale(-1, 1);
+            this.ctx.rotate(this.getMatrix(-(1-2 * sin0 * sin0),2 * sin0 * cos0,2 * sin0 * cos0,1 - 2 * sin0 * sin0,0,0)*Math.PI/180);
+            this.ctx.translate(-this.e.x, -this.e.y);//沿当前XY轴负方向位移得到 矩形A₃B₃C₃D₃
+            this.ctx.translate(this.e.x, this.e.y);//沿原XY轴方向位移得到 矩形A4 B4 C4 D4
             this.ctx.beginPath();
             this.ctx.lineTo(0, this.viewHeight);//移动到左下角
             this.ctx.lineTo(this.viewWidth, this.viewHeight);//移动到右下角
@@ -221,16 +228,7 @@
             this.ctx.fillStyle = "#d1aada";
             this.ctx.closePath();
             this.ctx.fill();
-            let eh = Math.hypot(this.f.x - this.e.x,this.h.y - this.f.y);
-            let sin0 = (this.f.x - this.e.x) / eh;
-            let cos0 = (this.h.y - this.f.y) / eh;
-            //回坐标
-            //this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-            //翻转镜像，
-            //this.ctx.scale(-1,1);
-            this.ctx.translate(this.viewWidth -(this.viewWidth-this.d.x),0);
-            this.ctx.rotate(-2 * sin0 * cos0);
-            //this.ctx.rotate(- sin0 * cos0);
+            this.ctx.drawImage(bgImg, 0, 0, this.viewWidth, this.viewHeight);
             this.ctx.fillStyle = "#0012ff";
             this.ctx.fillText("这是在A区域AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 50, 80);
             this.ctx.restore();
@@ -246,13 +244,40 @@
             this.ctx.lineTo(this.viewWidth, 0);//移动到右上角
             this.ctx.lineTo(0, 0);//移动到左上角
             //this.ctx.fillStyle = "#483034";
-            this.ctx.drawImage(bgImg,0,0,this.viewWidth,this.viewHeight);
+            this.ctx.drawImage(bgImg, 0, 0, this.viewWidth, this.viewHeight);
             this.ctx.closePath();
             //this.ctx.fill();
           }
 
-          drawPathCContent(){
+          drawPathCContent() {
 
+          }
+
+          /*
+          * 解析matrix矩阵，0°-360°，返回旋转角度
+          * 当a=b||-a=b,0<=deg<=180
+          * 当-a+b=180,180<=deg<=270
+          * 当a+b=180,270<=deg<=360
+          *
+          * 当0<=deg<=180,deg=d;
+          * 当180<deg<=270,deg=180+c;
+          * 当270<deg<=360,deg=360-(c||d);
+          * */
+          getMatrix(a, b, c, d, e, f) {
+            let aa = Math.round(180 * Math.asin(a) / Math.PI);
+            let bb = Math.round(180 * Math.acos(b) / Math.PI);
+            let cc = Math.round(180 * Math.asin(c) / Math.PI);
+            let dd = Math.round(180 * Math.acos(d) / Math.PI);
+            let deg = 0;
+            if (aa == bb || -aa == bb) {
+              deg = dd;
+            } else if (-aa + bb == 180) {
+              deg = 180 + cc;
+            } else if (aa + bb == 180) {
+              deg = 360 - cc || 360 - dd;
+            }
+            return deg;
+            //return (aa+','+bb+','+cc+','+dd);
           }
 
           //起始点,//控制点,// 结束点
@@ -299,13 +324,13 @@
             //绘制三个区域
             this.init();//由于clearRect不好使，所以用这个了
             //this.ctx.clearRect(0,0,this.viewWidth,this.viewHeight);
-            this.ctx.shadowBlur=0;
+            this.ctx.shadowBlur = 0;
             this.makeAreaContentB();
             //下一页内容
             this.ctx.fillStyle = "#000";
             this.ctx.fillText("这是在B区域BBBBBBBBBB", this.viewWidth - 160, this.viewHeight - 240);
             this.makeAreaContentC();
-            this.ctx.shadowBlur=0;
+            this.ctx.shadowBlur = 0;
             if (this.style == this.STYLE_TOP_RIGHT) {
               this.makeAreaContentATopRight();
             } else if (this.style == this.STYLE_LOWER_RIGHT) {
