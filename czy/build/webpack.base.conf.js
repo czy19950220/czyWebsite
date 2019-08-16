@@ -5,10 +5,9 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require('webpack')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-
 
 
 module.exports = {
@@ -28,14 +27,15 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'styles': resolve('src/styles')
     }
   },
   module: {
     rules: [
-      {
+      /*{
         test: /\.scss$/,
         loaders: ['style', 'css', 'sass']
-      },
+      },*/
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -44,13 +44,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client'),resolve('node_modules/vue-echarts'),resolve('node_modules/resize-detector')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client'), resolve('node_modules/vue-echarts'), resolve('node_modules/resize-detector')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 1024*1024*1024,
+          limit: 1024 * 1024 * 1024,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
@@ -69,6 +69,10 @@ module.exports = {
           limit: 100000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader",
       }
     ]
   },
@@ -86,9 +90,9 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $:"jquery",
-      jQuery:"jquery",
-      "windows.jQuery":"jquery"
+      $: "jquery",
+      jQuery: "jquery",
+      "windows.jQuery": "jquery"
     })
   ]
 }

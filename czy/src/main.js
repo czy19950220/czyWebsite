@@ -30,6 +30,8 @@ Vue.component('v-chart', ECharts)
 // Import and use Vue Froala lib.
 
 Vue.use(ElementUI);
+import '@/styles/index.scss' // global css
+//import 'styles/index.scss' // global css
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
