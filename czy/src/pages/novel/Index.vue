@@ -83,4 +83,8 @@
   .text span:hover, b:hover {
     color: #2b67ff;
   }
+
+  *{
+    background-color: unset !important;
+  }
 </style>

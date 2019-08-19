@@ -320,4 +320,8 @@
     height: 100%;
     white-space: nowrap;
   }
+
+  .el-tag--plain.el-tag--info{
+    background-color: unset;
+  }
 </style>

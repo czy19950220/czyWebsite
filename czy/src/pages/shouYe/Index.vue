@@ -25,24 +25,39 @@
           </el-col>
           <el-col :xs="24" :sm="17" style="height: 100%;overflow: hidden;">
             <el-scrollbar class="page-component__scroll">
+              <!--导航-->
               <el-row>
                 <el-col :xs="24" :sm="0">
                   <nav-left></nav-left>
                 </el-col>
               </el-row>
-              <keep-alive>
-                <router-view
-                  style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
-                  v-if="$route.meta.keepAlive">
-                  <!-- 这里是会被缓存的视图组件，比如 Home！ -->
-                </router-view>
-              </keep-alive>
+              <!--内容-->
+              <el-row>
+                <transition
+                  enter-active-class="animated slideInLeft"
+                  leave-active-class="animated slideOutRight"
+                >
+                  <el-col :xs="24" v-if="changeRoute"
+                          style="animation-duration: 0.5s">
+                    <keep-alive>
+                      <router-view
+                        :key="$route.path"
+                        style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                        v-if="$route.meta.keepAlive">
+                        <!-- 这里是会被缓存的视图组件，比如 Home！ -->
+                      </router-view>
+                    </keep-alive>
+                    <router-view
+                      :key="$route.path"
+                      style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                      v-if="!$route.meta.keepAlive">
+                      <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+                    </router-view>
+                  </el-col>
+                </transition>
 
-              <router-view
-                style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
-                v-if="!$route.meta.keepAlive">
-                <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
-              </router-view>
+              </el-row>
+
             </el-scrollbar>
           </el-col>
           <el-col :xs="24" :sm="0" style="">
@@ -80,6 +95,7 @@
   import NavLeft from '../../components/NavLeft'
   import 'swiper/dist/css/swiper.css'
   import {swiper, swiperSlide} from 'vue-awesome-swiper'
+  import 'vue2-animate/dist/vue2-animate.min.css'
 
   export default {
     name: "czy",
@@ -93,6 +109,7 @@
     data() {
       const self = this;
       return {
+        changeRoute:false,//切换路由动画
         loading: this.$loading({
           lock: true,
           text: '',
@@ -130,6 +147,15 @@
             }
           }
         }
+      }
+    },
+    watch:{
+      $route(to,from){
+        this.changeRoute=false;
+        setTimeout(()=>{
+          this.changeRoute=true;
+        },300)
+        console.log(to.path);
       }
     },
     methods: {

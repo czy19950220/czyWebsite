@@ -192,5 +192,6 @@
   }*/
   .el-menu {
     border-right: solid 1px #ecbfbf !important;
+    background-color: unset !important;
   }
 </style>
