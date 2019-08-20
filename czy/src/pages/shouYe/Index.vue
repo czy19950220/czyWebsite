@@ -6,7 +6,7 @@
         <nav-bar></nav-bar>
       </swiper-slide>
       <!--内容区域-->
-      <swiper-slide class="content" id="shouYeContent" >
+      <swiper-slide class="content" id="shouYeContent">
         <!--头部-->
         <el-row type="flex" justify="center">
           <el-col :xs="22" :sm="0" :offset="1">
@@ -109,7 +109,7 @@
     data() {
       const self = this;
       return {
-        changeRoute:false,//切换路由动画
+        changeRoute: false,//切换路由动画
         loading: this.$loading({
           lock: true,
           text: '',
@@ -123,9 +123,9 @@
           resistanceRatio: 0,
           slidesPerView: 'auto',
           slideToClickedSlide: true,
-          preventClicks : false,//默认true
+          preventClicks: false,//默认true
           preventClicksPropagation: true,
-          noSwiping : true,
+          noSwiping: true,
           touchStartPreventDefault: false,//不阻止默认事件，el-scrollbar能用
           on: {
             slideChangeTransitionEnd() {
@@ -149,20 +149,20 @@
         }
       }
     },
-    watch:{
-      $route(to,from){
-        this.changeRoute=false;
-        setTimeout(()=>{
-          this.changeRoute=true;
-        },300)
+    watch: {
+      $route(to, from) {
+        this.changeRoute = false;
+        setTimeout(() => {
+          this.changeRoute = true;
+        }, 300)
         console.log(to.path);
       }
     },
     methods: {
       //切换导航
       /**
-      * 通过判断class来控制左侧的导航是否出现
-      * */
+       * 通过判断class来控制左侧的导航是否出现
+       * */
       menuSlot() {
         //判断当前导航按钮的class来设置相应的样式
         if (this.menuClass == 'el-icon-s-fold menu-header') {
@@ -181,6 +181,12 @@
     },
     mounted() {
       this.loading.close()
+    },
+    created() {
+      setTimeout(()=>{
+        this.changeRoute = true;
+      },300);
+
     }
   }
 </script>
