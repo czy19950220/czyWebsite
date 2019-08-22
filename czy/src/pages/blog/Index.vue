@@ -116,8 +116,8 @@
       user() {
         return this.$store.getters.users;
       },
-      blogID() {
-        return this.$store.getters.blogID;
+      blogNum() {
+        return this.$store.getters.blogNum;
       },
     },
     watch: {},
@@ -133,7 +133,7 @@
           if (valid) {
             let params = {
               html: this.model,
-              blogID: this.$route.query.blogID,
+              id: this.$route.query.id,
               titleName: this.ruleForm.blogNameInput,
               uid: this.user.id,
               blogNameTag: this.ruleForm.blogNameTag
@@ -172,8 +172,10 @@
       },
       //初始化编辑器
       initBlog() {
-        let blogID =  this.blogID || this.$route.query.blogID ;
-        this.$axios.post(this.$sIP2 + "/froala/getHtml?blogID=" + blogID).then((res) => {
+        console.log('this.$route.query.id',this.$route.query.id)
+        let id =  this.$route.query.id || this.blogNum || 1;
+        console.log(id)
+        this.$axios.post(this.$sIP2 + "/froala/getHtml?id=" + id).then((res) => {
           this.model = res.data.result.getHtml;
           this.ruleForm.blogNameInput = res.data.result.blogName;//博客文章名
           this.ruleForm.blogNameTag = res.data.result.text;//标签

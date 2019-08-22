@@ -202,8 +202,8 @@
       toBlog(row, column, cell, event) {
         if (column.property == 'blogName') {
           //console.log(row)
-          this.$store.dispatch('setBlogID', row.blogID);
-          this.$router.push({path: 'blogdetail', query: {blogID: row.blogID}});
+          this.$store.dispatch('setBlogNum', row.blogID);
+          this.$router.push({path: 'blogdetail', query: {id: row.blogID}});
         }
       },
       //设置单元格样式

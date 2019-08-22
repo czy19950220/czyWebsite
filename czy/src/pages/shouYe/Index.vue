@@ -155,7 +155,7 @@
         setTimeout(() => {
           this.changeRoute = true;
         }, 300)
-        console.log(to.path);
+        //console.log(to.path);
       }
     },
     methods: {

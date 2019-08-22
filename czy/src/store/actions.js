@@ -36,7 +36,7 @@ export const setIsCollapse = ({commit}, data) => {
 export const setTagMenu = ({commit}, data) => {
   commit('setTagMenu', data);
 };
-export const setBlogID = ({commit}, data) => {
-  commit('setBlogID', data);
+export const setBlogNum = ({commit}, data) => {
+  commit('setBlogNum', data);
 };
 
