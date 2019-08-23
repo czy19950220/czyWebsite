@@ -6,20 +6,35 @@
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose">
-      <el-menu-item index="主页" @click="$router.push('/czy/dashboard')">
+      <el-menu-item index="主页" @click="$router.push('/dashboard')">
         <i class="el-icon-monitor"></i>
         <span slot="title">主页</span>
       </el-menu-item>
-      <el-menu-item-group>
-        <template slot="title">学习杂记</template>
+      <el-menu-item-group
+        v-for="(tag,index) in routePath"
+        :key="index">
         <el-menu-item
+          v-if="!tag.childrens"
           class="list-group-item"
           @click="addTag(tag)"
-          v-for="(tag,index) in routePath"
-          :key="index"
-          :index="tag.tagName">
+          :index="tag.tagRouter">
           <span slot="title">{{tag.tagName}}</span>
         </el-menu-item>
+        <el-submenu
+          :index="tag.tagRouter"
+          v-if="tag.childrens">
+          <template slot="title">
+            <span slot="title">{{tag.tagName}}</span>
+          </template>
+          <el-menu-item
+            style="background-color: unset"
+            v-for="(child,index) in tag.childrens"
+            :key="child.tagName"
+            @click="addTag(tag)"
+            :index="tag.tagRouter+child.tagName">
+            {{child.tagName}}{{child.tagRouter}}
+          </el-menu-item>
+        </el-submenu>
       </el-menu-item-group>
     </el-menu>
   </el-scrollbar>
@@ -35,37 +50,54 @@
           {
             closable: true,
             tagName: '小说',
-            tagRouter: '/czy/novel',
-            breadcrumb: '小说'
+            tagRouter: '/novel',
+            breadcrumb: '小说',
           },
           {
             closable: true,
-            tagName: '像素鸟',
-            tagRouter: '/czy/flappybird',
-            breadcrumb: '像素鸟'
+            tagName: 'CANVAS',
+            tagRouter: '/flappybird',
+            breadcrumb: '像素鸟',
+            childrens: [
+              {
+                closable: true,
+                tagName: '像素鸟',
+                tagRouter: '/flappybird',
+                breadcrumb: '像素鸟',
+              }
+            ]
           },
           {
             closable: true,
-            tagName: '博文编辑',
-            tagRouter: '/czy/blogdetail',
-            breadcrumb: '博文编辑'
+            tagName: '博文',
+            tagRouter: '/blogtable',
+            breadcrumb: '博文编辑',
+            childrens: [
+              {
+                closable: true,
+                tagName: '博文统计',
+                tagRouter: '/blogtable',
+                breadcrumb: '博文统计'
+              },
+              {
+                closable: true,
+                tagName: '博文编辑',
+                tagRouter: '/blogdetail',
+                breadcrumb: '博文编辑',
+              }
+            ]
           },
-          {
-            closable: true,
-            tagName: '博文统计',
-            tagRouter: '/czy/blogtable',
-            breadcrumb: '博文统计'
-          },
+
           {
             closable: true,
             tagName: 'echarts',
-            tagRouter: '/czy/echarts-barchart',
+            tagRouter: '/echarts-barchart',
             breadcrumb: 'echarts'
           },
           {
             closable: true,
             tagName: 'echarts2',
-            tagRouter: '/czy/echarts-polardiagram',
+            tagRouter: '/echarts-polardiagram',
             breadcrumb: 'echarts'
           }
         ]
@@ -79,7 +111,7 @@
         return this.$store.getters.tagMenu;
       },
       blogID() {
-        return this.$store.getters.blogID;
+        return this.$store.getters.blogNum;
       },
     },
     watch: {
@@ -136,8 +168,8 @@
       addTag(tag) {
         let arr = this.tagMenu;
         let num = 0;
-        let path = tag.tagRouter == '/czy/blogdetail' ? `${tag.tagRouter}?blogID=${this.blogID}` : tag.tagRouter;
-        //console.log(path)
+        let path = tag.tagRouter == '/blogdetail' ? `${tag.tagRouter}?id=${this.blogID}` : tag.tagRouter;
+        console.log(tag)
         this.$router.push(path);
         //先查询是否有该条信息
         for (let i = 0; i < arr.length; i++) {
@@ -193,5 +225,8 @@
   .el-menu {
     border-right: solid 1px #ecbfbf !important;
     background-color: unset !important;
+  }
+  *{
+    background-color: unset!important;
   }
 </style>

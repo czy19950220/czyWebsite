@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
+import Layout from '@/pages/shouye/Index.vue';
 
 //所有权限通用路由表
 //如首页和登录页和一些不用权限的公用页面
@@ -26,16 +27,16 @@ export const constantRouterMap = [
     path: '/czy',
     name: 'czy',
     meta: {title: '首页页面'},
-    redirect:'/czy/dashboard',
+    redirect: '/czy/dashboard',
     component: resolve => require(['@/pages/shouye/Index.vue'], resolve),
-    children:[
+    children: [
       {
         path: 'dashboard',
         name: 'index',
         meta: {
           keepAlive: true // 需要被缓存
         },
-        component : resolve => require(['@/pages/index/Index.vue'],resolve)
+        component: resolve => require(['@/pages/index/Index.vue'], resolve)
       },
       {
         path: 'novel',
@@ -43,7 +44,7 @@ export const constantRouterMap = [
         meta: {
           keepAlive: true // 需要被缓存
         },
-        component : resolve => require(['@/pages/novel/Index.vue'],resolve)
+        component: resolve => require(['@/pages/novel/Index.vue'], resolve)
       },
       {
         path: 'flappybird',
@@ -51,7 +52,7 @@ export const constantRouterMap = [
         meta: {
           keepAlive: false // no需要被缓存
         },
-        component : resolve => require(['@/pages/flappybird/Index.vue'],resolve)
+        component: resolve => require(['@/pages/flappybird/Index.vue'], resolve)
       },
       {
         path: 'blogdetail',
@@ -59,13 +60,13 @@ export const constantRouterMap = [
         meta: {
           keepAlive: false // 需要被缓存
         },
-        component : resolve => require(['@/pages/blog/Index.vue'],resolve)
+        component: resolve => require(['@/pages/blog/Index.vue'], resolve)
       },
       {
         path: 'blogtable',
         name: 'blog-table',
         meta: {keepAlive: true}, // 需要被缓存
-        component : resolve => require(['@/pages/blog/blogTable.vue'],resolve)
+        component: resolve => require(['@/pages/blog/blogTable.vue'], resolve)
       },
       {
         path: 'echarts-barchart',
@@ -94,9 +95,67 @@ export const constantRouterMap = [
     component: resolve => require(['@/pages/404/NotFound.vue'], resolve)
   },
 ]
+export const constantRouterMap2 = [
+  {
+    path: '/login',
+    name: 'user',
+    meta: {title: '登录界面'},
+    component: () => import('@/pages/login/Index.vue')
+  },
+  {
+    path: '/canvas',
+    name: 'canvas',
+    meta: {title: 'canvas'},
+    component: resolve => require(['@/pages/canvas/Index.vue'], resolve)
+  },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Index',
+        component: () => import('@/pages/index/Index.vue'),
+        meta: {title: 'Index', icon: 'dashboard'}
+      },
+      {
+        path: 'novel',
+        name: 'novel',
+        meta: {
+          keepAlive: true // 需要被缓存
+        },
+        component: () => import('@/pages/novel/Index.vue')
+      },
+      {
+        path: 'flappybird',
+        name: 'flappyBird',
+        meta: {
+          keepAlive: false // no需要被缓存
+        },
+        component: () => import('@/pages/flappybird/Index.vue')
+      },
+      {
+        path: 'blogdetail',
+        name: 'blogdetail',
+        meta: {
+          keepAlive: false // 需要被缓存
+        },
+        component: () => import('@/pages/blog/Index.vue')
+      },
+      {
+        path: 'blogtable',
+        name: 'blog-table',
+        meta: {keepAlive: true}, // 需要被缓存
+        component: () => import('@/pages/blog/blogTable.vue')
+      },
+    ]
+  },
+]
+
 
 //实例化vue的时候只挂载constantRouter
 export default new Router({
-  mode:'history',
-  routes: constantRouterMap
+  mode: 'history',
+  routes: constantRouterMap2
 });
