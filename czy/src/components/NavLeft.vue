@@ -30,7 +30,7 @@
             style="background-color: unset"
             v-for="(child,index) in tag.childrens"
             :key="child.tagName"
-            @click="addTag(tag)"
+            @click="addTag(child)"
             :index="tag.tagRouter+child.tagName">
             {{child.tagName}}{{child.tagRouter}}
           </el-menu-item>
