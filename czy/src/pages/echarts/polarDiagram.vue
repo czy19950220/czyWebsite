@@ -1,15 +1,12 @@
 <template>
   <div class="polar-con">
-    <index-header></index-header>
     <v-chart :options="polar"/>
   </div>
 </template>
 
 <script>
-  import IndexHeader from './Index'
   export default {
     components:{
-      IndexHeader
     },
     name: "polar-diagram",
     data () {

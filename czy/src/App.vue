@@ -102,6 +102,7 @@
 
             to_reset() {
               let t = love || new Love(params);
+              love = love || new Love(params);
               this.x = this.find_random(0, love.w);
               this.y = this.find_random(0, love.h);
               this.size = this.find_random(t.all_attribute.size_min, t.all_attribute.size_max);

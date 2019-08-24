@@ -1,11 +1,12 @@
 <template>
   <el-tabs type="card" tab-position="top" :value ="$route.path.toLowerCase()" @tab-click="handleClick">
-    <el-tab-pane label="柱状图" name="/czy/echarts-barchart">
+    <el-tab-pane label="柱状图" name="/echarts/barchart">
     </el-tab-pane>
-    <el-tab-pane label="极坐标" name="/czy/echarts-polardiagram">
+    <el-tab-pane label="极坐标" name="/echarts/polardiagram">
     </el-tab-pane>
-    <el-tab-pane label="极坐标" name="/czy/echarts-polardiagram2">
+    <el-tab-pane label="极坐标" name="/echarts/polardiagram2">
     </el-tab-pane>
+    <router-view/>
   </el-tabs>
 </template>
 
@@ -15,7 +16,7 @@
     name: "echarts",
     data() {
       return {
-        activeName: '/czy/echarts-barchart'
+        activeName: '/echartsbarchart'
       };
     },
     methods: {

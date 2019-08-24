@@ -1,16 +1,13 @@
 <template>
   <div class="polar-con">
-    <index-header></index-header>
     <v-chart :options="bar"/>
   </div>
 </template>
 
 <script>
   import getBar from './bar'
-  import IndexHeader from './Index'
   export default {
     components:{
-      IndexHeader
     },
     name: "bar-chart",
     data() {

@@ -7,7 +7,7 @@
           <!--面包屑-->
           <el-col :xs="24" :sm="24">
             <el-breadcrumb separator="/" class="breadcrumb">
-              <el-breadcrumb-item :to="{ path: '/czy' }">首页</el-breadcrumb-item>
+              <el-breadcrumb-item :to="{ path: '/dashboard' }">首页</el-breadcrumb-item>
               <el-breadcrumb-item>{{breadcrumbName}}</el-breadcrumb-item>
             </el-breadcrumb>
           </el-col>
@@ -120,10 +120,11 @@
        * @param tag 参数可以设置为是路由例如'/czy/dashboard'。这里已经循环加入了
        * */
       tagMenuRouter(tag) {
+        console.log(tag)
         //mySwiper.slideNext();
         //this.swiper.slideNext();
         //console.log(tag.tagRouter)
-        if (tag.tagRouter == '/czy/blogdetail') {
+        if (tag.tagRouter == '/blogdetail') {
           this.$router.push(tag.tagRouter + '?blogID=' + this.blogID);
         } else {
           this.$router.push(tag.tagRouter);

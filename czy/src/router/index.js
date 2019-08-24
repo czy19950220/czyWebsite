@@ -149,7 +149,32 @@ export const constantRouterMap2 = [
         meta: {keepAlive: true}, // 需要被缓存
         component: () => import('@/pages/blog/blogTable.vue')
       },
+      {
+        path: 'echarts',
+        name: 'echarts',
+        meta: {keepAlive: true}, // 需要被缓存
+        component: resolve => require(['@/pages/echarts/Index.vue'], resolve),
+        children: [
+          {
+            path: 'barchart',
+            name: 'bar-chart',
+            meta: {keepAlive: false}, // 需要被缓存
+            component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
+          },
+          {
+            path: 'polardiagram',
+            name: 'polar-diagram',
+            meta: {keepAlive: false}, // 需要被缓存
+            component: resolve => require(['@/pages/echarts/polarDiagram.vue'], resolve),
+          }
+        ]
+      },
     ]
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: resolve => require(['@/pages/404/NotFound.vue'], resolve)
   },
 ]
 

@@ -17,7 +17,7 @@ const state = {
     {
       closable:false,
       tagName: 'Index',
-      tagRouter: '/index/dashboard',
+      tagRouter: '/dashboard',
       breadcrumb: 'Index'
     },
   ],//导航标签和面包屑

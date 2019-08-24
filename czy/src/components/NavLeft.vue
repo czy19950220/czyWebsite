@@ -17,22 +17,21 @@
           v-if="!tag.childrens"
           class="list-group-item"
           @click="addTag(tag)"
-          :index="tag.tagRouter">
+          :index="tag.tagName">
           <span slot="title">{{tag.tagName}}</span>
         </el-menu-item>
         <el-submenu
-          :index="tag.tagRouter"
-          v-if="tag.childrens">
+          :index="tag.tagName"
+          v-else="tag.childrens">
           <template slot="title">
             <span slot="title">{{tag.tagName}}</span>
           </template>
           <el-menu-item
-            style="background-color: unset"
             v-for="(child,index) in tag.childrens"
             :key="child.tagName"
             @click="addTag(child)"
-            :index="tag.tagRouter+child.tagName">
-            {{child.tagName}}{{child.tagRouter}}
+            :index="tag.tagName+'-'+child.tagName">
+            {{child.tagName}}
           </el-menu-item>
         </el-submenu>
       </el-menu-item-group>
@@ -56,7 +55,7 @@
           {
             closable: true,
             tagName: 'CANVAS',
-            tagRouter: '/flappybird',
+            //tagRouter: '/flappybird',
             breadcrumb: '像素鸟',
             childrens: [
               {
@@ -70,8 +69,8 @@
           {
             closable: true,
             tagName: '博文',
-            tagRouter: '/blogtable',
-            breadcrumb: '博文编辑',
+            //tagRouter: '/blog',
+            breadcrumb: '博文',
             childrens: [
               {
                 closable: true,
@@ -87,19 +86,26 @@
               }
             ]
           },
-
           {
             closable: true,
             tagName: 'echarts',
-            tagRouter: '/echarts-barchart',
-            breadcrumb: 'echarts'
+            //tagRouter: '/echarts',
+            breadcrumb: 'ECHARTS',
+            childrens: [
+              {
+                closable: true,
+                tagName: 'Ebarchart',
+                tagRouter: '/echarts/barchart',
+                breadcrumb: 'Ebarchart'
+              },
+              {
+                closable: true,
+                tagName: 'Epolardiagram',
+                tagRouter: '/echarts/polardiagram',
+                breadcrumb: 'Epolardiagram'
+              }
+            ]
           },
-          {
-            closable: true,
-            tagName: 'echarts2',
-            tagRouter: '/echarts-polardiagram',
-            breadcrumb: 'echarts'
-          }
         ]
       }
     },
@@ -141,15 +147,20 @@
         let arr = this.routePath, that = this;
         //onsole.log(this.routePath)
         for (let i = 0; i < arr.length; i++) {
-          if (path.includes('echarts') && arr[i].tagRouter.includes('echarts')) {
+          if (arr[i].childrens){
+            for (let j= 0;j<arr[i].childrens.length;j++){
+              if (path.includes(arr[i].childrens[j].tagRouter)) {
+                //console.log(arr[i].tagRouter,path)
+                this.defaultActive = this.routePath[i].tagName + '-'+this.routePath[i].childrens[j].tagName;
+                //console.log(arr[i])
+                that.addTag(arr[i].childrens[j])
+                break;
+              }
+            }
+          }else if (path.includes(arr[i].tagRouter)) {
             //console.log(arr[i].tagRouter,path)
             this.defaultActive = this.routePath[i].tagName;
-            that.addTag(arr[i])
-            break;
-          }
-          if (path.includes(arr[i].tagRouter)) {
-            //console.log(arr[i].tagRouter,path)
-            this.defaultActive = this.routePath[i].tagName;
+            //console.log(arr[i])
             that.addTag(arr[i])
             break;
           }
@@ -160,7 +171,7 @@
        * @param tag 参数设置的是一个对象例如:{
           closable:false,
           tagName: 'Index',
-          tagRouter: '/czy/dashboard',
+          tagRouter: '/dashboard',
           breadcrumb: 'Index'
         }
        *通过对比tag.tagRouter来确定添加的标签
@@ -169,7 +180,8 @@
         let arr = this.tagMenu;
         let num = 0;
         let path = tag.tagRouter == '/blogdetail' ? `${tag.tagRouter}?id=${this.blogID}` : tag.tagRouter;
-        console.log(tag)
+        //console.log('tag');
+        //console.log(tag);
         this.$router.push(path);
         //先查询是否有该条信息
         for (let i = 0; i < arr.length; i++) {
@@ -198,10 +210,10 @@
         this.$router.push("/login");
       },
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        //console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        //console.log(key, keyPath);
       }
     },
     created() {
@@ -222,11 +234,13 @@
   /*.el-menu-item.is-active {
     background-color: #ecf5ff !important;
   }*/
+
+  *{
+    background-color: #1e88e5 !important;
+  }
+
   .el-menu {
     border-right: solid 1px #ecbfbf !important;
     background-color: unset !important;
-  }
-  *{
-    background-color: unset!important;
   }
 </style>
