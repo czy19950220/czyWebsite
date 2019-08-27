@@ -1,9 +1,10 @@
 <template>
-  <el-scrollbar class="nav-bar">
+  <el-scrollbar class="nav-bar nav-left">
     <el-menu
       style="padding-bottom: 70px;"
       :default-active="defaultActive"
       class="el-menu-vertical-demo"
+      unique-opened
       @open="handleOpen"
       @close="handleClose">
       <el-menu-item index="主页" @click="$router.push('/dashboard')">
@@ -35,6 +36,18 @@
           </el-menu-item>
         </el-submenu>
       </el-menu-item-group>
+      <el-submenu index="a">
+        <template slot="title">我的工作台</template>
+        <el-menu-item index="a-1">选项1</el-menu-item>
+        <el-menu-item index="a-2">选项2</el-menu-item>
+        <el-menu-item index="a-3">选项3</el-menu-item>
+        <el-submenu index="a-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="a-4-1">选项1</el-menu-item>
+          <el-menu-item index="a-4-2">选项2</el-menu-item>
+          <el-menu-item index="a-4-3">选项3</el-menu-item>
+        </el-submenu>
+      </el-submenu>
     </el-menu>
   </el-scrollbar>
 </template>
@@ -152,7 +165,7 @@
               if (path.includes(arr[i].childrens[j].tagRouter)) {
                 //console.log(arr[i].tagRouter,path)
                 this.defaultActive = this.routePath[i].tagName + '-'+this.routePath[i].childrens[j].tagName;
-                //console.log(arr[i])
+                //console.log(this.defaultActive)
                 that.addTag(arr[i].childrens[j])
                 break;
               }
@@ -160,7 +173,7 @@
           }else if (path.includes(arr[i].tagRouter)) {
             //console.log(arr[i].tagRouter,path)
             this.defaultActive = this.routePath[i].tagName;
-            //console.log(arr[i])
+            console.log(this.defaultActive)
             that.addTag(arr[i])
             break;
           }
@@ -229,18 +242,5 @@
 
   .el-submenu__title:hover {
     color: #409EFF !important;
-  }
-
-  /*.el-menu-item.is-active {
-    background-color: #ecf5ff !important;
-  }*/
-
-  *{
-    background-color: #1e88e5 !important;
-  }
-
-  .el-menu {
-    border-right: solid 1px #ecbfbf !important;
-    background-color: unset !important;
   }
 </style>

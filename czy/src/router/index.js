@@ -136,8 +136,8 @@ export const constantRouterMap2 = [
         component: () => import('@/pages/flappybird/Index.vue')
       },
       {
-        path: 'blogdetail',
-        name: 'blogdetail',
+        path: 'blogdetail/',
+        name: 'blog-detail',
         meta: {
           keepAlive: false // 需要被缓存
         },

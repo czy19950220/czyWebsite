@@ -26,3 +26,8 @@ html,body,#app{height: 100%;width: 100%;}
   cursor: pointer;
   color: #0000cc;
 }
+.nav-left .el-menu{
+  background-color: unset !important;
+  border-right: solid 1px #ecbfbf !important;
+}
+

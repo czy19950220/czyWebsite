@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-no-swiping" style="margin-bottom:100px">
+  <div class="swiper-no-swiping" style="padding-bottom:100px">
     <br>
     <div class="index" :style="{width:theWidth+'%'}">
       <div v-if="edit">
@@ -54,12 +54,12 @@
   require('froala-editor/js/languages/zh_cn')
   import Vue from 'vue'
   import VueFroala from 'vue-froala-wysiwyg'
+  import {mapActions, mapGetters} from 'vuex'
 
   Vue.use(VueFroala)
   export default {
-    name: "Index",
+    name: "blog-detail",
     data() {
-      let self = this;
       return {
         ruleForm: {
           blogNameInput: '',//博客文章名
@@ -116,12 +116,21 @@
       user() {
         return this.$store.getters.users;
       },
-      blogNum() {
-        return this.$store.getters.blogNum;
-      },
+      ...mapGetters([//vuex的代码模板，可以用来粘贴
+        'blogNum',
+        // ...
+      ])
     },
-    watch: {},
+    watch: {
+      $route() {
+        console.log(this.$route.query.id)
+        deep:true
+      }
+    },
     methods: {
+      ...mapActions([
+        'setBlogNum',
+      ]),
       //预览文章
       destroy() {
         this.edit = false;
@@ -133,21 +142,22 @@
           if (valid) {
             let params = {
               html: this.model,
-              id: this.$route.query.id,
+              id: this.blogNum,
               titleName: this.ruleForm.blogNameInput,
               uid: this.user.id,
               blogNameTag: this.ruleForm.blogNameTag
             };
             this.$axios.post(this.$sIP2 + "/froala/uploadHtml", params).then((res) => {
-              console.log(res.data)
-              if (res.data == '1') {
+
+              if (res.data.data == '1') {
                 this.$message({
                   message: '更新成功',
                   duration: 500,
                   type: 'success',
                   showClose: true
                 });
-              } else if (res.data == '2') {
+              } else if (res.data.data == '2') {
+                this.setBlogNum(res.data.insertId)
                 this.$message({
                   message: '添加成功',
                   duration: 500,
@@ -172,9 +182,8 @@
       },
       //初始化编辑器
       initBlog() {
-        console.log('this.$route.query.id',this.$route.query.id)
-        let id =  this.$route.query.id || this.blogNum || 1;
-        console.log(id)
+        this.setBlogNum(this.$route.query.id)
+        let id = this.$route.query.id || this.blogNum || 1;
         this.$axios.post(this.$sIP2 + "/froala/getHtml?id=" + id).then((res) => {
           this.model = res.data.result.getHtml;
           this.ruleForm.blogNameInput = res.data.result.blogName;//博客文章名
@@ -185,6 +194,8 @@
     },
     created() {
       this.initBlog();
+      //console.log(this.$router)
+      //console.log(this.$route)
       this.config.imageUploadURL += '?id=' + this.user.id;
       this.config.imageManagerDeleteURL += '?id=' + this.user.id;
       this.config.imageManagerLoadURL += '?id=' + this.user.id;
@@ -192,8 +203,8 @@
       this.config.videoUploadURL += '?id=' + this.user.id;
     },
     mounted() {
+    },
 
-    }
   }
 </script>
 

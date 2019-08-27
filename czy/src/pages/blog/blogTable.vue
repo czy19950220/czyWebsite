@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding-bottom: 100px">
     <!--博客表格-->
     <el-table
       :border="true"
@@ -232,7 +232,7 @@
     beforeRouteLeave(to, from, next) {
       // 设置下一个路由的 meta
       //console.log(to)
-      if(to.path == '/czy/blog'){
+      if(to.path == '/blogdetail'){
         to.meta.keepAlive = false;  // 让 /czy/blog 不缓存，即刷新
       }
       next();
