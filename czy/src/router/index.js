@@ -122,10 +122,21 @@ export const constantRouterMap2 = [
       {
         path: 'novel',
         name: 'novel',
-        meta: {
-          keepAlive: true // 需要被缓存
-        },
-        component: () => import('@/pages/novel/Index.vue')
+        redirect: '/novel/search',
+        meta: {keepAlive: true},// 需要被缓存
+        component: () => import('@/pages/novel/Novel.vue'),
+        children: [
+          {
+            path: 'search',
+            meta: {keepAlive: true},// 需要被缓存
+            component: () => import('@/pages/novel/Index.vue')
+          },
+          {
+            path: 'detail',
+            meta: {keepAlive: true},// 需要被缓存
+            component: () => import('@/pages/novel/Detail.vue')
+          }
+        ]
       },
       {
         path: 'flappybird',
@@ -138,9 +149,7 @@ export const constantRouterMap2 = [
       {
         path: 'blogdetail/',
         name: 'blog-detail',
-        meta: {
-          keepAlive: false // 需要被缓存
-        },
+        meta: {keepAlive: false },// 需要被缓存
         component: () => import('@/pages/blog/Index.vue')
       },
       {
@@ -165,7 +174,7 @@ export const constantRouterMap2 = [
             path: 'polardiagram',
             name: 'polar-diagram',
             meta: {keepAlive: false}, // 需要被缓存
-            component: resolve => require(['@/pages/echarts/polarDiagram.vue'], resolve),
+            component:() => import ('@/pages/echarts/polarDiagram.vue') ,
           }
         ]
       },

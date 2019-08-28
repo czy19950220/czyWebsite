@@ -22,6 +22,7 @@ const state = {
     },
   ],//导航标签和面包屑
   blogNum: 1,//博文ID
+  novelUrl:'',//小说链接
 };
 export default new Vuex.Store({
   state,

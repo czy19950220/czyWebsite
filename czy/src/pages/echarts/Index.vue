@@ -1,5 +1,5 @@
 <template>
-  <el-tabs type="card" tab-position="top" :value ="$route.path.toLowerCase()" @tab-click="handleClick">
+  <el-tabs style="margin-top: 10px" type="card" tab-position="top" :value ="$route.path.toLowerCase()" @tab-click="handleClick">
     <el-tab-pane label="柱状图" name="/echarts/barchart">
     </el-tab-pane>
     <el-tab-pane label="极坐标" name="/echarts/polardiagram">

@@ -22,3 +22,6 @@ export const setTagMenu = (state, data) => {
 export const setBlogNum = (state, data) => {
   state.blogNum = data;
 };
+export const setNovelUrl = (state, data) => {
+  state.novelUrl = data;
+};

@@ -64,6 +64,20 @@
             tagName: '小说',
             tagRouter: '/novel',
             breadcrumb: '小说',
+            childrens: [
+              {
+                closable: true,
+                tagName: '搜索',
+                tagRouter: '/novel/search',
+                breadcrumb: '搜索',
+              },
+              {
+                closable: true,
+                tagName: '小说详情',
+                tagRouter: '/novel/detail',
+                breadcrumb: '小说详情',
+              }
+            ]
           },
           {
             closable: true,

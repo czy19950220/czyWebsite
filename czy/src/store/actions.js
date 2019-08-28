@@ -39,4 +39,7 @@ export const setTagMenu = ({commit}, data) => {
 export const setBlogNum = ({commit}, data) => {
   commit('setBlogNum', data);
 };
+export const setNovelUrl = ({commit}, data) => {
+  commit('setNovelUrl', data);
+};
 

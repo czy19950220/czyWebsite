@@ -37,19 +37,19 @@
                   enter-active-class="animated slideInLeft"
                   leave-active-class="animated slideOutRight"
                 >
-                  <el-col :xs="24" v-if="changeRoute"
+                  <el-col :xs="24" v-show="changeRoute"
                           style="animation-duration: 0.5s">
                     <keep-alive>
                       <router-view
                         :key="$route.path"
-                        style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                        style="margin-left: 4px;margin-right: 10px;"
                         v-if="$route.meta.keepAlive">
                         <!-- 这里是会被缓存的视图组件，比如 Home！ -->
                       </router-view>
                     </keep-alive>
                     <router-view
                       :key="$route.path"
-                      style="margin-top: 20px;margin-left: 4px;margin-right: 10px;"
+                      style="margin-left: 4px;margin-right: 10px;"
                       v-if="!$route.meta.keepAlive">
                       <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
                     </router-view>
