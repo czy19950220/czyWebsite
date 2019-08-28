@@ -49,7 +49,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$axios.post(`${this.$sIP2}/users`, this.ruleForm).then((res) => {
-              //console.log(res.data)
+              console.log(res.data)
               if (res.data == '用户不存在'|| res.data == '密码错误'|| res.data == 'err') {
                 this.$message.error({
                   duration: 500,
@@ -73,7 +73,7 @@
                   message: '登录成功',
                   type: 'success'
                 });
-                this.$router.push('/czy');
+                this.$router.push('/dashboard');
               }
             })
           } else {
