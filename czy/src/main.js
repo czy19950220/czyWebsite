@@ -40,6 +40,7 @@ Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的�
 /* eslint-disable no-new */
 
 router.beforeEach((to, from, next) => {
+  window.document.title = to.meta.title == undefined?'czy':to.meta.title;
   NProgress.start()
   const isLogin = localStorage.token ? true : false;
   //console.log(localStorage.token)

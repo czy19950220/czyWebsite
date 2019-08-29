@@ -24,6 +24,9 @@
         </li>
       </ul>
     </el-card>
+    <el-card shadow="hover">
+      <h4>本站不存储小说，只是学习爬虫，如有侵权，请联系删除。</h4>
+    </el-card>
   </div>
 </template>
 
@@ -52,11 +55,12 @@
       }
     },
     watch: {
-      novelUrl:function(bf,af){
+      novelUrl: function (bf, af) {
         this.getNovelDetail();
       }
     },
     methods: {
+      //获取小说详情
       getNovelDetail() {
         if (this.novelUrl == '') {
           this.$message.error('没有指定小说名');
@@ -72,13 +76,26 @@
           }
         });
       },
+      //去阅读当前章节
       toChapter(chapter) {
-        console.log(chapter)
+        let params = {chapter: chapter};
+        this.$store.dispatch('setSourceId',chapter);
+        this.$router.push('/novel/read');
+        /*this.$axios.post(this.$sIP2 + "/novel/read", params).then((res) => {
+          //console.log(res.data);
+          if (res.data == 500) {
+            this.$message.error('系统错误');
+          } else {
+            console.log(res.data)
+          }
+        });*/
       }
     },
     created() {
       if (this.novelUrl == '') {
         this.$message.error('没有指定小说名');
+      } else {
+        this.getNovelDetail()
       }
     },
     mounted() {

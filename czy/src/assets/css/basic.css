@@ -30,4 +30,7 @@ html,body,#app{height: 100%;width: 100%;}
   background-color: unset !important;
   border-right: solid 1px #ecbfbf !important;
 }
+.el-drawer__body{
+  height: 100%;
+}
 

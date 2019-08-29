@@ -76,6 +76,12 @@
                 tagName: '小说详情',
                 tagRouter: '/novel/detail',
                 breadcrumb: '小说详情',
+              },
+              {
+                closable: true,
+                tagName: '小说阅读',
+                tagRouter: '/novel/read',
+                breadcrumb: '小说阅读',
               }
             ]
           },

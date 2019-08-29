@@ -123,18 +123,23 @@ export const constantRouterMap2 = [
         path: 'novel',
         name: 'novel',
         redirect: '/novel/search',
-        meta: {keepAlive: true},// 需要被缓存
+        meta: {keepAlive: true,title: '小说'},// 需要被缓存
         component: () => import('@/pages/novel/Novel.vue'),
         children: [
           {
             path: 'search',
-            meta: {keepAlive: true},// 需要被缓存
+            meta: {keepAlive: true,title: '小说搜索'},// 需要被缓存
             component: () => import('@/pages/novel/Index.vue')
           },
           {
             path: 'detail',
-            meta: {keepAlive: true},// 需要被缓存
+            meta: {keepAlive: true,title: '小说详情'},// 需要被缓存
             component: () => import('@/pages/novel/Detail.vue')
+          },
+          {
+            path: 'read',
+            meta: {keepAlive: true,title: '小说阅读'},// 需要被缓存
+            component: () => import('@/pages/novel/Read.vue')
           }
         ]
       },
@@ -142,39 +147,39 @@ export const constantRouterMap2 = [
         path: 'flappybird',
         name: 'flappyBird',
         meta: {
-          keepAlive: false // no需要被缓存
+          keepAlive: false,title: '像素鸟' // no需要被缓存
         },
         component: () => import('@/pages/flappybird/Index.vue')
       },
       {
         path: 'blogdetail/',
         name: 'blog-detail',
-        meta: {keepAlive: false },// 需要被缓存
+        meta: {keepAlive: false,title: '博文'},// 需要被缓存
         component: () => import('@/pages/blog/Index.vue')
       },
       {
         path: 'blogtable',
         name: 'blog-table',
-        meta: {keepAlive: true}, // 需要被缓存
+        meta: {keepAlive: true,title: '博文统计'}, // 需要被缓存
         component: () => import('@/pages/blog/blogTable.vue')
       },
       {
         path: 'echarts',
         name: 'echarts',
-        meta: {keepAlive: true}, // 需要被缓存
+        meta: {keepAlive: true,title: 'echarts'}, // 需要被缓存
         component: resolve => require(['@/pages/echarts/Index.vue'], resolve),
         children: [
           {
             path: 'barchart',
             name: 'bar-chart',
-            meta: {keepAlive: false}, // 需要被缓存
+            meta: {keepAlive: false,title: 'barchart'}, // 需要被缓存
             component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
           },
           {
             path: 'polardiagram',
             name: 'polar-diagram',
-            meta: {keepAlive: false}, // 需要被缓存
-            component:() => import ('@/pages/echarts/polarDiagram.vue') ,
+            meta: {keepAlive: false,title: 'polar-diagram'}, // 需要被缓存
+            component: () => import ('@/pages/echarts/polarDiagram.vue'),
           }
         ]
       },

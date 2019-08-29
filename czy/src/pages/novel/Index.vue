@@ -35,7 +35,7 @@
       search() {
         let params = {searchText: this.searchText};
         this.$axios.post(this.$sIP2 + "/novel/search", params).then((res) => {
-          console.log(res.data);
+          //console.log(res.data);
           this.searchData1 = res.data.data;
           this.searchData2 = res.data.data2;
         });

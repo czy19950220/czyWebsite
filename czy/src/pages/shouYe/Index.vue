@@ -68,7 +68,7 @@
       </swiper-slide>
     </swiper>
     <!--返回顶部-->
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="150">
+    <el-backtop style="opacity: 0.7" target=".page-component__scroll .el-scrollbar__wrap" :bottom="150">
       <div
         style="{
         height: 100%;
@@ -83,7 +83,7 @@
         UP
       </div>
     </el-backtop>
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
+    <el-backtop style="opacity: 0.7" target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
       <i class="el-icon-top"></i>
     </el-backtop>
   </div>
