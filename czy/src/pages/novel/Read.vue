@@ -5,13 +5,14 @@
     <!--导航，上下章节，目录等-->
     <el-divider content-position="right"></el-divider>
     <el-row class="navigator">
-      <el-col :span="6"><span>上一章</span></el-col>
+      <el-col :span="6"><span @click="toChapter(navigator[0])">上一章</span></el-col>
       <el-col :span="6"><span @click="drawerRight()">目录</span></el-col>
-      <el-col :span="6"><span>添加书架</span></el-col>
-      <el-col :span="6"><span>下一章</span></el-col>
+      <el-col :span="6"><span @click="cunChu()">添加书架</span></el-col>
+      <el-col :span="6"><span @click="toChapter(navigator[navigator.length-1])">下一章</span></el-col>
     </el-row>
     <!--侧栏抽屉，放目录-->
     <el-drawer
+      style="min-width: 180px;"
       title="目录"
       :visible.sync="drawer"
       :direction="direction"
@@ -71,7 +72,7 @@
             if (res.data == 500) {
               this.$message.error('系统错误');
             } else {
-              //console.log(res.data)
+              console.log(res.data)
               this.navigator = res.data.navigator;
               this.texts = res.data.text;
             }
@@ -94,7 +95,7 @@
             console.log(res.data)
             this.chapters = res.data.chapters;
             this.chaptersUrl = res.data.chapters_url;
-            this.chapterMax = parseInt(res.data.chapters_max[res.data.chapters_max.length-1].toString().match(/_(\S*)/)[1]) || 1;
+            this.chapterMax = parseInt(res.data.chapters_max[res.data.chapters_max.length - 1].toString().match(/_(\S*)/)[1]) || 1;
             console.log(this.chapterMax)
           }
         });
@@ -108,13 +109,21 @@
         this.drawer = true;
         this.getChapters()
       },
-      handleChange(val){
+      handleChange(val) {
         console.log(` ${val}`);
         this.getChapters(`_${val}/`)
-      }
+      },
+      cunChu() {
+        let myBooks = localStorage.getItem("myBooks");
+        /*czyBooks=JSON.stringify(czyBooks);
+        localStorage.removeItem("czyBooks")
+        localStorage.setItem("czyBooks",czyBooks);//以“czyBooks”为名称存储书籍
+        //console.log(JSON.parse(localStorage.getItem("czyBooks")))*/
+      },
     },
     created() {
       this.getText()
+      console.log(this.$store.getters.novelUrl)
     }
   }
 </script>

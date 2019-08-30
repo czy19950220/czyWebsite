@@ -10,9 +10,19 @@
 </template>
 
 <script>
-    export default {
-        name: "novel"
+  export default {
+    name: "novel",
+    created(){
+      let myBooks = localStorage.getItem("myBooks");
+      if (myBooks==null || myBooks=='' || myBooks==undefined){
+        let myBooks2={"books":[],"fontSize":18};
+        myBooks2=JSON.stringify(myBooks2);
+        localStorage.setItem("myBooks",myBooks2);//以“myBooks”为名称存储书籍
+      }
+      let aa=JSON.parse(localStorage.getItem("myBooks"))
+      console.log(aa)
     }
+  }
 </script>
 
 <style scoped>
