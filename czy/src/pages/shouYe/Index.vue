@@ -16,7 +16,7 @@
         </el-row>
         <header-all></header-all>
         <!--主页部分-->
-        <el-row style="height: 100%;overflow: hidden;">
+        <el-row style="height: calc(100% - 64px);overflow: hidden;">
           <el-col :xs="0" :sm="2">
             &nbsp;
           </el-col>

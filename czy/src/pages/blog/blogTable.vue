@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-bottom: 100px">
+  <div>
     <!--博客表格-->
     <el-table
       :border="true"

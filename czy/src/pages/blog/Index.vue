@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-no-swiping" style="padding-bottom:100px">
+  <div class="swiper-no-swiping">
     <br>
     <div class="index" :style="{width:theWidth+'%'}">
       <div v-if="edit">

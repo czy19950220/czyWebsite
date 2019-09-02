@@ -82,6 +82,12 @@
                 tagName: '小说阅读',
                 tagRouter: '/novel/read',
                 breadcrumb: '小说阅读',
+              },
+              {
+                closable: true,
+                tagName: '书架',
+                tagRouter: '/novel/bookrack',
+                breadcrumb: '书架',
               }
             ]
           },

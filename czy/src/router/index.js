@@ -122,7 +122,7 @@ export const constantRouterMap2 = [
       {
         path: 'novel',
         name: 'novel',
-        redirect: '/novel/search',
+        redirect: '/novel/bookrack',
         meta: {keepAlive: true,title: '小说'},// 需要被缓存
         component: () => import('@/pages/novel/Novel.vue'),
         children: [
@@ -140,6 +140,11 @@ export const constantRouterMap2 = [
             path: 'read',
             meta: {keepAlive: true,title: '小说阅读'},// 需要被缓存
             component: () => import('@/pages/novel/Read.vue')
+          },
+          {
+            path: 'bookrack',
+            meta: {keepAlive: true,title: '小说阅读'},// 需要被缓存
+            component: () => import('@/pages/novel/Bookrack.vue')
           }
         ]
       },

@@ -15,6 +15,10 @@
     <el-card shadow="hover" class="intro_info">
       {{novelDetail.intro_info}}
     </el-card>
+    <el-card shadow="hover" style="text-indent: 10px;">
+      <el-button type="primary" plain @click="addToBookrack()">加入书架</el-button>
+      <el-button type="primary" plain>查看目录</el-button>
+    </el-card>
     <el-card shadow="hover">
       <ul>
         <li v-for="(item,index) in novelDetail.chapters[0]"
@@ -45,7 +49,8 @@
             update: '',
             newest: []
           },
-          chapters: []
+          chapters: [],
+          coverSrc:''
         }
       }
     },
@@ -79,7 +84,7 @@
       //去阅读当前章节
       toChapter(chapter) {
         let params = {chapter: chapter};
-        this.$store.dispatch('setSourceId',chapter);
+        this.$store.dispatch('setSourceId', chapter);
         this.$router.push('/novel/read');
         /*this.$axios.post(this.$sIP2 + "/novel/read", params).then((res) => {
           //console.log(res.data);
@@ -89,6 +94,30 @@
             console.log(res.data)
           }
         });*/
+      },
+      //加入书架
+      addToBookrack() {
+        let books = JSON.parse(localStorage.getItem("myBooks")).books;
+        //1.判断书架是否存在该书
+        let novelName = this.novelDetail.block.novelName[1];
+        let find = books.find((k) => {
+          return k.novelName[1] == novelName;
+        });
+        if (find){
+          this.$message('该书已经在书架了');
+          return;
+        }else {
+          let book = this.novelDetail.block;
+          book.coverSrc = this.novelDetail.coverSrc;
+          books.push(book);
+          let myBooks={"books":books,"fontSize":18};
+          myBooks=JSON.stringify(myBooks);
+          localStorage.setItem("myBooks",myBooks);//以“myBooks”为名称存储书籍
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          });
+        }
       }
     },
     created() {

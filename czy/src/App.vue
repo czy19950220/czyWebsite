@@ -179,7 +179,7 @@
 
   .el-scrollbar__wrap {
     overflow: scroll;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
   }
 
   .el-scrollbar__bar {
