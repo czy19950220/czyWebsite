@@ -143,7 +143,7 @@ export const constantRouterMap2 = [
           },
           {
             path: 'bookrack',
-            meta: {keepAlive: true,title: '小说阅读'},// 需要被缓存
+            meta: {keepAlive: false,title: '小说书架'},// 需要被缓存
             component: () => import('@/pages/novel/Bookrack.vue')
           }
         ]

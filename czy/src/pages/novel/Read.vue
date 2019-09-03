@@ -1,5 +1,5 @@
 <template>
-  <div class="read-con">
+  <div class="read-con" id="read-con">
     <!--文章内容-->
     <p v-for="(text,index) in texts">{{text}}</p>
     <!--导航，上下章节，目录等-->
@@ -46,22 +46,32 @@
         chaptersUrl: [],//目录链接
         chapterMax: 1,//最大值
         num: 1,//当前页
+        currentName:''//当前章节名
       }
     },
     computed: {
       sourceId() {
         return this.$store.getters.sourceId;
-      }
+      },
+      novelUrl() {
+        return this.$store.getters.novelUrl;
+      },
     },
     watch: {
       sourceId: function (bf, af) {
+        console.log(bf);
         console.log(af);
         this.getText();
       }
     },
     methods: {
+      //返回顶部
+      toTop(){
+        $('#toTop').trigger("click");
+      },
       //获取小说内容
       getText() {
+        //如果没指定章节接返回提示，如果有就获取文章，返回顶部，存储
         if (this.sourceId == '') {
           this.$message.error('没有指定章节');
           return
@@ -72,9 +82,12 @@
             if (res.data == 500) {
               this.$message.error('系统错误');
             } else {
-              console.log(res.data)
+              this.toTop();
+              //console.log(res.data)
               this.navigator = res.data.navigator;
               this.texts = res.data.text;
+              this.currentName = res.data.currentName;
+              this.cunChu();
             }
           });
         }
@@ -82,7 +95,7 @@
       handleClose(done) {
         done();
       },
-      //获取目录
+      //获取目录 url:用来指定第几页，默认：'_1/'
       getChapters(url) {
         url = url || '_1/';
         let str = this.navigator[1].substring(0, this.navigator[1].length - 1) + url;
@@ -110,20 +123,39 @@
         this.getChapters()
       },
       handleChange(val) {
-        console.log(` ${val}`);
+        //console.log(` ${val}`);
         this.getChapters(`_${val}/`)
       },
+      //存储
       cunChu() {
-        let myBooks = localStorage.getItem("myBooks");
-        /*czyBooks=JSON.stringify(czyBooks);
-        localStorage.removeItem("czyBooks")
-        localStorage.setItem("czyBooks",czyBooks);//以“czyBooks”为名称存储书籍
-        //console.log(JSON.parse(localStorage.getItem("czyBooks")))*/
-      },
+        let books = JSON.parse(localStorage.getItem("myBooks")).books;
+        //1.判断书架是否存在该书
+        let novelName = this.novelUrl;
+        let index = 0;
+        let find = books.find((v,i) => {
+          if (v.novelName[1] == novelName){
+            index = i;
+          }
+          return v.novelName[1] == novelName;
+        });
+        if (find){
+          let book = books[index];
+          book.currentRead = this.sourceId;//阅读到第几章的链接
+          book.currentName = this.currentName;//阅读到第几章
+          let myBooks={"books":books,"fontSize":18};
+          myBooks=JSON.stringify(myBooks);
+          localStorage.setItem("myBooks",myBooks);//以“myBooks”为名称存储书籍
+          console.log('存储成功');
+          return;
+        }else {
+          console.log('没在书架，不存储');
+          return;
+        }
+      }
     },
     created() {
       this.getText()
-      console.log(this.$store.getters.novelUrl)
+      //console.log(this.$store.getters.novelUrl)
     }
   }
 </script>

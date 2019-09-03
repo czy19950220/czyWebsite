@@ -27,18 +27,19 @@
             <el-scrollbar class="page-component__scroll">
               <!--导航-->
               <el-row>
-                <el-col :xs="24" :sm="0">
+                <el-col :xs="0" :sm="0">
                   <nav-left></nav-left>
                 </el-col>
               </el-row>
               <!--内容-->
               <el-row>
                 <transition
-                  enter-active-class="animated slideInLeft"
+                  v-show="changeRoute"
+                  enter-active-class="animated fadeInLeft"
                   leave-active-class="animated slideOutRight"
                 >
                   <el-col :xs="24" v-show="changeRoute"
-                          style="animation-duration: 0.5s">
+                          style="animation-duration: 0.2s">
                     <keep-alive>
                       <router-view
                         :key="$route.path"
@@ -83,7 +84,7 @@
         UP
       </div>
     </el-backtop>
-    <el-backtop style="opacity: 0.7" target=".page-component__scroll .el-scrollbar__wrap" :bottom="100">
+    <el-backtop style="opacity: 0.7" target=".page-component__scroll .el-scrollbar__wrap" id="toTop" :bottom="100">
       <i class="el-icon-top"></i>
     </el-backtop>
   </div>
@@ -154,8 +155,8 @@
         this.changeRoute = false;
         setTimeout(() => {
           this.changeRoute = true;
-        }, 300)
-        //console.log(to.path);
+        },100)
+        console.log(this.changeRoute);
       }
     },
     methods: {
@@ -185,7 +186,7 @@
     created() {
       setTimeout(()=>{
         this.changeRoute = true;
-      },300);
+      },500);
 
     }
   }
