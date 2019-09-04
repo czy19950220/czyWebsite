@@ -45,7 +45,7 @@
         chaptersUrl: [],//目录链接
         chapterMax: 1,//最大值
         num: 1,//当前页
-        currentName:''//当前章节名
+        currentName: ''//当前章节名
       }
     },
     computed: {
@@ -58,14 +58,13 @@
     },
     watch: {
       sourceId: function (bf, af) {
-        console.log(bf);
-        console.log(af);
+        console.log('bf+af', bf, af);
         this.getText();
       }
     },
     methods: {
       //返回顶部
-      toTop(){
+      toTop() {
         $('#toTop').trigger("click");
       },
       //获取小说内容
@@ -75,6 +74,7 @@
           this.$message.error('没有指定章节');
           return
         } else {
+          //console.log('sourceId',this.sourceId)
           let params = {chapter: this.sourceId};
           this.$axios.post(this.$sIP2 + "/novel/read", params).then((res) => {
             //console.log(res.data);
@@ -114,8 +114,15 @@
       },
       //去点击的章节
       toChapter(chapterUrl) {
+        //上一章节或者下一章节没有了
+        if (chapterUrl.indexOf('-') == chapterUrl.lastIndexOf('-')) {
+          this.$message({
+            message: '已经没有上/下章节了',
+            type: 'warning'
+          });
+          return;
+        }
         this.$store.dispatch('setSourceId', chapterUrl);
-        console.log(chapterUrl)
       },
       drawerRight() {
         this.drawer = true;
@@ -131,22 +138,22 @@
         //1.判断书架是否存在该书
         let novelName = this.novelUrl;
         let index = 0;
-        let find = books.find((v,i) => {
-          if (v.novelName[1] == novelName){
+        let find = books.find((v, i) => {
+          if (v.novelName[1] == novelName) {
             index = i;
           }
           return v.novelName[1] == novelName;
         });
-        if (find){
+        if (find) {
           let book = books[index];
           book.currentRead = this.sourceId;//阅读到第几章的链接
           book.currentName = this.currentName;//阅读到第几章
-          let myBooks={"books":books,"fontSize":18};
-          myBooks=JSON.stringify(myBooks);
-          localStorage.setItem("myBooks",myBooks);//以“myBooks”为名称存储书籍
+          let myBooks = {"books": books, "fontSize": 18};
+          myBooks = JSON.stringify(myBooks);
+          localStorage.setItem("myBooks", myBooks);//以“myBooks”为名称存储书籍
           console.log('存储成功');
           return;
-        }else {
+        } else {
           console.log('没在书架，不存储');
           return;
         }
