@@ -47,13 +47,14 @@
       ]),
       //去阅读
       toRead(book) {
-        //console.log(book)
+        console.log(book)
         this.setNovelUrl(book.novelName[1]);//小说链接
         //查看‘章节链接’是否为空,如果为空是没读，所以需要获取目录拿到第一章的链接
         if (book.currentRead == null || book.currentRead == undefined || book.currentRead == '还没开始阅读' || book.currentRead == '') {
           //获取目录
           let str2='/wapbook-'+ book.novelName[1].match(/-(\S*)/)[1];
-          let str = str2.substring(0, book.novelName[1].length - 1) + '_1/';
+          let str = str2.substring(0, str2.length - 1) + '_1/';
+          console.log(str)
           let params = {chapter: str};
           this.$axios.post(this.$sIP2 + "/novel/chapters", params).then((res) => {
             if (res.data == 500) {
@@ -73,6 +74,7 @@
     created() {
       let books = JSON.parse(localStorage.getItem("myBooks")).books;
       this.books = books;
+      console.log(books)
     }
   }
 </script>
