@@ -1,5 +1,5 @@
 <template>
-  <div class="swiper-no-swiping">
+  <div class="swiper-no-swiping blog-read">
     <br>
     <div class="index" :style="{width:theWidth+'%'}">
       <div v-if="edit">
@@ -228,5 +228,10 @@
 
   .fr-box.fr-fullscreen {
     left: unset !important;
+  }
+
+  .blog-read{
+    margin-right: 10px;
+    margin-left: 10px;
   }
 </style>
