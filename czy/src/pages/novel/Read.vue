@@ -12,7 +12,6 @@
     </el-row>
     <!--侧栏抽屉，放目录-->
     <el-drawer
-      style="min-width: 180px;"
       title="目录"
       :visible.sync="drawer"
       :direction="direction"
