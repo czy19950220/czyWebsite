@@ -115,21 +115,39 @@
           },
           {
             closable: true,
-            tagName: 'echarts',
+            tagName: 'ECHARTS',
             //tagRouter: '/echarts',
             breadcrumb: 'ECHARTS',
             childrens: [
               {
                 closable: true,
-                tagName: 'Ebarchart',
+                tagName: '柱状图',
                 tagRouter: '/echarts/barchart',
-                breadcrumb: 'Ebarchart'
+                breadcrumb: '柱状图'
               },
               {
                 closable: true,
-                tagName: 'Epolardiagram',
+                tagName: '极坐标',
                 tagRouter: '/echarts/polardiagram',
-                breadcrumb: 'Epolardiagram'
+                breadcrumb: '极坐标'
+              },
+              {
+                closable: true,
+                tagName: '饼状图',
+                tagRouter: '/echarts/piechart',
+                breadcrumb: '饼状图'
+              },
+              {
+                closable: true,
+                tagName: '散点图',
+                tagRouter: '/echarts/scatterplot',
+                breadcrumb: '散点图'
+              },
+              {
+                closable: true,
+                tagName: '地图',
+                tagRouter: '/echarts/map',
+                breadcrumb: '地图'
               }
             ]
           },

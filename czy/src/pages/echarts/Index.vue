@@ -1,10 +1,18 @@
 <template>
-  <el-tabs style="margin: 10px" type="card" tab-position="top" :value ="$route.path.toLowerCase()" @tab-click="handleClick">
+  <el-tabs
+    style="margin: 10px"
+    type="card" tab-position="top"
+    :value="$route.path.toLowerCase()"
+    @tab-click="handleClick">
     <el-tab-pane label="柱状图" name="/echarts/barchart">
     </el-tab-pane>
     <el-tab-pane label="极坐标" name="/echarts/polardiagram">
     </el-tab-pane>
-    <el-tab-pane label="极坐标" name="/echarts/polardiagram2">
+    <el-tab-pane label="饼状图" name="/echarts/piechart">
+    </el-tab-pane>
+    <el-tab-pane label="散点图" name="/echarts/scatterplot">
+    </el-tab-pane>
+    <el-tab-pane label="地图" name="/echarts/map">
     </el-tab-pane>
     <router-view/>
   </el-tabs>
@@ -26,6 +34,8 @@
         this.$router.push(tab.name)
         this.activeName = tab.name;
       }
+    },
+    created(){
     }
   }
 </script>
@@ -37,6 +47,6 @@
    */
   .echart-con {
     width: 100%;
-    height: 100%;
+    height: 400px;
   }
 </style>

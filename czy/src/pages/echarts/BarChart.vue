@@ -1,11 +1,12 @@
 <template>
-  <div class="polar-con">
-    <v-chart :options="bar"/>
+  <!--柱状图-->
+  <div class="bar-con">
+    <v-chart class="bar-con" :options="bar" autoresize/>
   </div>
 </template>
 
 <script>
-  import getBar from './bar'
+  import getBar from './data/bar'
   export default {
     components:{
     },
@@ -19,8 +20,9 @@
 </script>
 
 <style scoped>
-  .polar-con {
-    height: 400px;
-    width: 600px;
+  .bar-con {
+    width: 100%;
+    height: 45vw;
+    max-height: 800px;
   }
 </style>

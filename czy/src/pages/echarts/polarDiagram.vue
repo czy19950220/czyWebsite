@@ -1,15 +1,14 @@
 <template>
-  <div class="polar-con">
-    <v-chart :options="polar"/>
+  <div class="chart-polar">
+    <v-chart class="chart-polar" :options="polar" autoresize/>
   </div>
 </template>
 
 <script>
   export default {
-    components:{
-    },
+    components: {},
     name: "polar-diagram",
-    data () {
+    data() {
       let data = []
 
       for (let i = 0; i <= 360; i++) {
@@ -59,8 +58,9 @@
 </script>
 
 <style scoped>
-  .polar-con{
-    height: 400px;
-    width: 600px;
+  .chart-polar {
+    width: 100%;
+    height: 75vw;
+    max-height: 800px;
   }
 </style>
