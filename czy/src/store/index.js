@@ -23,6 +23,14 @@ const state = {
   ],//导航标签和面包屑
   blogNum: 1,//博文ID
   novelUrl:'',//小说链接
+  scores: [
+    { name: '进攻', max: 100, value: 95 },
+    { name: '防守', max: 100, value: 45 },
+    { name: '速度', max: 100, value: 90 },
+    { name: '力量', max: 100, value: 90 },
+    { name: '耐力', max: 100, value: 95 },
+    { name: '敏捷', max: 100, value: 100 }
+  ]
 };
 export default new Vuex.Store({
   state,

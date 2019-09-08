@@ -25,3 +25,7 @@ export const setBlogNum = (state, data) => {
 export const setNovelUrl = (state, data) => {
   state.novelUrl = data;
 };
+export const increment = ({ scores }, { amount = 1, index = 0 }) =>{
+  let metric = scores[index]
+  metric.value = Math.max(Math.min(metric.value + amount, metric.max), 0)
+}

@@ -42,4 +42,9 @@ export const setBlogNum = ({commit}, data) => {
 export const setNovelUrl = ({commit}, data) => {
   commit('setNovelUrl', data);
 };
+export const asyncIncrement= ({ commit }, { amount = 1, index, delay })=> {
+  setTimeout(() => {
+    commit('increment', { amount, index })
+  }, delay)
+}
 

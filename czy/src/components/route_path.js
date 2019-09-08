@@ -100,6 +100,12 @@ export const routePath=[
         tagName: '地图',
         tagRouter: '/echarts/map',
         breadcrumb: '地图'
+      },
+      {
+        closable: true,
+        tagName: '能力雷达图',
+        tagRouter: '/echarts/radar',
+        breadcrumb: '能力雷达图'
       }
     ]
   },
