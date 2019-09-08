@@ -177,31 +177,31 @@ export const constantRouterMap2 = [
           {
             path: 'barchart',
             name: 'bar-chart',
-            meta: {keepAlive: false,title: '柱状图'}, // 需要被缓存
+            meta: {keepAlive: true,title: '柱状图'}, // 需要被缓存
             component: resolve => require(['@/pages/echarts/BarChart.vue'], resolve),
           },
           {
             path: 'polardiagram',
             name: 'polar-diagram',
-            meta: {keepAlive: false,title: '极坐标图'}, // 需要被缓存
+            meta: {keepAlive: true,title: '极坐标图'}, // 需要被缓存
             component: () => import ('@/pages/echarts/polarDiagram.vue'),
           },
           {
             path: 'piechart',
             name: 'pie-chart',
-            meta: {keepAlive: false,title: '饼状图'}, // 需要被缓存
+            meta: {keepAlive: true,title: '饼状图'}, // 需要被缓存
             component: () => import ('@/pages/echarts/PieChart.vue'),
           },
           {
             path: 'scatterplot',
             name: 'scatter-plot',
-            meta: {keepAlive: false,title: '散点图'}, // 需要被缓存
+            meta: {keepAlive: true,title: '散点图'}, // 需要被缓存
             component: () => import ('@/pages/echarts/ScatterPlot.vue'),
           },
           {
             path: 'map',
             name: 'map',
-            meta: {keepAlive: false,title: '地图'}, // 需要被缓存
+            meta: {keepAlive: true,title: '地图'}, // 需要被缓存
             component: () => import ('@/pages/echarts/Map.vue'),
           }
         ]
