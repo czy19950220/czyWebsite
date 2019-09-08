@@ -120,6 +120,12 @@ export const constantRouterMap = [
             name: 'RadarChart',
             meta: {keepAlive: true,title: '能力雷达图'}, // 需要被缓存
             component: () => import ('@/pages/echarts/RadarChart.vue'),
+          },
+          {
+            path: 'line',
+            name: 'LineChart',
+            meta: {keepAlive: true,title: '折线图'}, // 需要被缓存
+            component: () => import ('@/pages/echarts/LineChart.vue'),
           }
         ]
       },

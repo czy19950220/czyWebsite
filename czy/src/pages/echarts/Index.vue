@@ -4,6 +4,8 @@
     type="card" tab-position="top"
     :value="$route.path.toLowerCase()"
     @tab-click="handleClick">
+    <el-tab-pane label="折线图" name="/echarts/line">
+    </el-tab-pane>
     <el-tab-pane label="柱状图" name="/echarts/barchart">
     </el-tab-pane>
     <el-tab-pane label="极坐标" name="/echarts/polardiagram">
@@ -13,6 +15,8 @@
     <el-tab-pane label="散点图" name="/echarts/scatterplot">
     </el-tab-pane>
     <el-tab-pane label="地图" name="/echarts/map">
+    </el-tab-pane>
+    <el-tab-pane label="能力图" name="/echarts/radar">
     </el-tab-pane>
     <router-view/>
   </el-tabs>

@@ -73,6 +73,12 @@ export const routePath=[
     childrens: [
       {
         closable: true,
+        tagName: '折线图',
+        tagRouter: '/echarts/line',
+        breadcrumb: '折线图'
+      },
+      {
+        closable: true,
         tagName: '柱状图',
         tagRouter: '/echarts/barchart',
         breadcrumb: '柱状图'
@@ -103,9 +109,9 @@ export const routePath=[
       },
       {
         closable: true,
-        tagName: '能力雷达图',
+        tagName: '能力图',
         tagRouter: '/echarts/radar',
-        breadcrumb: '能力雷达图'
+        breadcrumb: '能力图'
       }
     ]
   },
