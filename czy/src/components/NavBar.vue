@@ -77,100 +77,13 @@
 
 <script>
   import 'vue2-animate/dist/vue2-animate.min.css'
-
+  import {routePath} from './route_path'
   export default {
     name: "nav-bar",
     data() {
       return {
         defaultActive: '主页',
-        routePath: [
-          {
-            closable: true,
-            tagName: '小说',
-            tagRouter: '/novel',
-            breadcrumb: '小说',
-            childrens: [
-              {
-                closable: true,
-                tagName: '搜索',
-                tagRouter: '/novel/search',
-                breadcrumb: '搜索',
-              },
-              {
-                closable: true,
-                tagName: '小说详情',
-                tagRouter: '/novel/detail',
-                breadcrumb: '小说详情',
-              },
-              {
-                closable: true,
-                tagName: '小说阅读',
-                tagRouter: '/novel/read',
-                breadcrumb: '小说阅读',
-              },
-              {
-                closable: true,
-                tagName: '书架',
-                tagRouter: '/novel/bookrack',
-                breadcrumb: '书架',
-              }
-            ]
-          },
-          {
-            closable: true,
-            tagName: 'CANVAS',
-            //tagRouter: '/flappybird',
-            breadcrumb: '像素鸟',
-            childrens: [
-              {
-                closable: true,
-                tagName: '像素鸟',
-                tagRouter: '/flappybird',
-                breadcrumb: '像素鸟',
-              }
-            ]
-          },
-          {
-            closable: true,
-            tagName: '博文',
-            //tagRouter: '/blog',
-            breadcrumb: '博文',
-            childrens: [
-              {
-                closable: true,
-                tagName: '博文统计',
-                tagRouter: '/blogtable',
-                breadcrumb: '博文统计'
-              },
-              {
-                closable: true,
-                tagName: '博文编辑',
-                tagRouter: '/blogdetail',
-                breadcrumb: '博文编辑',
-              }
-            ]
-          },
-          {
-            closable: true,
-            tagName: 'echarts',
-            //tagRouter: '/echarts',
-            breadcrumb: 'ECHARTS',
-            childrens: [
-              {
-                closable: true,
-                tagName: 'Ebarchart',
-                tagRouter: '/echarts/barchart',
-                breadcrumb: 'Ebarchart'
-              },
-              {
-                closable: true,
-                tagName: 'Epolardiagram',
-                tagRouter: '/echarts/polardiagram',
-                breadcrumb: 'Epolardiagram'
-              }
-            ]
-          },
-        ]
+        routePath,
       }
     },
     computed: {
