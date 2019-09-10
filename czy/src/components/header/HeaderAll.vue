@@ -277,8 +277,8 @@
   }
 
   .avatar {
-    width: 30px;
-    height: 30px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     vertical-align: middle;
     display: inline-block;

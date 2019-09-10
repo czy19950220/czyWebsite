@@ -26,6 +26,9 @@
           renderer: options.renderer || 'canvas'
         },
       }
+    },
+    created() {
+      console.log(this.options)
     }
   }
 </script>

@@ -60,6 +60,7 @@
   export default {
     name: "blog-detail",
     data() {
+      let self = this;
       return {
         ruleForm: {
           blogNameInput: '',//博客文章名
@@ -90,7 +91,6 @@
           imageManagerDeleteMethod: 'POST',
           imageUploadRemoteUrls: true,
           imageMaxSize: 1024 * 1024 * 100,
-          //imageUploadURL: 'http://127.0.0.1:7001/blog/uploadimage/',
           imageUploadURL: self.$sIP2 + '/froala/upload_images',
           imageManagerDeleteURL: self.$sIP2 + '/froala/deleteImage',
           imageManagerLoadURL: self.$sIP2 + '/froala/listpic',
@@ -201,6 +201,8 @@
       this.config.imageManagerLoadURL += '?id=' + this.user.id;
       this.config.fileUploadURL += '?id=' + this.user.id;
       this.config.videoUploadURL += '?id=' + this.user.id;
+      console.log(this.config.imageUploadURL)
+
     },
     mounted() {
     },
