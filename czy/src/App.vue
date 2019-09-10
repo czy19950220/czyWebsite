@@ -162,7 +162,7 @@
       }
     },
     mounted() {
-      //this.aiXin();
+      this.aiXin();
     }
   }
 </script>
