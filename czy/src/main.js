@@ -13,8 +13,7 @@ import 'nprogress/nprogress.css' // progress bar style
 require('es6-promise').polyfill();
 import axios from './http';
 
-//echarts
-/**region*/
+//region:echarts
 import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 // 手动引入 ECharts 各模块来减小打包体积
 
@@ -25,20 +24,23 @@ import 'echarts/lib/component/tooltip'
 import 'echarts-gl'
 // 注册组件后即可使用
 Vue.component('v-chart', ECharts)
-/*endregion*/
+//endregion
 
 // Import and use Vue Froala lib.
 
 Vue.use(ElementUI);
 //import 'styles/index.scss' // global css
 
+//region:global-config
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.prototype.$sIP2 = 'https://czy-15736873451.club:3003';
 Vue.prototype.$sIP = 'https://118.25.73.39:3003';
 Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的地址，跨域所以转一下读书神器的连接（也可以使用nodejs转，但是自己的电脑关了之后就无法访问了）
+//endregion
 /* eslint-disable no-new */
 
+//region:router路由设置
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title == undefined?'czy':to.meta.title;
   NProgress.start()
@@ -56,6 +58,7 @@ router.afterEach(() => {
   // finish progress bar
   NProgress.done()
 })
+//endregion
 
 new Vue({
   el: '#app',

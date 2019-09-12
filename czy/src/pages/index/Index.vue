@@ -1,6 +1,6 @@
 <template>
-  <div class="index-con" style="padding-bottom: 70px;">
-    <li v-for="n in 80" v-bind:class="[isblue==n ? big : '']" :key="n">{{n}}</li>
+  <div class="index-con">
+    <a href="http://czy-15736873451.club">电影智能解析</a>
   </div>
 </template>
 
@@ -12,11 +12,11 @@
     name: "index",
     data() {
       return {
-        isblue:5,
-        big:'big'
+
       }
     },
     methods: {
+
     },
     created() {
      /* this.$axios.get(`${this.$sIP2}/novel/search`).then((res) => {
@@ -29,7 +29,5 @@
 </script>
 
 <style>
-  .big{
-    font-size: 100px;
-  }
+
 </style>
