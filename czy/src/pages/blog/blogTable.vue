@@ -115,6 +115,9 @@
       },
     },
     methods: {
+      /**
+       * @param formName : 表格名
+      * */
       //提交修改
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -153,6 +156,10 @@
         //console.log(index, row);
       },
       //删除
+      /**
+       * @param index :第几行
+       * @param row :该行内人
+      * */
       handleDelete(index, row) {
         //console.log(index, row);
         this.$confirm(`永久删除:${row.blogName}, 是否继续?`, '提示', {
@@ -199,6 +206,10 @@
         })
       },
       //点击去博客
+      /**
+       * @param row :改行内容
+       * @param column :该列内容
+      * */
       toBlog(row, column, cell, event) {
         if (column.property == 'blogName') {
           //console.log(row)

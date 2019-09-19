@@ -232,7 +232,7 @@
     left: unset !important;
   }
 
-  .blog-read{
+  .blog-read {
     margin-right: 10px;
     margin-left: 10px;
   }

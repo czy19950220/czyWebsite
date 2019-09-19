@@ -169,8 +169,6 @@
 
 <style>
   html,body,#app {
-    height: 100%;
-    width: 100%;
     min-width: 300px;
     overflow: hidden;
   }

@@ -68,7 +68,7 @@
         xhr.onreadystatechange = function () {
           if (xhr.readyState == 4) {
             //变成json对象
-            var Images = JSON.parse(xhr.responseText);
+            let Images = JSON.parse(xhr.responseText);
             for (let i = 0; i < Images.imgs.length; i++) {
               that.R[Images.imgs[i].name] = new Image();
               that.R[Images.imgs[i].name].src = Images.imgs[i].url;

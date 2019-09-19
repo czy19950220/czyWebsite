@@ -9,6 +9,7 @@ caption,th {text-align:left}
 q:before,q:after {content:''}
 abbr,acronym { border:0}
 html,body,#app{height: 100%;width: 100%;}
+#app{cursor: url("https://czy-1257069199.cos.ap-beijing.myqcloud.com/default.ico") 10 4,auto;}
 
 .bm-menu{
   padding-top: 0px!important;
