@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
     <canvas id="c" style="position: absolute;z-index: -1;text-align: center;z-index: -1;top: 0px;left: 0px;"></canvas>
-    <span style="color: #999;position: fixed;bottom: 20px;left: calc(50% - 140px);">ICP主体备案号:豫ICP备19022986号-1<i class="icon-beian"></i></span>
+    <a href="www.beian.miit.gov.cn" style="color: #999;position: fixed;bottom: 20px;left: calc(50% - 140px);">ICP主体备案号:豫ICP备19022986号-1<i class="icon-beian"></i></a>
   </div>
 </template>
 
