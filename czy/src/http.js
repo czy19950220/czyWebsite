@@ -46,7 +46,7 @@ axios.interceptors.response.use(response => {
     localStorage.removeItem('token')
 
     // 页面跳转
-    router.push('/login')
+    router.push('/dashboard')
   }
 
   return Promise.reject(error)
