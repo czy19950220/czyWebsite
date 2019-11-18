@@ -1,6 +1,6 @@
 <template>
   <div class="index-con">
-    <a href="http://czy-15736873451.club">电影智能解析</a>
+   <!-- <a href="http://czy-15736873451.club">电影智能解析</a>-->
   </div>
 </template>
 

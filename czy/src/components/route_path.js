@@ -1,5 +1,5 @@
 export const routePath=[
-  {
+  /*{
     closable: true,
     tagName: '小说',
     tagRouter: '/novel',
@@ -30,7 +30,7 @@ export const routePath=[
         breadcrumb: '书架',
       }
     ]
-  },
+  },*/
   {
     closable: true,
     tagName: 'CANVAS',
