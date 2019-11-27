@@ -57,12 +57,12 @@ export const routePath=[
         tagRouter: '/blogtable',
         breadcrumb: '博文统计'
       },
-      {
+      /*{
         closable: true,
         tagName: '博文编辑',
         tagRouter: '/blogdetail',
         breadcrumb: '博文编辑',
-      }
+      }*/
     ]
   },
   {

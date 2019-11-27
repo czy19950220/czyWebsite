@@ -13,6 +13,11 @@ import 'nprogress/nprogress.css' // progress bar style
 require('es6-promise').polyfill();
 import axios from './http';
 
+//region:权限控制
+import Authorized from './components/authorized.vue'
+Vue.component('Authorized')
+//endregion
+
 //region:echarts
 import ECharts from 'vue-echarts' // 在 webpack 环境下指向 components/ECharts.vue
 // 手动引入 ECharts 各模块来减小打包体积
