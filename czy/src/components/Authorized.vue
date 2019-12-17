@@ -5,7 +5,7 @@
     functional: true,
     props:{
       authority: {
-        type: array,
+        type: Array,
         required: true
       }
     },
