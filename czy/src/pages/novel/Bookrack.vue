@@ -16,8 +16,8 @@
       <div class="booksList">
       </div>
     </el-tab-pane>
-    <el-tab-pane label="黑岩">
-      开发中
+    <el-tab-pane label="我的小说网">
+      <a href="http://chenzhenyu.top:9999/" target="_blank">我的小说网，无弹窗，无广告，不存储小说，仅供学习</a>
     </el-tab-pane>
     <el-tab-pane label="未开发">未开发</el-tab-pane>
     <el-tab-pane label="未开发2">未开发2</el-tab-pane>

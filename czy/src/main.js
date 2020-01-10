@@ -46,7 +46,7 @@ Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的�
 /* eslint-disable no-new */
 
 //region:router路由设置
-/*router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title == undefined?'czy':to.meta.title;
   NProgress.start()
   const isLogin = localStorage.token ? true : false;
@@ -58,7 +58,7 @@ Vue.prototype.$JsonBird = 'https://bird.ioliu.cn/v1/?url=';//用来转请求的�
     isLogin ? next() : next("/login");
     NProgress.done();
   }
-})*/
+})
 router.afterEach(() => {
   // finish progress bar
   NProgress.done()
