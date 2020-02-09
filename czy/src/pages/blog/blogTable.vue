@@ -3,6 +3,7 @@
     <!--博客表格-->
     <el-table
       :border="true"
+      resizable
       stripe
       :data="tableData.slice((currentPage4-1)*pageCon,currentPage4*pageCon).filter(data => !search
        || data.date.toLowerCase().includes(search.toLowerCase())
