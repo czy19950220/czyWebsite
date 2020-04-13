@@ -8,9 +8,11 @@
 <script>
   import './assets/css/basic.css';//引入格式化样式
   import jwtDecode from 'jwt-decode'
+  import Czy from "./pages/shouye/Layout";
 
   export default {
     name: 'App',
+    components: {Czy},
     methods: {
       /**
        * @param value 值为object或者string、undefined、null
@@ -162,7 +164,7 @@
       }
     },
     mounted() {
-      this.aiXin();
+      //this.aiXin();
     }
   }
 </script>

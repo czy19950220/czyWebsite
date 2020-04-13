@@ -97,7 +97,7 @@
   import 'vue2-animate/dist/vue2-animate.min.css'
 
   export default {
-    name: "czy",
+    name: "Layout",
     components: {
       HeaderAll,
       swiper,

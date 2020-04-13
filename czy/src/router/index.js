@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
-import Layout from '@/pages/shouye/Index.vue';
 
 //所有权限通用路由表
 //如首页和登录页和一些不用权限的公用页面
@@ -21,7 +20,7 @@ export const constantRouterMap = [
   },
   {
     path: '/',
-    component: Layout,
+    component: () => import('@/pages/shouye/Layout.vue'),
     redirect: '/dashboard',
     children: [
       {
